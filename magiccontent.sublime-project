@@ -1,0 +1,22 @@
+{
+    "build_systems":
+    [
+        {
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "name": "Anaconda Python Builder",
+            "selector": "source.python",
+            "shell_cmd": "/home/heigler/.virtualenvs/magic-content/bin/python -u \"$file\""
+        }
+    ],
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "."
+        }
+    ],
+    "settings":
+    {
+        "python_interpreter": "/home/heigler/.virtualenvs/magic-content/bin/python"
+    }
+}

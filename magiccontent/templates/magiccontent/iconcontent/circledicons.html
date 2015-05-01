@@ -1,0 +1,46 @@
+{% load flexcontent_tags %}
+<!-- widget: IconContent:: circledicons.html -->
+
+<article class="col-md-12">
+
+    <header>
+      {% if widget.description %}
+      <h1 class="decorator">{{ widget.description }}</h1>
+      {% endif %}
+
+      {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
+    </header>
+
+    <div class="row margin-big">
+      {% for object in object_list %}
+
+        <div class="col-md-4 {{ editable }}">
+
+          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+          <div class="content-item">
+            <center>
+              <div class="icon-circle-lg up-bg ft4up-bg">
+                {% if object.link_label %}
+                  <a href="{{ object.link_url }}">
+                    <i class="fa {{ object.icon }}"></i>
+                  </a>
+                {% else %}
+                  <i class="fa {{ object.icon }}"></i>
+                {% endif %}
+              </div>
+              {% if object.title %}
+                <h2 class="fttitle4base-bg">{{ object.title }}</h2>
+              {% endif %}
+              <p>{{ object.content }}</p>
+            </center>
+            
+          </div> <!-- content-item -->       
+
+        </div>
+
+      {% endfor %}      
+    </div>
+
+</article>

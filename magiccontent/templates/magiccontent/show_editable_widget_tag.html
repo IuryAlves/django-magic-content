@@ -1,0 +1,7 @@
+{% if can_edit %}
+  <div class="edit-block-controls edit-popup">
+      <a title="Edit element" href="{{ update_url }}" class="edit-block-edit">Edit</a>          
+      <a title="Add new element" href="{{ create_url }}" class="edit-block-add">Add</a>
+      <a title="Re order elements" href="{{ order_url }}">ORDER</a>
+  </div>
+{% endif %}

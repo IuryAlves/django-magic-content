@@ -1,0 +1,55 @@
+{% load static %}
+{% load cropping %}
+{% load flexcontent_tags %}
+<!-- widget: SimpleContent:: bg-slider1 -->
+
+<div class="bg-slider-1">
+
+  <ul class="slides-container">
+    
+  {% for obj in object_list %}
+    <li class="{{ editable }}">
+      {% if obj.picture %}
+        <img src="{% cropped_thumbnail obj 'picture_cropping' scale=0.5 %}" />
+      {% else %}
+        <img src="{% static 'themes/sydney/img/dragndrop-image.png' %}">
+      {% endif %}
+
+      <div class="container {{ editable }}">
+
+        {% if can_edit %}
+        <div class="edit-block-controls edit-popup">
+          <a title="Edit Style" target="_blank" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-add">Style
+          </a>
+          <a title="Edit element" target="_blank" href="{% url 'flexcontent.backgroundarea.update' widget.id obj.id %}" class="edit-block-edit">Edit</a>      
+        </div>
+        {% endif %}
+
+        <div class="col-lg-6 col-xs-12">
+          <h1 class="base-ft">{{ obj.title }}</h1>
+          {% if obj.sub_title %}
+          <div class="contrast">
+            <p>{{ obj.sub_title }}</p>
+            <p>{{ obj.short_content|linebreaksbr }}</p>
+          </div>
+          {% endif %}
+          {% if obj.link1_label %}
+            <a href="{{ obj.link1_url }}" class="btn-3d">{{ obj.link1_label }}</a>
+          {% endif %}          
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+
+  </ul>
+
+</div>
+
+
+<script>
+$(function(){
+  $('.bg-slider-1').superslides({
+    'play': 8000
+  });
+});
+</script>

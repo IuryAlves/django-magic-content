@@ -1,0 +1,63 @@
+{% load static %}
+{% load cropping %}
+<!-- widget: BackgroundArea:: default - style1 -->
+
+
+
+  <div class="container {% if can_edit %} darkBorder edit-block{% endif %}">
+
+    {% if can_edit %}
+    <div class="edit-block-controls edit-popup">
+      <a title="Edit Style" target="_blank" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-add">Style</a>
+      <a title="Edit element" target="_blank" href="{% url 'flexcontent.backgroundarea.update' widget.id object.id %}" class="edit-block-edit">Edit</a>      
+    </div>
+    {% endif %}
+
+
+    <!--
+    <div class="row">
+      <div class="col-md-12 text-right navicon">
+        <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center header-inner">
+        <h1 class="animated fadeInDown">
+          {% block sitename %}
+            <!-- first word will be out of span -->
+            {% with object.title.split as title %}
+                {{ title.0 }} <span>{{ title|slice:"1:"|join:" " }}</span>
+             {% endwith %}
+          {% endblock sitename %}
+        </h1>
+        {% if object.sub_title %}
+        <p class="animated fadeInUp delay-05s" style="color: #000">{{ object.sub_title }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        
+        {% if object.link1_label %}
+          <a href="{{ object.link1_url }}" class="btn-3d">{{ object.link1_label }}</a>
+          <br/><br/><br/>
+        {% endif %}
+
+        <br/><p>{{ object.content }}</p>
+        <p>
+          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
+            <i class="fa fa-chevron-down" style="font-size: 36px;"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+{% if object.picture %}
+<script type="text/javascript">
+  $(function() {
+       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
+  });
+</script>
+{% endif %}

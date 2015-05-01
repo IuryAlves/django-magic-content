@@ -1,0 +1,36 @@
+{% load thumbnail %}
+{% load flexcontent_tags %}
+<!-- widget: ImageContent:: caption1 -->
+
+<article class="col-md-12">
+
+    <header>
+      {% if widget.description %}
+      <h1 class="decorator">{{ widget.description }}</h1>
+      {% endif %}
+
+      {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
+    </header>
+
+    <div class="row">
+      {% for object in object_list %}
+
+        <div class="col-md-4 {{ editable }}">
+
+          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+          <div class="content-item" style="text-align: left;">
+
+      			<a class="caption caption-2" href="{{ object.link_url }}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
+      			  <img src="{% thumbnail object.picture.picture 300x300 crop %}" alt="{{ object.title |safe }}"/>
+      			</a>
+
+          </div> <!-- content-item -->
+
+        </div>
+
+      {% endfor %}      
+    </div>
+
+</article>

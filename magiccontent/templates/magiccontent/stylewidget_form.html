@@ -1,0 +1,44 @@
+{% extends 'flexcontent/base_flexcontent.html' %}
+
+{% load staticfiles %}
+{% load floppyforms %}
+{% load cropping %}
+
+{% block js_top %}
+    <!-- # django-floppyforms -->
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block footer_area %}
+{% endblock footer_area %}
+
+{% block content %}
+
+<div class="popup-content">
+    <h1>Style details <small>({{ object.widget_type }})</small> </h1>
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <form method='post' enctype="multipart/form-data">{% csrf_token %}
+
+                {{ form }}  
+
+                <div class="bottom-fix-menu" align="center">
+                  <h1>{{ object.name }}
+                    <input type="submit" class="btn btn-lg btn-success" value="Save" />
+                    <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
+                  </h1>
+                </div>
+
+            </form>            
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

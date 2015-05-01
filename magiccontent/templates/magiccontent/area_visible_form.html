@@ -1,0 +1,109 @@
+{% extends 'flexcontent/base_flexcontent.html' %}
+
+{% load staticfiles %}
+{% load floppyforms %}
+
+{% block js_top %}
+    <!-- # django-floppyforms -->
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block footer_area %}
+{% endblock footer_area %}
+
+{% block content %}
+
+<div class="popup-content">
+
+  <section class="content-one content-padding" id="content-one">
+    <div class="container container-padding">
+      <div class="row">
+
+        <div class="col-lg-12">
+          <center>
+            <h1>Landing Page Areas</h1>
+            <h2><small>Choose areas that you want to keep visible in your site</small></h2>
+          </center>
+        </div>
+
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-10">
+
+        	<table class="table">
+		      <tbody>
+		      	
+			  {% for area in object_list %}
+        	  <tr>
+                <td><strong>{{ area.name }}</strong></td>
+        	    <td>{{ area.widget.name }} <small>{{ area.widget.widget_type }}</small></td>
+        		<td>
+                    {% if not area.is_always_visible %}
+					<div class="onoffswitch">
+					    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ area.id }}" {% if area.is_visible%}checked{% endif%}>
+					    <label class="onoffswitch-label" for="{{ area.id }}">
+					        <span class="onoffswitch-inner"></span>
+					        <span class="onoffswitch-switch"></span>
+					    </label>
+					</div>
+                    {% endif %}
+        		</td>
+        	  </tr>
+			  {% endfor %}
+		      </tbody> 	
+        	</table>
+            <div class="bottom-fix-menu" align="center">
+              <h1>Areas
+                <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
+              </h1>
+            </div>        	
+        </div>
+
+        <div class="col-lg-12">
+          <p><br/><br/><br/></p>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
+
+
+{% block extrajs %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+       
+            $( ".onoffswitch-checkbox" ).click(function() {
+                              
+                var self = $(this);
+                var area_id = self.attr("id");
+                var area_checked = self.is(":checked");
+
+                $.ajax({
+                    url: "/flexcontent/api/area/" + area_id + "/",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        'csrfmiddlewaretoken': '{{csrf_token}}',
+                        'id': area_id,
+                        'is_visible': area_checked
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        //TODO: do something here...
+                    },
+                    error: function(data, textStatus, jqXHR) {
+                        alert('error updating area');
+                    }                    
+                });
+
+            });        
+        });
+    </script>
+{% endblock extrajs %}

@@ -1,0 +1,45 @@
+{% load static %}
+{% load cropping %}
+{% load flexcontent_tags %}
+<!-- widget: ImageContent:: caption1 -->
+
+<article class="col-md-12">
+
+    <header>
+      {% if widget.description %}
+      <h1 class="decorator">{{ widget.description }}</h1>
+      {% endif %}
+
+      {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
+    </header>
+
+    <div class="row">
+
+      <ul id="og-grid" class="og-grid">
+        {% for object in object_list %}
+          <li class="{{ editable }}">
+
+            {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+            {% if object.picture %}
+              <a href="{{ object.link_url }}" data-largesrc="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
+                <img style="width: 260px;" src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" alt="{{ object.title |safe }}" draggable="false">
+              </a>
+            {% else %}
+              <a href="#" data-largesrc="{% static 'themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
+                <img style="width: 260px;" src="{% static 'themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}" draggable="false">
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}  
+      </ul>
+      <script type="text/javascript">
+        $(function() {
+          Grid.init();
+        });
+      </script>
+    
+    </div>
+
+</article>

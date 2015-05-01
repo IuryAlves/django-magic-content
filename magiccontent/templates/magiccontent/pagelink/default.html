@@ -1,0 +1,31 @@
+{% load static %}
+{% load cropping %}
+<!-- widget: PageLink:: default -->
+
+    <div class="col-md-8 col-md-offset-2{% if can_edit %} darkBorder edit-block{% endif %}" style="display: block;">
+
+      {% if can_edit %}
+      <div class="edit-block-controls edit-popup">
+
+          <a title="Edit Style" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-style">Style</a>
+
+          <a title="Edit element" href="{% url 'flexcontent.pagelink.update' widget.id object.id %}" class="edit-block-edit">Edit</a>
+      </div>
+      {% endif %}
+
+      <h1>{{ object.title }}</h1>
+      {% if object.sub_title %}
+      <h2>{{ object.sub_title }}</h2>
+      {% endif %}
+      {% if object.link1_url %}
+      <a href="{{ object.link1_url }}" class="down-arrow-btn"><i class="fa fa-chevron-down"></i></a>
+      {% endif %}
+    </div>
+
+    {% if object.picture and div %}
+    <script type="text/javascript">
+      $(function() {
+           $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
+      });
+    </script>
+    {% endif %}

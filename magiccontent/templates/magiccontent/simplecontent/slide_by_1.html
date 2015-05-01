@@ -1,0 +1,63 @@
+{% load cropping %}
+{% load flexcontent_tags %}
+<!-- widget: SimpleContent:: slide_by_1 -->
+
+{% block slider %}
+<article class="col-md-12">
+
+    <header>
+      {% if widget.description %}
+        <h1 class="decorator">{{ widget.description }}</h1>
+      {% endif %}
+      
+      {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
+    </header>
+
+    <!-- the page could have several slides, that's why we are using widget's ID here -->
+    <ul class="content-slider-{{ widget.pk }}">
+      {% for object in object_list %}
+
+        <li class="{{ editable }}">
+          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+          
+          <div class="slide-item">
+
+          {% if object.title %}
+            <div class="{% if object.picture %}obj-caption{% endif %}">
+              <h2>
+                <span>{{ object.title }}</span>
+              </h2>
+            </div>
+          {% endif %}
+
+          {% if object.picture %}
+            <figure class="imglist {{ object.picture_filter }}" style="margin-top: -80px">
+                <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
+            </figure>
+          {% endif %}
+
+          </div>
+
+        </li>
+
+      {% endfor %}      
+    </ul>
+
+</article>
+{% endblock slider %}
+
+{% block slider_js %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".content-slider-{{ widget.pk }}").lightSlider({
+       item: 1,
+       auto: true,
+       adaptiveHeight: true,
+       loop: true,
+       speed: 900,
+       pause: 4000
+    }); 
+  });
+</script>
+{% endblock slider_js %}

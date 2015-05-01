@@ -1,0 +1,15 @@
+{% if can_edit %}
+    <h2 class="edit-area">#{{ area_name }}
+    <div class="btn-group">
+      <button class="btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu edit-popup" role="menu">
+        <li><a title="Edit Area Details or switch to another widget" href="{% url 'flexcontent.area.update' area_id %}">Edit Area</a></li>
+        <li><a title="Edit Style" href="{% url 'flexcontent.widget.update' widget_id %}">Edit Style</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'flexcontent.area.visible.update' %}">Hide/Show areas</a></li>
+      </ul>
+    </div>
+    </h2>
+{% endif %}

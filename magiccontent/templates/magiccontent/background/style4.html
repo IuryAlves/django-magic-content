@@ -1,0 +1,55 @@
+{% load static %}
+{% load cropping %}
+<!-- widget: BackgroundArea:: default - style1 -->
+
+
+
+  <div class="container {% if can_edit %} darkBorder edit-block{% endif %}">
+
+    <div class="half">
+      
+
+
+    {% if can_edit %}
+    <div class="edit-block-controls edit-popup">
+      <a title="Edit Style" target="_blank" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-add">Style</a>
+      <a title="Edit element" target="_blank" href="{% url 'flexcontent.backgroundarea.update' widget.id object.id %}" class="edit-block-edit">Edit</a>      
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center header-inner">
+        <h1 class="animated fadeInDown" style="font-size: 52px;">{{ object.title }}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        
+        {% if object.link1_label %}
+          <a href="{{ object.link1_url }}" class="btn-3d">{{ object.link1_label }}</a>
+          <br/><br/>
+        {% else %}
+          <h2 class="ft4base-bg">{{ object.sub_title }}</h2>
+          <br/>
+        {% endif %}
+
+        <p>
+          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
+            <i class="fa fa-chevron-down" style="font-size: 36px;"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+
+
+{% if object.picture %}
+<script type="text/javascript">
+  $(function() {
+       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
+  });
+</script>
+{% endif %}
