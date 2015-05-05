@@ -7,7 +7,6 @@ import inspect
 
 from django.conf import settings
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.core.exceptions import ImproperlyConfigured
 
 from .models import BaseContent
 from .views import ListContentMixin
@@ -66,7 +65,7 @@ def content_url_generator(content_model):
 
     # ListContentMixin is a special case to show order's view
 
-    apps = map(lambda i: '{0}.views'.format(i), settings.LOCAL_APPS)
+    apps = map(lambda i: '{0}.views'.format(i), settings.CONTENT_APPS)
     views_list = []
 
     for app in apps:
@@ -98,20 +97,3 @@ def content_url_generator(content_model):
 CONTENT_MODELS = get_content_models()
 CONTENT_MODEL_NAMES = [i['model_name'] for i in CONTENT_MODELS]
 
-
-def _load_permission_module(settings_name):
-    permission_settings = getattr(settings, settings_name, None)
-
-    if not permission_settings:
-        raise ImproperlyConfigured(
-            'The settings.{0} param is not defined.'.format(settings_name))
-    module_name, method_name = permission_settings.rsplit('.', 1)
-    module = importlib.import_module(module_name)
-    return getattr(module, method_name)
-
-
-def get_is_content_owner(request):
-    is_admin = _load_permission_module(
-        'CONTENT_PAGE_IS_OWNER_METHOD')(request)
-
-    return is_admin

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from braces.views._access import AccessMixin
+import importlib
 
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.sites.models import Site
 from django.shortcuts import redirect
+from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings
+
+from braces.views._access import AccessMixin
 
 from magicgallery.models import Gallery, GalleryItem
 
@@ -14,7 +18,6 @@ from .models import (Widget, SimpleContent, LongContent, IconContent,
                      PageLink, BackgroundArea)
 from .forms import (SimpleContentForm, LongContentForm, PageLinkForm,
                     IconContentForm, BackgroundAreaForm)
-from .helpers import get_is_content_owner
 
 
 class CanEditMixin(object):
@@ -118,3 +121,21 @@ class BackgroundAreaMixin(object):
     model = BackgroundArea
     form_class = BackgroundAreaForm
     template_name = 'flexcontent/simplecontent_form.html'
+
+
+def _load_permission_module(settings_name):
+    permission_settings = getattr(settings, settings_name, None)
+
+    if not permission_settings:
+        raise ImproperlyConfigured(
+            'The settings.{0} param is not defined.'.format(settings_name))
+    module_name, method_name = permission_settings.rsplit('.', 1)
+    module = importlib.import_module(module_name)
+    return getattr(module, method_name)
+
+
+def get_is_content_owner(request):
+    is_admin = _load_permission_module(
+        'CONTENT_PAGE_IS_OWNER_METHOD')(request)
+
+    return is_admin
