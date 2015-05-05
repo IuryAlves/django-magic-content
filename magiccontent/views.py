@@ -22,12 +22,12 @@ from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 class AreaUpdateView(EditableMixin, UpdateView):
     model = Area
     form_class = AreaForm
-    template_name = 'flexcontent/area_form.html'
+    template_name = 'magiccontent/area_form.html'
 
 
 class AreaVisibleUpdateView(ListView):
     model = Area
-    template_name = 'flexcontent/area_visible_form.html'
+    template_name = 'magiccontent/area_visible_form.html'
     paginate_by = '100'
     context_object_name = 'object_list'
 
@@ -38,13 +38,13 @@ class AreaVisibleUpdateView(ListView):
 class StyleWidgetUpdateView(EditableMixin, UpdateView):
     model = Widget
     form_class = WidgetForm
-    template_name = 'flexcontent/stylewidget_form.html'
+    template_name = 'magiccontent/stylewidget_form.html'
 
 
 class WidgetCreateView(EditableMixin, CreateView):
     model = Widget
     form_class = NewWidgetForm
-    template_name = 'flexcontent/newwidget_form.html'
+    template_name = 'magiccontent/newwidget_form.html'
 
     def form_valid(self, form):
         area_pk = self.kwargs['area_pk']
@@ -130,7 +130,7 @@ class BackgroundAreaUpdateView(BackgroundAreaMixin, EditableMixin, UpdateView):
 class ImageContentMixin(object):
     model = ImageContent
     form_class = ImageContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class ImageContentCreateView(CreateContentMixin, ImageContentMixin,
@@ -203,7 +203,7 @@ class ContentIsActiveUpdate(APIView):
 class GalleryContentMixin(object):
     model = GalleryContent
     form_class = GalleryContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class GalleryContentCreateView(CreateContentMixin, GalleryContentMixin,

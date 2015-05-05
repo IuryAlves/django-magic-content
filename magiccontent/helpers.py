@@ -29,6 +29,7 @@ def get_content_models():
           response process, intead use it on the project's preloader such as
           url definition.
     '''
+    # TODO: No sure if looking at settings.LOCAL_APPS is a good idea
     apps = map(lambda i: '{0}.models'.format(i), settings.LOCAL_APPS)
     models_list = []
 
@@ -64,7 +65,7 @@ def content_url_generator(content_model):
     '''
 
     # ListContentMixin is a special case to show order's view
-
+    # TODO: No sure if looking at settings.CONTENT_APPS or LOCAL_APPS is a good idea
     apps = map(lambda i: '{0}.views'.format(i), settings.CONTENT_APPS)
     views_list = []
 
@@ -96,4 +97,3 @@ def content_url_generator(content_model):
 
 CONTENT_MODELS = get_content_models()
 CONTENT_MODEL_NAMES = [i['model_name'] for i in CONTENT_MODELS]
-

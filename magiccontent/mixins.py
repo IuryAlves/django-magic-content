@@ -84,7 +84,7 @@ class CreateContentMixin(object):
 
 
 class ListContentMixin(object):
-    template_name = 'flexcontent/widget_element_order.html'
+    template_name = 'magiccontent/widget_element_order.html'
     paginate_by = '100'
     context_object_name = 'content_list'
 
@@ -96,31 +96,31 @@ class ListContentMixin(object):
 class SimpleContentMixin(object):
     model = SimpleContent
     form_class = SimpleContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class LongContentMixin(object):
     model = LongContent
     form_class = LongContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class PageLinkMixin(object):
     model = PageLink
     form_class = PageLinkForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class IconContentMixin(object):
     model = IconContent
     form_class = IconContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 class BackgroundAreaMixin(object):
     model = BackgroundArea
     form_class = BackgroundAreaForm
-    template_name = 'flexcontent/simplecontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
 
 def _load_permission_module(settings_name):

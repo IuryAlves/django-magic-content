@@ -51,7 +51,7 @@ urlpatterns = patterns('',  # noqa
         name='flexcontent.backgroundarea.update'),
 
     url(r'^flexcontent/windows_close/$', TemplateView.as_view(
-        template_name="flexcontent/windows_close.html"),
+        template_name="magiccontent/windows_close.html"),
         name='flexcontent.windows_close'),
 
 )
