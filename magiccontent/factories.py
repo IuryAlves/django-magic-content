@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 import factory
 
-from ..models import Widget, Area, WIDGET_TYPES, SimpleContent
+from .models import Widget, Area, WIDGET_TYPES, SimpleContent
 
 
 class WidgetFactory(factory.DjangoModelFactory):

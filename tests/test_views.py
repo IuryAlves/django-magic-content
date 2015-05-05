@@ -8,8 +8,8 @@ from django.contrib.sites.models import Site
 
 from accounts.tests.factories import UserFactory, DEFAULT_USER_PASSWORD
 from accounts.models import SiteOwner
-from ..models import Area
-from .factories import AreaFactory, WidgetFactory
+from magiccontent.models import Area
+from magiccontent.factories import AreaFactory, WidgetFactory
 
 
 # WARNING: DRY principle should not be used in tests, copy and paste is better
