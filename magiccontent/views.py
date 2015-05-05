@@ -5,115 +5,19 @@ from __future__ import absolute_import
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.shortcuts import redirect, get_object_or_404
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from fabric.colors import red
 
-from accounts.mixins import AdministratorRequiredMixin
-from gallery.models import Gallery, GalleryItem
-from .models import (Area, Widget, SimpleContent, LongContent, IconContent,
-                     PageLink, BackgroundArea, ImageContent, GalleryContent)
-from .forms import (AreaForm, WidgetForm, NewWidgetForm, SimpleContentForm,
-                    LongContentForm, PageLinkForm, IconContentForm,
-                    BackgroundAreaForm, ImageContentForm, GalleryContentForm)
+from .mixins import (EditableMixin, CreateContentMixin,
+                     ListContentMixin, SimpleContentMixin, LongContentMixin,
+                     PageLinkMixin, IconContentMixin, BackgroundAreaMixin)
+from .models import Area, Widget, ImageContent, GalleryContent
+from .forms import (AreaForm, WidgetForm, NewWidgetForm, GalleryContentForm,
+                    ImageContentForm)
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
-
-# HELPERS
-
-def can_edit_flatpages(request):
-    """ Used by the djenie-flatpages to define who can add/update pages
-        content
-    """
-    print(red(
-        'flexcontent.can_edit is unsafe, use accounts.mixins.CanEdit instead'))
-    return request.user.is_authenticated() and request.user.is_staff
-
-
-def get_access_denied_redirect_url():
-    # TODO: this function is invoked over this module, however is not defined
-    #       check the right origin
-    return '/'
-
-
-# MIXINS
-
-class EditableMixin(AdministratorRequiredMixin):
-
-    success_url = reverse_lazy('flexcontent.windows_close')
-
-    def get_context_data(self, *args, **kws):
-        ''' provides the default_gallery to upload files '''
-        gallery = Gallery.site_objects.default_gallery()
-        context = super(EditableMixin, self).get_context_data(*args, **kws)
-        context['default_gallery'] = gallery
-        context['all_images'] = GalleryItem.site_objects.all().order_by(
-            'gallery')
-        return context
-
-    def get_success_url(self):
-        ''' if user clicked on "save and edit", send him to same url '''
-        if self.request.POST.get('edit'):
-            return self.request.path
-        return self.success_url
-
-
-class CreateContentMixin(object):
-
-    def form_valid(self, form):
-        widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
-        self.object = form.save(commit=False)
-        self.object.widget = widget
-        # TODO: remove it from here
-        self.object.site = Site.objects.get_current()
-        self.object.save()
-        return redirect(self.get_success_url())
-
-
-class ListContentMixin(object):
-    template_name = 'flexcontent/widget_element_order.html'
-    paginate_by = '100'
-    context_object_name = 'content_list'
-
-    def get_queryset(self):
-        widget = Widget.site_objects.get(pk=self.kwargs.get('widget_pk'))
-        return self.model.objects.filter(widget=widget)
-
-
-class SimpleContentMixin(object):
-    model = SimpleContent
-    form_class = SimpleContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
-
-
-class LongContentMixin(object):
-    model = LongContent
-    form_class = LongContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
-
-
-class PageLinkMixin(object):
-    model = PageLink
-    form_class = PageLinkForm
-    template_name = 'flexcontent/simplecontent_form.html'
-
-
-class IconContentMixin(object):
-    model = IconContent
-    form_class = IconContentForm
-    template_name = 'flexcontent/simplecontent_form.html'
-
-
-class BackgroundAreaMixin(object):
-    model = BackgroundArea
-    form_class = BackgroundAreaForm
-    template_name = 'flexcontent/simplecontent_form.html'
-
-
-# VIEWS
 
 class AreaUpdateView(EditableMixin, UpdateView):
     model = Area

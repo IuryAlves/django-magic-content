@@ -9,9 +9,9 @@ from ckeditor.fields import RichTextField
 from image_cropping import ImageRatioField
 
 from multisitesutils.models import SiteModel
-from core.behaviours import Permalinkable
-from gallery.models import GalleryItem
+from magicgallery.models import GalleryItem
 
+from .behaviours import Permalinkable
 from .managers import WidgetManager, AreaManager, BaseContentManager
 
 

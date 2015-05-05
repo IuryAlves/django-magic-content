@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from fabric.colors import yellow
-
 from django.conf.urls import url
 
 from .helpers import content_url_generator, ALLOWED_VIEWS
@@ -18,7 +16,7 @@ def get_content_urls_for(model_content):
         for label in expected_labels:
             if label not in found_labels:
                 msg = '{0} has no "{1}" view'.format(model_content, label)
-                print(yellow(msg))
+                print(msg)
 
     for view_row in views_list:
 
