@@ -10,6 +10,9 @@ def get_content_urls_for(model_content):
     urls = []
     views_list = content_url_generator(model_content)
 
+    print "--> %s <--" % model_content
+    print "--> %s <--" % views_list
+
     if len(views_list) < len(ALLOWED_VIEWS):
         expected_labels = [i['url_label'] for i in ALLOWED_VIEWS]
         found_labels = [i['view_type'] for i in views_list]
@@ -28,6 +31,7 @@ def get_content_urls_for(model_content):
                 name='flexcontent.{0}.{1}'.format(
                     view_row['model_name'], view_row['view_type'])
             )
+            print "   --> %s <--" % row
 
         elif view_row['view_type'] in ['update', 'delete']:
 
