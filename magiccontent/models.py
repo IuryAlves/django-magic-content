@@ -159,6 +159,11 @@ LOREM_LIPSUM = """Lorem ipsum dolor sit amet, cu regione reformidans qui,
 
 
 class BaseContent(SiteModel):
+
+    # must be defined at children models, this is the value used by
+    # get_widget_type method
+    _widget_type = None
+
     PICTURE_FILTERS = (
         ('', 'Original'),
         ('image-xpro2', 'XPro2'),
@@ -203,6 +208,12 @@ class BaseContent(SiteModel):
 
     def __unicode__(self):
         return "%s - %s" % (self.is_active, self.title)
+
+    def __init__(self, *args, **kws):
+        if self._widget_type is None:
+            raise ValueError(
+                '_widget_type is None, please add a string value at model')
+        super(BaseContent, self).__init__(*args, **kws)
 
     def _content(self):
         pass

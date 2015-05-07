@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .models import BaseContent
-from .views import ListContentMixin
+from .mixins import ListContentMixin
 
 
 def get_content_models():
@@ -20,7 +20,7 @@ def get_content_models():
         How it works:
         - iterates over all project's applications
         - reads all models.py from these applications
-        - retrieves any model that extends flexcontent.models.BaseContent
+        - retrieves any model that extends magiccontent.models.BaseContent
 
         Issues:
         - If the model is defined somewhere else instead models.py it will not
@@ -29,8 +29,8 @@ def get_content_models():
           response process, intead use it on the project's preloader such as
           url definition.
     '''
-    # TODO: No sure if looking at settings.LOCAL_APPS is a good idea
-    apps = map(lambda i: '{0}.models'.format(i), settings.LOCAL_APPS)
+
+    apps = map(lambda i: '{0}.models'.format(i), settings.INSTALLED_APPS)
     models_list = []
 
     for app in apps:
@@ -65,8 +65,7 @@ def content_url_generator(content_model):
     '''
 
     # ListContentMixin is a special case to show order's view
-    # TODO: No sure if looking at settings.CONTENT_APPS or LOCAL_APPS is a good idea
-    apps = map(lambda i: '{0}.views'.format(i), settings.CONTENT_APPS)
+    apps = map(lambda i: '{0}.views'.format(i), settings.INSTALLED_APPS)
     views_list = []
 
     for app in apps:
