@@ -34,7 +34,10 @@ def get_content_models():
     models_list = []
 
     for app in apps:
-        app_models = importlib.import_module(app)
+        try:
+            app_models = importlib.import_module(app)
+        except ImportError:
+            continue
 
         for _, obj in inspect.getmembers(app_models):
             if inspect.isclass(obj) and issubclass(obj, BaseContent):
@@ -69,7 +72,10 @@ def content_url_generator(content_model):
     views_list = []
 
     for app in apps:
-        app_views = importlib.import_module(app)
+        try:
+            app_views = importlib.import_module(app)
+        except ImportError:
+            continue
 
         for _, obj in inspect.getmembers(app_views):
 

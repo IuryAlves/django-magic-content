@@ -13,6 +13,7 @@ from magicgallery.models import GalleryItem
 
 from .behaviours import Permalinkable
 from .managers import WidgetManager, AreaManager, BaseContentManager
+from .model_helpers import get_model_for_widget_type, get_widget_types
 
 
 class Area(SiteModel):
@@ -32,19 +33,7 @@ class Area(SiteModel):
         return "%s -> %s" % (self.site, self.name)
 
 
-# TODO: technical debt - make this items dynamic
-WIDGET_TYPES = (
-    ('simplecontent', 'Simple Content'),
-    ('iconcontent', 'Icon Content'),
-    ('longcontent', 'Long Content'),
-    ('background', 'Background'),
-    ('pagelink', 'PageLink'),
-    ('imagecontent', 'ImageContent'),
-    ('newsfeedcontent', 'Newsfeed Content'),
-    ('menuitem', 'MenuItem'),
-    ('faq', 'Faq'),
-    ('gallerycontent', 'Gallery Content'),
-)
+WIDGET_TYPES = get_widget_types()
 
 # TODO: technical debt - make this items dynamic
 TEMPLATE_STYLES = (
@@ -120,30 +109,9 @@ class Widget(Permalinkable, SiteModel):
 
     @property
     def get_widget_type(self):
-        if self.widget_type == 'background':
-            return BackgroundArea
-        elif self.widget_type == 'iconcontent':
-            return IconContent
-        elif self.widget_type == 'longcontent':
-            return LongContent
-        elif self.widget_type == 'pagelink':
-            return PageLink
-        elif self.widget_type == 'imagecontent':
-            return ImageContent
-        elif self.widget_type == 'newsfeedcontent':
-            ## TODO: not good parent app depend no child apps!!!
-            NewsfeedContent = models.get_model('newsfeeds', 'NewsfeedContent')
-            return NewsfeedContent
-        elif self.widget_type == 'menuitem':
-            MenuItem = models.get_model('navigation', 'MenuItem')
-            return MenuItem
-        elif self.widget_type == 'faq':
-            Faq = models.get_model('faqs', 'Faq')
-            return Faq
-        elif self.widget_type == 'gallerycontent':
-            return GalleryContent
-        else:
-            return SimpleContent
+        # avoiding recursive import
+
+        return get_model_for_widget_type(self.widget_type)
 
     def widget_types_list(self):
         #TODO: workaround!!!!!
