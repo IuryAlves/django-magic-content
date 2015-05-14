@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from image_cropping import ImageRatioField
 
-from magiccontent.models import BaseContent
+from magiccontent.abstract_models import BaseContent
 
 
 class GalleryContent(BaseContent):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models as dj_models
-
 import os
 import importlib
 import inspect
+
+from .abstract_models import BaseContent
 
 
 def get_model_for_widget_type(widget_type):
@@ -18,7 +18,7 @@ def get_model_for_widget_type(widget_type):
     model = None
 
     for _, obj in inspect.getmembers(module):
-        if inspect.isclass(obj) and issubclass(obj, dj_models):
+        if inspect.isclass(obj) and issubclass(obj, BaseContent):
             if obj._meta.abstract:
                 continue
             model = obj
@@ -52,7 +52,7 @@ def get_widget_types():
 
     for app_model in contrib_models:
         for _, obj in inspect.getmembers(app_model):
-            if inspect.isclass(obj) and issubclass(obj, dj_models):
+            if inspect.isclass(obj) and issubclass(obj, BaseContent):
                 if obj._meta.abstract:
                     continue
                 widget_types.append((obj._widget_type, obj.__name__))

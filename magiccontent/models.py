@@ -5,14 +5,10 @@ from __future__ import absolute_import
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
-from ckeditor.fields import RichTextField
-from image_cropping import ImageRatioField
-
 from multisitesutils.models import SiteModel
-from magicgallery.models import GalleryItem
 
 from .behaviours import Permalinkable
-from .managers import WidgetManager, AreaManager, BaseContentManager
+from .managers import WidgetManager, AreaManager
 from .model_helpers import get_model_for_widget_type, get_widget_types
 
 
@@ -30,7 +26,7 @@ class Area(SiteModel):
         ordering = ['id']
 
     def __unicode__(self):
-        return "%s -> %s" % (self.site, self.name)
+        return "{0} -> {1}".format(self.site, self.name)
 
 
 WIDGET_TYPES = get_widget_types()
@@ -82,9 +78,11 @@ class Widget(Permalinkable, SiteModel):
     name = models.CharField(
         _('name'), max_length=64, db_index=True)
     widget_type = models.CharField(
-        _('widget type'), max_length=32, default='simplecontent', choices=WIDGET_TYPES)
+        _('widget type'), max_length=32, default='simplecontent',
+        choices=WIDGET_TYPES)
     style_template = models.CharField(
-        _('Template Style'), max_length=128, default='default', choices=TEMPLATE_STYLES)
+        _('Template Style'), max_length=128, default='default',
+        choices=TEMPLATE_STYLES)
     description = models.CharField(
         _('description'), max_length=128, default='', blank=True)
     is_content_data = models.BooleanField('Content Data', default=True)
@@ -109,198 +107,10 @@ class Widget(Permalinkable, SiteModel):
 
     @property
     def get_widget_type(self):
-        # avoiding recursive import
-
         return get_model_for_widget_type(self.widget_type)
 
     def widget_types_list(self):
-        #TODO: workaround!!!!!
-        #      we do need to decide if we are moving the TEMPLATE_STYLES to the Database or not...
-        result_list = [(id,label) for id,label in TEMPLATE_STYLES if self.widget_type in label.lower()]
+        result_list = [
+            (id, label) for id, label
+            in TEMPLATE_STYLES if self.widget_type in label.lower()]
         return result_list
-
-LOREM_LIPSUM = """Lorem ipsum dolor sit amet, cu regione reformidans qui, 
-                  pri argumentum constituam ad. Per sapientem constituam id. 
-                  Veniam officiis constituto vis ex, debet persequeris cum te. 
-                  Est autem fuisset quaerendum eu. His at lobortis gubergren posidonium, 
-                  vero aliquip splendide eam te, fugit error paulo per no."""
-
-
-class BaseContent(SiteModel):
-
-    # must be defined at children models, this is the value used by
-    # get_widget_type method
-    _widget_type = None
-
-    PICTURE_FILTERS = (
-        ('', 'Original'),
-        ('image-xpro2', 'XPro2'),
-        ('image-willow', 'Willow'),
-        ('image-inkwell', 'Inkwell'),
-        ('image-walden', 'Walden'),
-        ('image-toaster', 'Toaster'),
-        ('image-sierra', 'Sierra'),
-        ('image-nashville', 'Nashville'),
-        ('image-mayfair', 'Mayfair'),
-        ('image-kelvin', 'Kelvin'),
-        ('image-hudson', 'Hudson'),
-        ('image-brannan', 'Brannan'),
-        ('image-1977', '1977'),
-        ('image-blur', 'Blur'),
-    )
-
-    widget = models.ForeignKey('Widget', verbose_name=_('widget'))
-    title = models.CharField(
-        _('title'), max_length=128, default='Lorem ipsum dolor sit amet', blank=True)
-    short_content = models.TextField(
-        _('short content'), max_length=512, default='Per sapientem constituam id. Veniam officiis constituto vis ex, debet persequeris cum te.', blank=True)
-    long_content = RichTextField(
-        _('long content'), default=LOREM_LIPSUM, blank=True)
-    picture = models.ForeignKey(GalleryItem, null=True, blank=True)
-    picture_filter = models.CharField(
-        _('Image Filter'), max_length=32, default='',
-        choices=PICTURE_FILTERS, blank=True)
-    order = models.PositiveIntegerField(_('order'), default=99)
-    is_active = models.BooleanField(_('active'), default=True)
-    link_url = models.CharField(
-        _('link url'), max_length=255, default='', blank=True)
-    link_label = models.CharField(
-        _('link label'), max_length=64, default='', blank=True)
-
-    objects = models.Manager()
-    site_objects = BaseContentManager()
-
-    class Meta:
-        abstract = True
-        ordering = ['order']
-
-    def __unicode__(self):
-        return "%s - %s" % (self.is_active, self.title)
-
-    def __init__(self, *args, **kws):
-        if self._widget_type is None:
-            raise ValueError(
-                '_widget_type is None, please add a string value at model')
-        super(BaseContent, self).__init__(*args, **kws)
-
-    def _content(self):
-        pass
-
-    @property
-    def content(self):
-        return self._content()
-
-    @property
-    def model_name(self):
-        return self._meta.model_name
-
-
-class SimpleContent(BaseContent):
-
-    """ title, subtitle, shorttext """
-    sub_title = models.CharField(
-        _('sub title'), max_length=128, default='', blank=True)
-    picture_cropping = ImageRatioField('picture__picture', '960x593')
-
-    def _content(self):
-        return self.short_content
-
-
-class LongContent(BaseContent):
-
-    """ title, longtext """
-    picture_cropping = ImageRatioField('picture__picture', '960x480')
-
-    def _content(self):
-        return self.long_content
-
-
-class IconContent(BaseContent):
-    FONTAWESOME_ICONS = (
-        ('fa-adjust', 'adjust'), ('fa-arrows', 'arrows'),
-        ('fa-barcode', 'barcode'), ('fa-bars', 'bars'),
-        ('fa-beer', 'beer'), ('fa-bell', 'bell'), ('fa-bolt', 'bolt'),
-        ('fa-bomb', 'bomb'), ('fa-book', 'book'), ('fa-bookmark', 'bookmark'),
-        ('fa-briefcase', 'briefcase'), ('fa-bug', 'bug'),
-        ('fa-building', 'building'), ('fa-bullhorn', 'bullhorn'),
-        ('fa-bullseye', 'bullseye'), ('fa-calendar', 'calendar'),
-        ('fa-camera', 'camera'), ('fa-car', 'car'),
-        ('fa-caret-square-o-down', 'caret-square-o-down'),
-        ('fa-caret-square-o-left', 'caret-square-o-left'),
-        ('fa-caret-square-o-right', 'caret-square-o-right'),
-        ('fa-caret-square-o-up', 'caret-square-o-up'),
-        ('fa-certificate', 'certificate'), ('fa-check', 'check'),
-        ('fa-child', 'child'), ('fa-circle', 'circle'),
-        ('fa-clock-o', 'clock-o'), ('fa-sort-desc', 'sort-desc'),
-        ('fa-space-shuttle', 'space-shuttle'), ('fa-spinner', 'spinner'),
-        ('fa-spoon', 'spoon'), ('fa-square', 'square'),
-        ('fa-star', 'star'), ('fa-star-half', 'star-half'),
-        ('fa-suitcase', 'suitcase'), ('fa-sun-o', 'sun-o'),
-        ('fa-tablet', 'tablet'), ('fa-tachometer', 'tachometer'),
-        ('fa-tag', 'tag'), ('fa-tags', 'tags'),
-        ('fa-tasks', 'tasks'), ('fa-taxi', 'taxi'),
-        ('fa-terminal', 'terminal'), ('fa-thumb-tack', 'thumb-tack'),
-        ('fa-thumbs-down', 'thumbs-down'),
-        ('fa-thumbs-o-down', 'thumbs-o-down'),
-        ('fa-thumbs-o-up', 'thumbs-o-up'), ('fa-thumbs-up', 'thumbs-up'),
-        ('fa-ticket', 'ticket'), ('fa-times', 'times'),
-        ('fa-times-circle', 'times-circle'), ('fa-tint', 'tint'),
-        ('fa-tree', 'tree'), ('fa-trophy', 'trophy'), ('fa-truck', 'truck'),
-        ('fa-umbrella', 'umbrella'), ('fa-university', 'university'),
-        ('fa-unlock', 'unlock'), ('fa-upload', 'upload'),
-        ('fa-user', 'user'), ('fa-users', 'users'),
-        ('fa-video-camera', 'video-camera'), ('fa-volume-down', 'volume-down'),
-        ('fa-wheelchair', 'wheelchair'),
-    )
-    """ title, shorttext and icon """
-    icon = models.CharField(_('icon'), max_length=64, default='fa-check',
-                            choices=FONTAWESOME_ICONS)
-
-    def _content(self):
-        return self.short_content
-
-
-class BackgroundArea(BaseContent):
-
-    """ title, subtitle"""
-    picture_cropping = ImageRatioField('picture__picture', '1600x952')
-    sub_title = models.CharField(
-        _('sub title'), max_length=128, default='', blank=True)
-    link1_url = models.CharField(
-        _('link1 url'), max_length=255, null=True, blank=True, default='#intro')
-    link1_label = models.CharField(
-        _('link1 label'), max_length=64, default='link1', blank=True)
-
-    def _content(self):
-        return self.short_content
-
-
-class PageLink(BaseContent):
-
-    """ title, subtitle, link1 and picture background """
-    picture_cropping = ImageRatioField('picture__picture', '1600x989')
-    sub_title = models.CharField(
-        _('sub title'), max_length=128, default='', blank=True)
-    link1_url = models.CharField(
-        _('link1 url'), max_length=255, default='#intro', blank=True)
-    link1_label = models.CharField(
-        _('link1 label'), max_length=64, default='link1', blank=True)
-
-
-class ImageContent(BaseContent):
-
-    """ title, subtitle"""
-    picture_cropping = ImageRatioField('picture__picture', '960x960')
-
-    def _content(self):
-        return self.short_content
-
-
-# It might be better change this to the gallery app and it shouldnt be a content...(disquis)
-class GalleryContent(BaseContent):
-
-    """ title, subtitle"""
-    picture_cropping = ImageRatioField('picture__picture', '960x960')
-
-    def _content(self):
-        return self.short_content
