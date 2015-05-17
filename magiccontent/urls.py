@@ -12,7 +12,7 @@ from .views import (AreaUpdateView, StyleWidgetUpdateView,
                     WidgetCreateView, AreaVisibleUpdateView,
                     AreaUpdateVisibilityViewDetail,
                     ContentOrderUpdate, ContentIsActiveUpdate)
-from .models import (SimpleContent, LongContent, IconContent, PageLink,
+from .models import (LongContent, IconContent, PageLink,
                      ImageContent, GalleryContent)
 from .dynamic_content_urls import get_content_urls_for
 
@@ -56,12 +56,11 @@ urlpatterns = patterns('',  # noqa
 
 )
 
-simplecontent_urls = get_content_urls_for(SimpleContent)
 longcontent_urls = get_content_urls_for(LongContent)
 iconcontent_urls = get_content_urls_for(IconContent)
 pagelink_urls = get_content_urls_for(PageLink)
 imagecontent_urls = get_content_urls_for(ImageContent)
 gallerycontent_urls = get_content_urls_for(GalleryContent)
 
-urlpatterns += simplecontent_urls + longcontent_urls + iconcontent_urls +\
+urlpatterns += longcontent_urls + iconcontent_urls +\
                pagelink_urls + imagecontent_urls + gallerycontent_urls

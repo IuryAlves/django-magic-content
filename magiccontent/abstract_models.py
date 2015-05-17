@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 from multisitesutils.models import SiteModel
 from magicgallery.models import GalleryItem
 
+from .models import Widget
 from .managers import BaseContentManager
 
 
@@ -42,7 +43,7 @@ class BaseContent(SiteModel):
         ('image-blur', 'Blur'),
     )
 
-    widget = models.ForeignKey('Widget', verbose_name=_('widget'))
+    widget = models.ForeignKey(Widget, verbose_name=_('widget'))
     title = models.CharField(
         _('title'), max_length=128, default='Lorem ipsum dolor sit amet',
         blank=True)

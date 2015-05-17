@@ -5,13 +5,14 @@ import os
 import importlib
 import inspect
 
-from .abstract_models import BaseContent
+# from .abstract_models import BaseContent
 
 
 def get_model_for_widget_type(widget_type):
     ''' returns the first BaseContent child of a given contrib app by its
         widget_type '''
 
+    return ''
     module_name = 'magiccontent.contrib.{0}.models'.format(widget_type)
     module = importlib.import_module(module_name)
 
@@ -46,6 +47,7 @@ def get_contrib_models_module():
 
 
 def get_widget_types():
+    return []
     contrib_models = get_contrib_models_module()
 
     widget_types = []

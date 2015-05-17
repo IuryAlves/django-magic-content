@@ -8,7 +8,7 @@ import inspect
 from django.conf import settings
 from django.views.generic import CreateView, UpdateView, DeleteView
 
-from .models import BaseContent
+from .abstract_models import BaseContent
 from .mixins import ListContentMixin
 
 
