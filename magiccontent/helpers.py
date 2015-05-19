@@ -75,6 +75,9 @@ def content_url_generator(content_model):
         try:
             app_views = importlib.import_module(app)
         except ImportError:
+            # TODO: find a solution to 'try' to import just
+            #       correct apps (magiccontent) rather than all apps's views
+            # TODO: log errors
             continue
 
         for _, obj in inspect.getmembers(app_views):

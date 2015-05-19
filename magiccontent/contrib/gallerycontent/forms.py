@@ -3,10 +3,7 @@ from __future__ import unicode_literals
 
 import floppyforms.__future__ as forms
 
-# TODO: themes dependency
-from themes.widgets import RadioImageFilterSelect
-
-from magiccontent.widgets import CustomCropImageWidget
+from magiccontent.widgets import CustomCropImageWidget, RadioImageFilterSelect
 from .models import GalleryContent
 
 

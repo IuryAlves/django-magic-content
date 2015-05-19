@@ -6,11 +6,9 @@ from floppyforms.widgets import TextInput
 
 # TODO: dependency to NAVIGATION
 from navigation.models import SitePage
+from magiccontent.widgets import RadioIconSelect
 
 from .models import IconContent
-
-# TODO: dependency to THEMES
-from themes.widgets import RadioIconSelect
 
 
 class IconContentForm(forms.ModelForm):

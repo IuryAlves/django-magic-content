@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from django.contrib.admin.sites import site
 
 from image_cropping.widgets import CropForeignKeyWidget
+from floppyforms.widgets import RadioSelect
 
 
 class CustomCropImageWidget(CropForeignKeyWidget):
@@ -14,3 +15,7 @@ class CustomCropImageWidget(CropForeignKeyWidget):
     def __init__(self, model, field_name):
         super(CustomCropImageWidget, self).__init__(
             model._meta.get_field(field_name).rel, site, field_name=field_name)
+
+
+class RadioImageFilterSelect(RadioSelect):
+    template_name = 'floppyforms/radioimagefilter.html'
