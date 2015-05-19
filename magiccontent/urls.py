@@ -11,7 +11,6 @@ from .views import (AreaUpdateView, StyleWidgetUpdateView,
                     WidgetCreateView, AreaVisibleUpdateView,
                     AreaUpdateVisibilityViewDetail,
                     ContentOrderUpdate, ContentIsActiveUpdate)
-from .dynamic_content_urls import get_content_urls_for
 
 
 # This will output something like (?P<content>(simplecontent|longcontent...))
