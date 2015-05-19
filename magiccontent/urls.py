@@ -8,12 +8,9 @@ from django.views.generic import TemplateView
 
 from .helpers import CONTENT_MODEL_NAMES
 from .views import (AreaUpdateView, StyleWidgetUpdateView,
-                    BackgroundAreaUpdateView,
                     WidgetCreateView, AreaVisibleUpdateView,
                     AreaUpdateVisibilityViewDetail,
                     ContentOrderUpdate, ContentIsActiveUpdate)
-from .models import (LongContent, IconContent, PageLink,
-                     ImageContent, GalleryContent)
 from .dynamic_content_urls import get_content_urls_for
 
 
@@ -46,9 +43,9 @@ urlpatterns = patterns('',  # noqa
         name='flexcontent.widget.create'),
 
     # BackgroundArea
-    url(r'^flexcontent/backgroundarea/(?P<widget_pk>\d+)/update/(?P<pk>\d+)/$',
-        BackgroundAreaUpdateView.as_view(),
-        name='flexcontent.backgroundarea.update'),
+    # url(r'^flexcontent/backgroundarea/(?P<widget_pk>\d+)/update/(?P<pk>\d+)/$',
+    #    BackgroundAreaUpdateView.as_view(),
+    #    name='flexcontent.backgroundarea.update'),
 
     url(r'^flexcontent/windows_close/$', TemplateView.as_view(
         template_name="magiccontent/windows_close.html"),
@@ -56,11 +53,11 @@ urlpatterns = patterns('',  # noqa
 
 )
 
-longcontent_urls = get_content_urls_for(LongContent)
-iconcontent_urls = get_content_urls_for(IconContent)
-pagelink_urls = get_content_urls_for(PageLink)
-imagecontent_urls = get_content_urls_for(ImageContent)
-gallerycontent_urls = get_content_urls_for(GalleryContent)
+# longcontent_urls = get_content_urls_for(LongContent)
+# iconcontent_urls = get_content_urls_for(IconContent)
+# pagelink_urls = get_content_urls_for(PageLink)
+# imagecontent_urls = get_content_urls_for(ImageContent)
+# gallerycontent_urls = get_content_urls_for(GalleryContent)
 
-urlpatterns += longcontent_urls + iconcontent_urls +\
-               pagelink_urls + imagecontent_urls + gallerycontent_urls
+# urlpatterns += longcontent_urls + iconcontent_urls +\
+#                pagelink_urls + imagecontent_urls + gallerycontent_urls

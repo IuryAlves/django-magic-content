@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
@@ -10,12 +10,9 @@ from django.core.urlresolvers import reverse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .mixins import (EditableMixin, CreateContentMixin,
-                     ListContentMixin, SimpleContentMixin, LongContentMixin,
-                     PageLinkMixin, IconContentMixin, BackgroundAreaMixin)
-from .models import Area, Widget, ImageContent, GalleryContent
-from .forms import (AreaForm, WidgetForm, NewWidgetForm, GalleryContentForm,
-                    ImageContentForm)
+from .mixins import EditableMixin
+from .models import Area, Widget
+from .forms import AreaForm, WidgetForm, NewWidgetForm
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
 
@@ -56,98 +53,6 @@ class WidgetCreateView(EditableMixin, CreateView):
         area_url = reverse("flexcontent.area.update",
                            kwargs={'pk': area_pk})
         return redirect(area_url)
-
-
-class SimpleContentCreateView(CreateContentMixin, SimpleContentMixin,
-                              EditableMixin, CreateView):
-    pass
-
-
-class SimplecontentUpdateView(SimpleContentMixin, EditableMixin, UpdateView):
-    pass
-
-
-class SimplecontentDeleteView(SimpleContentMixin, EditableMixin, DeleteView):
-    pass
-
-
-class SimpleContentOrderListView(ListContentMixin, SimpleContentMixin,
-                                 ListView):
-    pass
-
-
-class LongContentCreateView(CreateContentMixin, LongContentMixin,
-                            EditableMixin, CreateView):
-    pass
-
-
-class LongContentUpdateView(LongContentMixin, EditableMixin, UpdateView):
-    pass
-
-
-class LongContentDeleteView(LongContentMixin, EditableMixin, DeleteView):
-    pass
-
-
-class LongContentOrderListView(ListContentMixin, LongContentMixin, ListView):
-    pass
-
-
-class PageLinkCreateView(CreateContentMixin, PageLinkMixin, EditableMixin,
-                         CreateView):
-    pass
-
-
-class PageLinkUpdateView(PageLinkMixin, EditableMixin, UpdateView):
-    pass
-
-
-class PageLinkDeleteView(PageLinkMixin, EditableMixin, DeleteView):
-    pass
-
-
-class IconContentCreateView(CreateContentMixin, IconContentMixin,
-                            EditableMixin, CreateView):
-    pass
-
-
-class IconContentUpdateView(IconContentMixin, EditableMixin, UpdateView):
-    pass
-
-
-class IconContentDeleteView(IconContentMixin, EditableMixin, DeleteView):
-    pass
-
-
-class IconContentOrderListView(ListContentMixin, IconContentMixin, ListView):
-    pass
-
-
-class BackgroundAreaUpdateView(BackgroundAreaMixin, EditableMixin, UpdateView):
-    pass
-
-
-class ImageContentMixin(object):
-    model = ImageContent
-    form_class = ImageContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class ImageContentCreateView(CreateContentMixin, ImageContentMixin,
-                             EditableMixin, CreateView):
-    pass
-
-
-class ImageContentUpdateView(ImageContentMixin, EditableMixin, UpdateView):
-    pass
-
-
-class ImageContentDeleteView(ImageContentMixin, EditableMixin, DeleteView):
-    pass
-
-
-class ImageContentOrderListView(ListContentMixin, ImageContentMixin, ListView):
-    pass
 
 
 class AreaUpdateVisibilityViewDetail(APIView):
@@ -198,27 +103,3 @@ class ContentIsActiveUpdate(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-
-
-class GalleryContentMixin(object):
-    model = GalleryContent
-    form_class = GalleryContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class GalleryContentCreateView(CreateContentMixin, GalleryContentMixin,
-                               EditableMixin, CreateView):
-    pass
-
-
-class GalleryContentUpdateView(GalleryContentMixin, EditableMixin, UpdateView):
-    pass
-
-
-class GalleryContentDeleteView(GalleryContentMixin, EditableMixin, DeleteView):
-    pass
-
-
-class GalleryContentOrderListView(ListContentMixin, GalleryContentMixin,
-                                  ListView):
-    pass

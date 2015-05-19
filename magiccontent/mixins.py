@@ -14,10 +14,7 @@ from braces.views._access import AccessMixin
 
 from magicgallery.models import Gallery, GalleryItem
 
-from .models import (Widget, SimpleContent, LongContent, IconContent,
-                     PageLink, BackgroundArea)
-from .forms import (SimpleContentForm, LongContentForm, PageLinkForm,
-                    IconContentForm, BackgroundAreaForm)
+from .models import Widget
 
 
 class CanEditMixin(object):
@@ -91,36 +88,6 @@ class ListContentMixin(object):
     def get_queryset(self):
         widget = Widget.site_objects.get(pk=self.kwargs.get('widget_pk'))
         return self.model.objects.filter(widget=widget)
-
-
-class SimpleContentMixin(object):
-    model = SimpleContent
-    form_class = SimpleContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class LongContentMixin(object):
-    model = LongContent
-    form_class = LongContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class PageLinkMixin(object):
-    model = PageLink
-    form_class = PageLinkForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class IconContentMixin(object):
-    model = IconContent
-    form_class = IconContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
-
-
-class BackgroundAreaMixin(object):
-    model = BackgroundArea
-    form_class = BackgroundAreaForm
-    template_name = 'magiccontent/simplecontent_form.html'
 
 
 def _load_permission_module(settings_name):
