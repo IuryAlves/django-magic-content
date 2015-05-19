@@ -12,14 +12,6 @@ from .models import Widget
 from .managers import BaseContentManager
 
 
-LOREM_LIPSUM = """Lorem ipsum dolor sit amet, cu regione reformidans qui,
-                pri argumentum constituam ad. Per sapientem constituam id.
-                Veniam officiis constituto vis ex, debet persequeris cum te.
-                Est autem fuisset quaerendum eu. His at lobortis gubergren
-                posidonium, vero aliquip splendide eam te, fugit error paulo
-                per no."""
-
-
 class BaseContent(SiteModel):
 
     # must be defined at children models, this is the value used by
@@ -45,15 +37,14 @@ class BaseContent(SiteModel):
 
     widget = models.ForeignKey(Widget, verbose_name=_('widget'))
     title = models.CharField(
-        _('title'), max_length=128, default='Lorem ipsum dolor sit amet',
+        _('title'), max_length=128, default='Edit title',
         blank=True)
     short_content = models.TextField(
         _('short content'), max_length=512,
-        default=('Per sapientem constituam id. Veniam officiis constituto vis',
-                 'ex, debet persequeris cum te.'),
+        default='Edit content',
         blank=True)
     long_content = RichTextField(
-        _('long content'), default=LOREM_LIPSUM, blank=True)
+        _('long content'), default='', blank=True)
     picture = models.ForeignKey(GalleryItem, null=True, blank=True)
     picture_filter = models.CharField(
         _('Image Filter'), max_length=32, default='',
