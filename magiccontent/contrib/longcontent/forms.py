@@ -7,8 +7,8 @@ from floppyforms.widgets import TextInput
 from navigation.models import SitePage
 
 from magiccontent.forms import PictureForm
+from magiccontent.widgets import CustomCropImageWidget
 from .models import LongContent
-from .widgets import CustomCropImageWidget
 
 # TODO: dependency to THEMES
 from themes.widgets import RadioImageFilterSelect

@@ -5,8 +5,8 @@ from __future__ import absolute_import
 from core.helpers import LinkListForm
 
 from magiccontent.forms import PictureForm
+from magiccontent.widgets import CustomCropImageWidget
 from .models import PageLink
-from .widgets import CustomCropImageWidget
 
 
 class PageLinkForm(LinkListForm, PictureForm):

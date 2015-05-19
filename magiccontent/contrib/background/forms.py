@@ -7,8 +7,8 @@ from floppyforms.widgets import TextInput
 from navigation.models import SitePage
 
 from magiccontent.forms import PictureForm
+from magiccontent.widgets import CustomCropImageWidget
 from .models import BackgroundArea
-from .widgets import CustomCropImageWidget
 
 
 class BackgroundAreaForm(PictureForm):
