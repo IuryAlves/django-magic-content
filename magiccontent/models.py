@@ -9,7 +9,6 @@ from multisitesutils.models import SiteModel
 
 from .behaviours import Permalinkable
 from .managers import WidgetManager, AreaManager
-from .model_helpers import get_model_for_widget_type
 
 
 class Area(SiteModel):
@@ -116,9 +115,36 @@ class Widget(Permalinkable, SiteModel):
         contents = content_type.site_objects.filter(widget=self)
         return contents[0]
 
+    def _get_content_model(self, modelname):
+        meta = self._meta
+        field = meta.get_field_by_name(modelname)[0]
+        return field.model
+
     @property
     def get_widget_type(self):
-        return get_model_for_widget_type(self.widget_type)
+        _type = self.widget_type
+        if _type == 'simplecontent':
+            return self._get_content_model('simplecontent')
+
+        if _type == 'longcontent':
+            return self._get_content_model('longcontent')
+
+        if _type == 'iconcontent':
+            return self._get_content_model('iconcontent')
+
+        if _type == 'background':
+            return self._get_content_model('backgroundarea')
+
+        if _type == 'pagelink':
+            return self._get_content_model('pagelink')
+
+        if _type == 'imagecontent':
+            return self._get_content_model('imagecontent')
+
+        if _type == 'gallerycontent':
+            return self._get_content_model('gallerycontent')
+
+        return self._get_content_model('simplecontent')
 
     def widget_types_list(self):
         result_list = [
