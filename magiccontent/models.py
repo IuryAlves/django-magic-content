@@ -9,7 +9,7 @@ from multisitesutils.models import SiteModel
 
 from .behaviours import Permalinkable
 from .managers import WidgetManager, AreaManager
-from .model_helpers import get_model_for_widget_type, get_widget_types
+from .model_helpers import get_model_for_widget_type
 
 
 class Area(SiteModel):
@@ -29,7 +29,18 @@ class Area(SiteModel):
         return "{0} -> {1}".format(self.site, self.name)
 
 
-WIDGET_TYPES = get_widget_types()
+WIDGET_TYPES = (
+    ('simplecontent', 'Simple Content'),
+    ('iconcontent', 'Icon Content'),
+    ('longcontent', 'Long Content'),
+    ('background', 'Background'),
+    ('pagelink', 'PageLink'),
+    ('imagecontent', 'ImageContent'),
+    ('newsfeedcontent', 'Newsfeed Content'),
+    ('menuitem', 'MenuItem'),
+    ('faq', 'Faq'),
+    ('gallerycontent', 'Gallery Content'),
+)
 
 # TODO: technical debt - make this items dynamic
 TEMPLATE_STYLES = (
