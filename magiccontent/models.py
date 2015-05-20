@@ -125,26 +125,22 @@ class Widget(Permalinkable, SiteModel):
         _type = self.widget_type
         if _type == 'simplecontent':
             return self._get_content_model('simplecontent')
-
-        if _type == 'longcontent':
+        elif _type == 'longcontent':
             return self._get_content_model('longcontent')
-
-        if _type == 'iconcontent':
+        elif _type == 'iconcontent':
             return self._get_content_model('iconcontent')
-
-        if _type == 'background':
+        elif _type == 'background':
             return self._get_content_model('backgroundarea')
-
-        if _type == 'pagelink':
+        elif _type == 'pagelink':
             return self._get_content_model('pagelink')
-
-        if _type == 'imagecontent':
+        elif _type == 'imagecontent':
             return self._get_content_model('imagecontent')
-
-        if _type == 'gallerycontent':
+        elif _type == 'gallerycontent':
             return self._get_content_model('gallerycontent')
-
-        return self._get_content_model('simplecontent')
+        elif _type == 'menuitem':
+            return self._get_content_model('menuitem')
+        else:
+            return self._get_content_model('simplecontent')
 
     def widget_types_list(self):
         result_list = [
