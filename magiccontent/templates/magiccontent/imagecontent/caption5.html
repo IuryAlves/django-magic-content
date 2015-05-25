@@ -27,7 +27,7 @@
                 <img style="width: 260px;" src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" alt="{{ object.title |safe }}" draggable="false">
               </a>
             {% else %}
-              <a href="#" data-largesrc="{% static 'themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
+              <a href="#" data-largesrc="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
                 <img style="width: 260px;" src="{% static 'themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}" draggable="false">
               </a>
             {% endif %}
