@@ -34,8 +34,8 @@
                 <img src="{% thumbnail object.picture.picture 250x250 crop %}" alt="{{ object.title |safe }}"/>
               </a>
               {% else %}
-              <a href="#" data-largesrc="{% static 'themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
-                <img width="250" src="{% static 'themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
+              <a href="#" data-largesrc="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
+                <img width="250" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
               </a>              
               {% endif %}
               <div class="stackimage-title"><span>{{ object.title |safe }}</span></div>

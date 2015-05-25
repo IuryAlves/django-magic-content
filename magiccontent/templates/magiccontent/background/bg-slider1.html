@@ -12,7 +12,7 @@
       {% if obj.picture %}
         <img src="{% cropped_thumbnail obj 'picture_cropping' scale=0.5 %}" />
       {% else %}
-        <img src="{% static 'themes/sydney/img/dragndrop-image.png' %}">
+        <img src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}">
       {% endif %}
 
       <div class="container {{ editable }}">
