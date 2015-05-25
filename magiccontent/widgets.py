@@ -19,3 +19,7 @@ class CustomCropImageWidget(CropForeignKeyWidget):
 
 class RadioImageFilterSelect(RadioSelect):
     template_name = 'floppyforms/radioimagefilter.html'
+
+
+class RadioIconSelect(RadioSelect):
+    template_name = 'floppyforms/radioicon.html'
