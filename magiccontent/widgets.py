@@ -23,3 +23,11 @@ class RadioImageFilterSelect(RadioSelect):
 
 class RadioIconSelect(RadioSelect):
     template_name = 'floppyforms/radioicon.html'
+
+
+class RadioWidgetTypeSelect(RadioSelect):
+    template_name = 'floppyforms/radiowidgettype.html'
+
+
+class RadioWidgetTypeAllSelect(RadioSelect):
+    template_name = 'floppyforms/radiowidgettypeall.html'

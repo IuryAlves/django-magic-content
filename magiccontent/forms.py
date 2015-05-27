@@ -3,7 +3,10 @@ from __future__ import unicode_literals
 
 import floppyforms.__future__ as forms
 
-from .models import Area, Widget
+from magiccontent.widgets import (RadioWidgetTypeSelect,
+                                  RadioWidgetTypeAllSelect, )
+
+from .models import Area, Widget, WIDGET_TYPES
 
 
 class PictureForm(forms.ModelForm):
@@ -42,12 +45,16 @@ class AreaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AreaForm, self).__init__(*args, **kwargs)
-        widget_list = Widget.site_objects.list_content_widgets()
-        self.fields['widget'] = forms.ModelChoiceField(queryset=widget_list)
+        widget_list = [(widget.id, widget) for widget
+                       in Widget.site_objects.list_content_widgets()]
+        self.fields['widget'].choices = widget_list
 
     class Meta:
         model = Area
         fields = ('widget',)
+        widgets = {
+            'widget': RadioWidgetTypeSelect,
+        }
 
 
 class WidgetForm(forms.ModelForm):
@@ -65,6 +72,19 @@ class WidgetForm(forms.ModelForm):
 
 class NewWidgetForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(NewWidgetForm, self).__init__(*args, **kwargs)
+        # TODO: this items shouldn't be fix
+        # TODO: the magiccontent shouldn't know about the children
+        exclude = ['background', 'pagelink', 'newsfeedcontent',
+                   'menuitem', 'faq', 'gallerycontent', ]
+        widget_types = [(id, label)
+                        for id, label in WIDGET_TYPES if id not in exclude]
+        self.fields['widget_type'].choices = widget_types
+
     class Meta:
         model = Widget
         fields = ('name', 'widget_type',)
+        widgets = {
+            'widget_type': RadioWidgetTypeAllSelect,
+        }

@@ -27,7 +27,7 @@ class Area(SiteModel):
     def __unicode__(self):
         return "{0} -> {1}".format(self.site, self.name)
 
-
+# TODO: the magiccontent shouldn't know its children
 WIDGET_TYPES = (
     ('simplecontent', 'Simple Content'),
     ('iconcontent', 'Icon Content'),
@@ -42,6 +42,7 @@ WIDGET_TYPES = (
 )
 
 # TODO: technical debt - make this items dynamic
+#       OR make each child give its styles
 TEMPLATE_STYLES = (
     ('default', 'SimpleContent - List 1 (default)'),
     ('list2', 'SimpleContent - List 2'),
@@ -101,7 +102,7 @@ class Widget(Permalinkable, SiteModel):
     site_objects = WidgetManager()
 
     def __unicode__(self):
-        return "%s (%s)" % (self.name, self.style_template)
+        return "%s, %s" % (self.name, self.widget_type, )
 
     @property
     def content_list(self):
