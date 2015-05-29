@@ -38,8 +38,9 @@
                 <img width="250" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
               </a>              
               {% endif %}
-              <div class="stackimage-title"><span>{{ object.title |safe }}</span></div>
-
+              <div class="stackimage-title">
+                <a href="#" data-tooltip data-tooltip-label="Details" data-tooltip-message="{{ object.content|truncatewords:10 }}"><span>{{ object.title |safe }}</span></a>
+              </div>
               </div>
             </li>
 

@@ -13,7 +13,7 @@ from .forms import ImageContentForm
 class ImageContentMixin(object):
     model = ImageContent
     form_class = ImageContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/imagecontent_form.html'
 
 
 class ImageContentCreateView(CreateContentMixin, ImageContentMixin,
@@ -26,7 +26,9 @@ class ImageContentUpdateView(ImageContentMixin, EditableMixin, UpdateView):
 
 
 class ImageContentDeleteView(ImageContentMixin, EditableMixin, DeleteView):
-    pass
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
 class ImageContentOrderListView(ListContentMixin, ImageContentMixin, ListView):
