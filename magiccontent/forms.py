@@ -76,7 +76,7 @@ class NewWidgetForm(forms.ModelForm):
         super(NewWidgetForm, self).__init__(*args, **kwargs)
         # TODO: this items shouldn't be fix
         # TODO: the magiccontent shouldn't know about the children
-        exclude = ['background', 'pagelink', 'newsfeedcontent',
+        exclude = ['background', 'pagelink',
                    'menuitem', 'faq', ]
         widget_types = [(id, label)
                         for id, label in WIDGET_TYPES if id not in exclude]

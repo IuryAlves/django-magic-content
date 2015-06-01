@@ -35,7 +35,6 @@ WIDGET_TYPES = (
     ('background', 'Background'),
     ('pagelink', 'PageLink'),
     ('imagecontent', 'ImageContent'),
-    ('newsfeedcontent', 'Newsfeed Content'),
     ('menuitem', 'MenuItem'),
     ('faq', 'Faq'),
 )
@@ -73,8 +72,6 @@ TEMPLATE_STYLES = (
     ('caption3', 'ImageContent - Caption 3'),
     ('caption4', 'ImageContent - Caption 4'),
     ('caption5', 'ImageContent - Caption 5'),
-    ('default', 'NewsfeedContent - List'),
-    ('timeline', 'NewsfeedContent - Timeline'),
     ('default', 'Faq - general'),
     ('default', 'MenuItem - default'),
     ('hidemenu', 'MenuItem - hidemenu'),
