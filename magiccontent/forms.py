@@ -77,7 +77,7 @@ class NewWidgetForm(forms.ModelForm):
         # TODO: this items shouldn't be fix
         # TODO: the magiccontent shouldn't know about the children
         exclude = ['background', 'pagelink', 'newsfeedcontent',
-                   'menuitem', 'faq', 'gallerycontent', ]
+                   'menuitem', 'faq', ]
         widget_types = [(id, label)
                         for id, label in WIDGET_TYPES if id not in exclude]
         self.fields['widget_type'].choices = widget_types

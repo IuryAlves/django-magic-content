@@ -38,7 +38,6 @@ WIDGET_TYPES = (
     ('newsfeedcontent', 'Newsfeed Content'),
     ('menuitem', 'MenuItem'),
     ('faq', 'Faq'),
-    ('gallerycontent', 'Gallery Content'),
 )
 
 # TODO: technical debt - make this items dynamic
@@ -77,7 +76,6 @@ TEMPLATE_STYLES = (
     ('default', 'NewsfeedContent - List'),
     ('timeline', 'NewsfeedContent - Timeline'),
     ('default', 'Faq - general'),
-    ('default', 'GalleryContent - general'),
     ('default', 'MenuItem - default'),
     ('hidemenu', 'MenuItem - hidemenu'),
 )
@@ -136,8 +134,6 @@ class Widget(Permalinkable, SiteModel):
             return self._get_content_model('pagelink')
         elif _type == 'imagecontent':
             return self._get_content_model('imagecontent')
-        elif _type == 'gallerycontent':
-            return self._get_content_model('gallerycontent')
         elif _type == 'menuitem':
             return self._get_content_model('menuitem')
         else:
