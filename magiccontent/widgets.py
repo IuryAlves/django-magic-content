@@ -31,3 +31,7 @@ class RadioWidgetTypeSelect(RadioSelect):
 
 class RadioWidgetTypeAllSelect(RadioSelect):
     template_name = 'floppyforms/radiowidgettypeall.html'
+
+
+class RadioWidgetStyleSelect(RadioSelect):
+    template_name = 'floppyforms/radiowidgetstyle.html'

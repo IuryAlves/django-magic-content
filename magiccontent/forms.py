@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 import floppyforms.__future__ as forms
 
 from magiccontent.widgets import (RadioWidgetTypeSelect,
-                                  RadioWidgetTypeAllSelect, )
+                                  RadioWidgetTypeAllSelect,
+                                  RadioWidgetStyleSelect, )
 
 from .models import Area, Widget, WIDGET_TYPES
 
@@ -62,12 +63,14 @@ class WidgetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
         widget = kwargs['instance']
-        choices = widget.widget_types_list()
-        self.fields['style_template'] = forms.ChoiceField(choices=choices)
+        self.fields['style_template'].choices = widget.widget_types_list()
 
     class Meta:
         model = Widget
-        fields = ('style_template', 'description',)
+        fields = ('description', 'style_template', )
+        widgets = {
+            'style_template': RadioWidgetStyleSelect,
+        }
 
 
 class NewWidgetForm(forms.ModelForm):
