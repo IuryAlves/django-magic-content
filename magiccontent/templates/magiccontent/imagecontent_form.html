@@ -38,7 +38,9 @@
                   <h1>{{ object.widget.name }}
                     <input type="submit" class="btn btn-lg btn-success" value="Save" />
                     <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
+                    {% if object %}
                     <a href="{% url 'flexcontent.imagecontent.delete' object.widget.pk object.pk %}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
+                    {% endif %}
                   </h1>
                 </div>
 
