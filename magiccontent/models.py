@@ -38,6 +38,7 @@ WIDGET_TYPES = (
     ('menuitem', 'MenuItem'),
     ('entrycontent', 'EntryContent'),
     ('faq', 'Faq'),
+    ('calendareventcontent', 'Calendar'),
 )
 
 # TODO: technical debt - make this items dynamic
@@ -72,6 +73,7 @@ TEMPLATE_STYLES = (
     ('default', 'MenuItem - default'),
     ('default', 'EntryContent - default'),
     ('hidemenu', 'MenuItem - hidemenu'),
+    ('default', 'CalendarEventContent - default'),
 )
 
 
@@ -132,6 +134,8 @@ class Widget(Permalinkable, SiteModel):
             return self._get_content_model('menuitem')
         elif _type == 'entrycontent':
             return self._get_content_model('entrycontent')
+        elif _type == 'calendareventcontent':
+            return self._get_content_model('calendareventcontent')
         else:
             return self._get_content_model('simplecontent')
 

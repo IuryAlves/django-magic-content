@@ -62,12 +62,14 @@ def is_an_area_visible_tag(area_name):
 
 
 @register.simple_tag
-def show_widget_page_tag(widget=None, content_list=[], can_edit=False):
+def show_widget_page_tag(widget=None, content_list=[],
+                         can_edit=False, show_page=False):
     """
     Template Tag for generating a custom HTML for the given Widget Page
     """
-    template_name = 'magiccontent/{0}/{1}.html'.format(
-        widget.widget_type, widget.style_template)
+    page = "_page" if show_page else ''
+    template_name = 'magiccontent/{0}/{1}{2}.html'.format(
+        widget.widget_type, widget.style_template, page)
 
     context = {'widget': widget, 'object_list': content_list,
                'can_edit': can_edit}
