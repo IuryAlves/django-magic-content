@@ -21,11 +21,11 @@ class SimpleContentCreateView(CreateContentMixin, SimpleContentMixin,
     pass
 
 
-class SimplecontentUpdateView(SimpleContentMixin, EditableMixin, UpdateView):
+class SimpleContentUpdateView(SimpleContentMixin, EditableMixin, UpdateView):
     pass
 
 
-class SimplecontentDeleteView(SimpleContentMixin, EditableMixin, DeleteView):
+class SimpleContentDeleteView(SimpleContentMixin, EditableMixin, DeleteView):
     pass
 
 
