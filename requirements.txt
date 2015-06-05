@@ -6,6 +6,7 @@ django-braces==1.4.0
 django-ckeditor-updated==4.4.4
 django-image-cropping==1.0.0
 djangorestframework==2.4.3
+django-taggit==0.14.0
 
 -e git://github.com/DjenieLabs/django-multisites-utils.git#egg=django-multisites-utils
 -e git://github.com/DjenieLabs/django-magic-gallery.git#egg=django-magic-gallery
