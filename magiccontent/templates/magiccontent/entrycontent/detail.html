@@ -1,0 +1,47 @@
+{% extends 'frontend/themes/sydney/base.html' %}
+
+{% load flexcontent_tags %}
+{% load static %}
+
+{% block extracss %}
+<link href="{% static 'css/timeline.css' %}" rel="stylesheet" media="screen">
+{% endblock extracss %}
+
+{% block navbar %}
+  {% show_widget_area_tag 'top-menu' 1 'menuitem' %}
+{% endblock navbar %}
+
+{% block content %}
+<section class="dark-bg section-padding" id="entryDetail">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-12">
+        <h1>{{ object.title }}</h1>
+        <p class="author">By {{ object.entry_author }}</p>
+        <p class="date">
+            Published: {{ object.created }} <br>
+            Updated: {{ object.updated }} 
+        </p>
+      </div>
+
+      <div class="col-md-12">
+        {{ object.long_content|safe }}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+
+{% block extrajs %}
+<script src="{% static 'gallery/dropzone.js' %}"></script>
+{% endblock extrajs %}
+
+{% block footer_socialmedia %}
+{% endblock footer_socialmedia %}

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
@@ -31,3 +31,12 @@ class EntryContentDeleteView(EntryContentMixin, EditableMixin, DeleteView):
 
 class EntryContentOrderListView(ListContentMixin, EntryContentMixin, ListView):
     pass
+
+
+class EntryDetailView(DetailView):
+    model = EntryContent
+    template_name = 'magiccontent/entrycontent/detail.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(
+            entry_type=self.kwargs.get('entry_type'))

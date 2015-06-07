@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
 from image_cropping import ImageRatioField
@@ -59,5 +60,8 @@ class EntryContent(BaseContent):
 
     @property
     def get_entry_url(self):
-        # TODO: create detail view and url first
-        return '/'
+        return reverse(
+            'timeline.entrycontent.detail',
+            kwargs={'entry_type': self.entry_type,
+                    'entry_slug': self.slug,
+                    'pk': self.pk})
