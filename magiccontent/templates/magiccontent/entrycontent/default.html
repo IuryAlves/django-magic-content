@@ -1,0 +1,58 @@
+{% load static %}
+{% load cropping %}
+{% load thumbnail %}
+{% load flexcontent_tags %}
+<!-- widget: ImageContent:: default -->
+
+<article class="col-md-12">
+
+    <header>
+      {% if widget.description %}
+      <h1 class="decorator">{{ widget.description }}</h1>
+      {% endif %}
+
+      {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
+    </header>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul id="og-grid" class="og-grid">
+          {% for object in object_list %}
+
+            <li {% if can_edit %}class="{{ editable }}"{% endif %}>
+              <div style="position: relative;">
+                
+              {% if can_edit %}
+                {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+              {% endif %}
+              
+              
+
+              {% if object.picture %}
+              <a href="{{ object.link_url }}" data-largesrc="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
+                <img src="{% thumbnail object.picture.picture 250x250 crop %}" alt="{{ object.title |safe }}"/>
+              </a>
+              {% else %}
+              <a href="#" data-largesrc="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
+                <img width="250" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
+              </a>              
+              {% endif %}
+              <div class="stackimage-title">
+                <a href="#" data-tooltip data-tooltip-label="Details" data-tooltip-message="{{ object.content|truncatewords:10 }}"><span>{{ object.title |safe }}</span></a>
+              </div>
+              </div>
+            </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+</article>
+
+<script type="text/javascript">
+  $(function() {
+    Grid.init();
+  });
+</script>

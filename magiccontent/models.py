@@ -36,6 +36,7 @@ WIDGET_TYPES = (
     ('pagelink', 'PageLink'),
     ('imagecontent', 'ImageContent'),
     ('menuitem', 'MenuItem'),
+    ('entrycontent', 'EntryContent'),
     ('faq', 'Faq'),
 )
 
@@ -69,6 +70,7 @@ TEMPLATE_STYLES = (
     ('caption5', 'ImageContent - Caption 5'),
     ('default', 'Faq - general'),
     ('default', 'MenuItem - default'),
+    ('default', 'EntryContent - default'),
     ('hidemenu', 'MenuItem - hidemenu'),
 )
 
@@ -128,6 +130,8 @@ class Widget(Permalinkable, SiteModel):
             return self._get_content_model('imagecontent')
         elif _type == 'menuitem':
             return self._get_content_model('menuitem')
+        elif _type == 'entrycontent':
+            return self._get_content_model('entrycontent')
         else:
             return self._get_content_model('simplecontent')
 

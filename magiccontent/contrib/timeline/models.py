@@ -6,6 +6,7 @@ from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
 
+from image_cropping import ImageRatioField
 from taggit.managers import TaggableManager
 
 from magiccontent.abstract_models import BaseContent
@@ -23,6 +24,9 @@ class EntryAuthor(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     about = models.TextField(blank=True)
 
+    def __unicode__(self):
+        return self.user.get_full_name()
+
 
 class EntryContent(BaseContent):
 
@@ -38,6 +42,7 @@ class EntryContent(BaseContent):
         _('entry access'), max_length=30, choices=ENTRY_ACCESS,
         default=ENTRY_ACCESS[1][0])
     slug = models.SlugField(editable=False)
+    picture_cropping = ImageRatioField('picture__picture', '960x960')
 
     tags = TaggableManager()
 
