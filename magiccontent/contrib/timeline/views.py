@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse
 
 from accounts.mixins import CanEditMixin
 
@@ -12,13 +11,18 @@ from magiccontent.models import Widget
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
 from .models import EntryContent
-from .forms import EntryContentForm
+from .forms import EntryContentForm, NaiveEntryAuthorForm
 
 
 class EntryContentMixin(object):
     model = EntryContent
     form_class = EntryContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/entrycontent_form.html'
+
+    def get_context_data(self, *args, **kws):
+        context = super(EntryContentMixin, self).get_context_data(*args, **kws)
+        context['author_form'] = NaiveEntryAuthorForm
+        return context
 
 
 class EntryContentCreateView(CreateContentMixin, EntryContentMixin,
