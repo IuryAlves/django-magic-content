@@ -57,5 +57,4 @@ class ShowEntryContentPageView(CanEditMixin, TemplateView):
         context['widget'] = widget
         context['content_list'] = widget.get_widget_type.objects.filter(
             widget=widget)
-        raise Exception(context)
         return context
