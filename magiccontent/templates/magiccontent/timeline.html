@@ -1,0 +1,27 @@
+{% extends FRONTEND_THEME_BASE %}
+
+{% load static %}
+{% load floppyforms %}
+{% load flexcontent_tags %}
+
+{% block css %}
+    
+  {{ block.super }}
+
+  <link href="{% static 'css/timeline.css' %}" rel="stylesheet" media="screen">
+
+{% endblock css %}
+
+
+{% block navbar %}
+
+    {% show_widget_area_tag 'top-menu' can_edit 'menuitem' page_url=page_url %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+    <!-- dynamic content -->
+    {% show_widget_page_tag widget content_list can_edit show_page=True %}
+
+{% endblock content %}

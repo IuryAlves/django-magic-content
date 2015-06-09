@@ -1,24 +1,16 @@
 {% load static %}
 {% load flexcontent_tags %}
-<!-- widget: EntryContent:: default -->
+<!-- widget: EntryContent:: default_page -->
 
 <article class="col-md-12">
 
     <header>
-      {% if widget.description %}
-      <h1 class="decorator">{{ widget.description }}</h1>
-      {% endif %}
-
-      {% show_editable_area_tag area.id widget.id can_edit area.name %}
-
+      <h1 class="decorator">News</h1>
     </header>
 
     <div class="row">
       <div class="col-md-12">
-        <ul id="timeline">
-          <h3>  
-            <a href="{% url 'timeline.entrycontent.showpage' 'news' widget.pk %}">News</a>
-          </h3>
+        <ul id="timelinePage">
 
           {% for object in object_list %}
 
@@ -29,7 +21,10 @@
                 {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
                 {% endif %}
               
-                <a href="{{ object.get_entry_url }}">{{ object.title }}</a>
+                <a href="{{ object.get_entry_url }}">
+                    <span class="title">{{ object.title }}</span> <br>
+                    By <span class="author">{{ object.author }}</span>
+                </a>
               </div>
             </li>
 
