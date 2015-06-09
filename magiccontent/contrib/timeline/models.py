@@ -65,3 +65,7 @@ class EntryContent(BaseContent):
             kwargs={'entry_type': self.entry_type,
                     'entry_slug': self.slug,
                     'pk': self.pk})
+
+    @property
+    def tags_list(self):
+        return self.tags.all()

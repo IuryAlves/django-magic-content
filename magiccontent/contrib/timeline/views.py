@@ -46,6 +46,13 @@ class EntryDetailView(DetailView):
     model = EntryContent
     template_name = 'magiccontent/entrycontent/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(EntryDetailView,
+                        self).get_context_data(**kwargs)
+        entry = get_object_or_404(EntryContent, pk=self.kwargs.get('pk', None))
+        context['widget'] = entry.widget
+        return context
+
     def get_queryset(self):
         return self.model.objects.filter(
             entry_type=self.kwargs.get('entry_type'))

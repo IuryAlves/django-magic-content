@@ -25,3 +25,16 @@
     {% show_widget_page_tag widget content_list can_edit show_page=True %}
 
 {% endblock content %}
+
+{% block extrajs %}
+
+  <script>
+    $(document).ready(function() {
+
+      $('.nav_slide_button').click(function() {
+        $('.pull').slideToggle();
+      });
+    });
+  </script>
+
+{% endblock extrajs %}

@@ -2,36 +2,43 @@
 {% load flexcontent_tags %}
 <!-- widget: EntryContent:: default_page -->
 
-<article class="col-md-12">
+  <section class="content-one content-padding" id="content-one">
 
-    <header>
-      <h1 class="decorator">News</h1>
-    </header>
+    <div class="container container-padding">
+      <div class="row">
 
-    <div class="row">
-      <div class="col-md-12">
-        <ul id="timelinePage">
+        <div class="col-xs-12">
+          <center>
+            <h1>{{ widget.description }}</h1>
+          </center>
+        </div>
 
-          {% for object in object_list %}
+        <div class="col-xs-1"></div>
+        <div class="col-xs-8" style="background-color: white; padding: 20px;">
 
-            <li {% if can_edit %}class="{{ editable }}"{% endif %}>
-              <div class="timeline-widget">
-
-                {% if can_edit %}
-                {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-                {% endif %}
+          {% for content in object_list %}
+            <div class="col-xs-12 {% if can_edit %} darkBorder edit-block{% endif %}">
               
-                <a href="{{ object.get_entry_url }}">
-                    <span class="title">{{ object.title }}</span> <br>
-                    By <span class="author">{{ object.author }}</span>
-                </a>
-              </div>
-            </li>
+              {% show_editable_widget_tag widget.widget_type widget.id content.id can_edit %}
 
+              <h4>
+                <a href="{{ content.get_entry_url }}"><strong>{{ content.title |safe }}</strong></a>
+              </h4>
+              <p><strong>{{ content.created }}</strong> by <strong>{{ content.entry_author }}</strong></p>
+            </div>
           {% endfor %}
 
-        </ul>
-      </div>
-    </div>
+        </div>
 
-</article>
+        <div class="col-xs-3">
+          <p>
+            <a href="{% url 'core.landingpage' %}" class="btn-3d">Home</a>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+

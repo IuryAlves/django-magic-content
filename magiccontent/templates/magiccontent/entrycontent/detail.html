@@ -1,47 +1,82 @@
-{% extends 'frontend/themes/sydney/base.html' %}
+{% extends FRONTEND_THEME_BASE %}
 
-{% load flexcontent_tags %}
 {% load static %}
-
-{% block extracss %}
-<link href="{% static 'css/timeline.css' %}" rel="stylesheet" media="screen">
-{% endblock extracss %}
+{% load floppyforms %}
+{% load flexcontent_tags %}
 
 {% block navbar %}
-  {% show_widget_area_tag 'top-menu' 1 'menuitem' %}
+
+  {% show_widget_area_tag 'top-menu' can_edit 'menuitem' page_url=page_url %}
+
 {% endblock navbar %}
 
 {% block content %}
-<section class="dark-bg section-padding" id="entryDetail">
 
-  <div class="container">
+  <section class="content-one content-padding" id="content-one">
 
-    <div class="row">
+    <div class="container container-padding">
 
-      <div class="col-md-12">
-        <h1>{{ object.title }}</h1>
-        <p class="author">By {{ object.entry_author }}</p>
-        <p class="date">
-            Published: {{ object.created }} <br>
-            Updated: {{ object.updated }} 
-        </p>
-      </div>
+      <article>
 
-      <div class="col-md-12">
-        {{ object.long_content|safe }}
-      </div>
+        <div class="row">
 
+          <div class="col-md-10">
+
+            <div class="row">
+
+              <div class="col-md-12 {% if can_edit %}darkBorder edit-block{% endif %}">
+
+                {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+                <div class="content-item">
+                  <h3 style="min-height: 8px; ">
+                    {% for tag in object.tags_list %}
+                    <span class="badge" style="font-size: 22px; font-weight: 200;">{{ tag  }}</span>
+                    {% endfor %}
+                  </h3>
+                  <h2 style="min-height: 8px; ">{{ object.title |safe }} <br/>
+                  <small>On {{ object.created }}</small>
+                  </h2>
+                  
+                  <div>
+                    {{ object.long_content|safe }}
+                  </div>
+                  
+                </div> <!-- content-item -->
+
+              </div>
+              
+            </div>
+
+          </div>
+
+          <div class="col-md-2">
+            <p>
+              <a href="{% url 'timeline.entrycontent.showpage' 'news' widget.id %}" class="btn-3d">{{ widget.description }}</a>
+            </p>
+            <p>
+              <a href="{% url 'core.landingpage' %}" class="btn-3d">Home</a>
+            </p>
+          </div>
+
+        </div>
+
+      </article>
     </div>
+  </section>
 
-  </div>
-</section>
 
-{% endblock %}
-
+{% endblock content %}
 
 {% block extrajs %}
-<script src="{% static 'gallery/dropzone.js' %}"></script>
-{% endblock extrajs %}
 
-{% block footer_socialmedia %}
-{% endblock footer_socialmedia %}
+  <script>
+    $(document).ready(function() {
+
+      $('.nav_slide_button').click(function() {
+        $('.pull').slideToggle();
+      });
+    });
+  </script>
+
+{% endblock extrajs %}
