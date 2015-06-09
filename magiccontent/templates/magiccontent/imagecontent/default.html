@@ -1,8 +1,7 @@
 {% load static %}
 {% load cropping %}
-{% load thumbnail %}
 {% load flexcontent_tags %}
-<!-- widget: ImageContent:: default -->
+<!-- widget: ImageContent:: default (list) -->
 
 <article class="col-md-12">
 
@@ -31,11 +30,12 @@
 
               {% if object.picture %}
               <a href="{{ object.link_url }}" data-largesrc="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
-                <img src="{% thumbnail object.picture.picture 250x250 crop %}" alt="{{ object.title |safe }}"/>
+                <img width="260" src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" alt="{{ object.title |safe }}"/>
+
               </a>
               {% else %}
               <a href="#" data-largesrc="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">                
-                <img width="250" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
+                <img width="260" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" alt="{{ object.title |safe }}"/>
               </a>              
               {% endif %}
               <div class="stackimage-title">
