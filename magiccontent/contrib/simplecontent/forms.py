@@ -24,8 +24,8 @@ class SimpleContentForm(PictureForm):
     class Meta:
         model = SimpleContent
         fields = ('title', 'sub_title', 'short_content',
-                  'link_url', 'link_label', 'picture', 'picture_filter',
-                  'picture_cropping',)
+                  'link_url', 'link_label',
+                  'picture', 'picture_cropping', 'picture_filter',)
         widgets = {
             'picture': CustomCropImageWidget(SimpleContent, 'picture'),
             'picture_filter': RadioImageFilterSelect,

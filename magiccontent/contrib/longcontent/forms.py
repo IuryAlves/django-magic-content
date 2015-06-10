@@ -23,8 +23,8 @@ class LongContentForm(PictureForm):
 
     class Meta:
         model = LongContent
-        fields = ('title', 'long_content', 'picture', 'picture_cropping',
-                  'picture_filter', 'link_url', 'link_label',)
+        fields = ('title', 'long_content', 'link_url', 'link_label',
+                  'picture', 'picture_cropping', 'picture_filter', )
         widgets = {
             'picture': CustomCropImageWidget(LongContent, 'picture'),
             'picture_filter': RadioImageFilterSelect,
