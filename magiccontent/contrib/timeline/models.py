@@ -13,16 +13,13 @@ from taggit.managers import TaggableManager
 from magiccontent.abstract_models import BaseContent
 
 
-ENTRY_TYPES = (('news', _('News')),
-               ('event', _('Event')))
-
 ENTRY_ACCESS = (('private', _('Private')),
                 ('public', _('Public')))
 
 
 class EntryAuthor(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     about = models.TextField(blank=True)
 
     def __unicode__(self):
@@ -36,8 +33,6 @@ class EntryContent(BaseContent):
     entry_author = models.ForeignKey(EntryAuthor)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
-    entry_type = models.CharField(
-        _('entry type'), max_length=30, choices=ENTRY_TYPES)
     # default entry access: public
     entry_access = models.CharField(
         _('entry access'), max_length=30, choices=ENTRY_ACCESS,
@@ -45,7 +40,7 @@ class EntryContent(BaseContent):
     slug = models.SlugField(editable=False)
     picture_cropping = ImageRatioField('picture__picture', '960x960')
 
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     def _content(self):
         return self.long_content
@@ -62,8 +57,7 @@ class EntryContent(BaseContent):
     def get_entry_url(self):
         return reverse(
             'timeline.entrycontent.detail',
-            kwargs={'entry_type': self.entry_type,
-                    'entry_slug': self.slug,
+            kwargs={'entry_slug': self.slug,
                     'pk': self.pk})
 
     @property

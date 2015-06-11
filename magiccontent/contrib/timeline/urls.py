@@ -9,10 +9,10 @@ from .models import EntryContent
 from .views import EntryDetailView, ShowEntryContentPageView
 
 urlpatterns = patterns("",  # noqa
-    url(r'^(?P<entry_type>[-\w]+)/(?P<pk>\d+)/$',
+    url(r'^timeline/(?P<pk>\d+)/$',
         ShowEntryContentPageView.as_view(),
         name='timeline.entrycontent.showpage'),
-    url(r'^(?P<entry_type>[-\w]+)/(?P<entry_slug>[-\w]+)/(?P<pk>\d+)/$',
+    url(r'^timeline/(?P<entry_slug>[-\w]+)/(?P<pk>\d+)/$',
         EntryDetailView.as_view(), name='timeline.entrycontent.detail'),
 )
 urlpatterns += get_content_urls_for(EntryContent)

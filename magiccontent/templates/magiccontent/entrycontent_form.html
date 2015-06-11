@@ -29,13 +29,6 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <!-- author create form -->
-            <form method="post" action="#" id="authorCreateForm" style="display: none;">
-                {% csrf_token %}
-                {{ author_form }}
-                
-            </form>
-
 
             <!-- entry create/update form -->
             <form method='post' enctype="multipart/form-data" id="simpleContentForm" action="{{ request.path }}">{% csrf_token %}

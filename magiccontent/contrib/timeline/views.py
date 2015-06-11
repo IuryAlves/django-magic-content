@@ -3,15 +3,15 @@ from __future__ import unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView, TemplateView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.sites.models import Site
 
 from accounts.mixins import CanEditMixin
 
 from magiccontent.models import Widget
-from magiccontent.mixins import (EditableMixin, CreateContentMixin,
-                                 ListContentMixin)
-from .models import EntryContent
-from .forms import EntryContentForm, NaiveEntryAuthorForm
+from magiccontent.mixins import EditableMixin, ListContentMixin
+from .models import EntryAuthor, EntryContent
+from .forms import EntryContentForm
 
 
 class EntryContentMixin(object):
@@ -19,14 +19,22 @@ class EntryContentMixin(object):
     form_class = EntryContentForm
     template_name = 'magiccontent/entrycontent_form.html'
 
-    def get_context_data(self, *args, **kws):
-        context = super(EntryContentMixin, self).get_context_data(*args, **kws)
-        context['author_form'] = NaiveEntryAuthorForm
-        return context
+    def form_valid(self, form):
+        widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
+        author, _ = EntryAuthor.objects.get_or_create(user=self.request.user)
+
+        self.object = form.save(commit=False)
+        self.object.widget = widget
+        self.object.entry_author = author
+        # TODO: remove it from here
+        self.object.site = Site.objects.get_current()
+        self.object.save()
+        form.save_m2m()
+
+        return redirect(self.get_success_url())
 
 
-class EntryContentCreateView(CreateContentMixin, EntryContentMixin,
-                             EditableMixin, CreateView):
+class EntryContentCreateView(EntryContentMixin, EditableMixin, CreateView):
     pass
 
 
