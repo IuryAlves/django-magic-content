@@ -61,10 +61,6 @@ class EntryDetailView(DetailView):
         context['widget'] = entry.widget
         return context
 
-    def get_queryset(self):
-        return self.model.objects.filter(
-            entry_type=self.kwargs.get('entry_type'))
-
 
 class ShowEntryContentPageView(CanEditMixin, TemplateView):
     template_name = "magiccontent/timeline.html"
