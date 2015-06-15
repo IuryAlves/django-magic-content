@@ -47,6 +47,7 @@ class WidgetManager(SiteManager):
         new_widget, _ = super(WidgetManager, self).get_query_set() \
             .get_or_create(name=name, widget_type=widget_type,
                            style_template=style_template)
+        new_widget.description = new_widget.name
         new_widget.save()
         new_content = new_widget.get_widget_type.site_objects.create(
             widget=new_widget)
