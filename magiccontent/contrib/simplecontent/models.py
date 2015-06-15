@@ -20,3 +20,14 @@ class SimpleContent(BaseContent):
 
     def _content(self):
         return self.short_content
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'SimpleContent - List 1 (default)'),
+            ('list2', 'SimpleContent - List 2'),
+            ('list3', 'SimpleContent - List 3'),
+            ('list4', 'SimpleContent - List 4'),
+            ('slide_by_1', 'SimpleContent - Slide by 1'),
+            ('slide_by_3', 'SimpleContent - Slide by 3'), )
+        return style_list

@@ -15,3 +15,11 @@ class LongContent(BaseContent):
 
     def _content(self):
         return self.long_content
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'LongContent - List 1 (default)'),
+            ('list2', 'LongContent - List 2'),
+            ('list3', 'LongContent - List 3'), )
+        return style_list

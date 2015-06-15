@@ -21,3 +21,10 @@ class PageLink(BaseContent):
         _('link1 url'), max_length=255, default='#intro', blank=True)
     link1_label = models.CharField(
         _('link1 label'), max_length=64, default='link1', blank=True)
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'PageLink - Style 1 (default)'),
+            ('button', 'PageLink - Button'), )
+        return style_list

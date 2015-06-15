@@ -25,3 +25,13 @@ class BackgroundArea(BaseContent):
 
     def _content(self):
         return self.short_content
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'Background - Style 1 (default)'),
+            ('style2', 'Background - Style 2 - long'),
+            ('style3', 'Background - Style 3 - small'),
+            ('bg-slider1', 'Background - Slider 1'),
+            ('style4', 'Background - Style 4 - half'), )
+        return style_list

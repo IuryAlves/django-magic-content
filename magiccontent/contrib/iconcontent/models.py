@@ -57,3 +57,11 @@ class IconContent(BaseContent):
     @property
     def enable_picture(self):
         return False
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'IconContent - Small Icons (default)'),
+            ('bigicons', 'IconContent - Big Icons'),
+            ('circledicons', 'IconContent - Circled Icons'), )
+        return style_list

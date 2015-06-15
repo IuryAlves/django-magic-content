@@ -41,39 +41,9 @@ WIDGET_TYPES = (
     ('calendareventcontent', 'Calendar Events'),
 )
 
-# TODO: technical debt - make this items dynamic
-#       OR make each child give its styles
 TEMPLATE_STYLES = (
-    ('default', 'SimpleContent - List 1 (default)'),
-    ('list2', 'SimpleContent - List 2'),
-    ('list3', 'SimpleContent - List 3'),
-    ('list4', 'SimpleContent - List 4'),
-    ('slide_by_1', 'SimpleContent - Slide by 1'),
-    ('slide_by_3', 'SimpleContent - Slide by 3'),
-    ('default', 'LongContent - List 1 (default)'),
-    ('list2', 'LongContent - List 2'),
-    ('list3', 'LongContent - List 3'),
-    ('default', 'Background - Style 1 (default)'),
-    ('style2', 'Background - Style 2 - long'),
-    ('style3', 'Background - Style 3 - small'),
-    ('bg-slider1', 'Background - Slider 1'),
-    ('style4', 'Background - Style 4 - half'),
-    ('default', 'PageLink - Style 1 (default)'),
-    ('button', 'PageLink - Button'),
-    ('default', 'IconContent - Small Icons (default)'),
-    ('bigicons', 'IconContent - Big Icons'),
-    ('circledicons', 'IconContent - Circled Icons'),
-    ('default', 'ImageContent - List'),
-    ('caption1', 'ImageContent - Caption 1'),
-    ('caption2', 'ImageContent - Caption 2'),
-    ('caption3', 'ImageContent - Caption 3'),
-    ('caption4', 'ImageContent - Caption 4'),
-    ('caption5', 'ImageContent - Caption 5'),
-    ('default', 'Faq - general'),
-    ('default', 'MenuItem - default'),
-    ('default', 'TimelineEventContent - default'),
-    ('hidemenu', 'MenuItem - hidemenu'),
-    ('default', 'CalendarEventContent - default'),
+    ('must', 'be'),
+    ('implemented', 'by the child'),
 )
 
 
@@ -140,7 +110,5 @@ class Widget(Permalinkable, SiteModel):
             return self._get_content_model('simplecontent')
 
     def widget_types_list(self):
-        result_list = [
-            (id, label) for id, label
-            in TEMPLATE_STYLES if self.widget_type in label.lower()]
-        return result_list
+        """ returns the styles available for the given content """
+        return self.get_widget_type.style_list()

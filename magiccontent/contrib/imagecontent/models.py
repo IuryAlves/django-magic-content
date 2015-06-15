@@ -15,3 +15,14 @@ class ImageContent(BaseContent):
 
     def _content(self):
         return self.short_content
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'ImageContent - List'),
+            ('caption1', 'ImageContent - Caption 1'),
+            ('caption2', 'ImageContent - Caption 2'),
+            ('caption3', 'ImageContent - Caption 3'),
+            ('caption4', 'ImageContent - Caption 4'),
+            ('caption5', 'ImageContent - Caption 5'), )
+        return style_list

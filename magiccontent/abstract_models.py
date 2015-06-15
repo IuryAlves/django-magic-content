@@ -69,6 +69,11 @@ class BaseContent(SiteModel):
     def _content(self):
         pass
 
+    @classmethod
+    def style_list(cls_obj):
+        raise Exception("A 'style_list' method is missing for {0}".format(
+            cls_obj))
+
     @property
     def content(self):
         return self._content()
@@ -84,3 +89,4 @@ class BaseContent(SiteModel):
         this method must be overwritten as False
         """
         return True
+

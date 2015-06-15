@@ -69,3 +69,9 @@ class TimelineEventContent(BaseContent):
     @property
     def enable_picture(self):
         return False
+
+    @classmethod
+    def style_list(cls_obj):
+        style_list = (
+            ('default', 'TimelineEventContent - default'), )
+        return style_list
