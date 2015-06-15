@@ -35,9 +35,13 @@
                 <a href="#" id="goto-title">Title<br/><i class="fa fa-minus"></i></a>
               </li>
               <li role="presentation">
-                <a href="#" id="goto-content">Content<br/><i class="fa fa-file-text-o"></i></a></li>
+                <a href="#" id="goto-content">Content<br/><i class="fa fa-file-text-o"></i></a>
+              </li>
+              {% if object.enable_picture %}
               <li role="presentation">
-                <a href="#" id="goto-image">Image<br/><i class="fa fa-image"></i></a></li>
+                <a href="#" id="goto-image">Image<br/><i class="fa fa-image"></i></a>
+              </li>
+              {% endif %}
             </ul>
           </div>
         </div>
@@ -62,7 +66,7 @@
             </form> 
 
             {% comment %}Gallery Controls should appears only in object update{% endcomment %}
-            {% if object %}
+            {% if object and object.enable_picture %}
             <div class="col-lg-8" style="margin-bottom: 15px" id="galleryControls">
               <a href="#" class="action-upload btn btn-default btn-sm"><i class="fa fa-cloud-download" style="font-size: 26px;"></i><br/>Upload an image</a> <b>OR</b> 
               <a href="#" class="action-gallery btn btn-default btn-sm"><i class="fa fa-image" style="font-size: 26px;"></i><br/>Pick from a gallery</a>

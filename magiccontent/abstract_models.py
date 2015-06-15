@@ -76,3 +76,11 @@ class BaseContent(SiteModel):
     @property
     def model_name(self):
         return self._meta.model_name
+
+    @property
+    def enable_picture(self):
+        """
+        make contents have images manipulation, for contents such as Icon
+        this method must be overwritten as False
+        """
+        return True

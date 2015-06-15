@@ -38,7 +38,6 @@ class EntryContent(BaseContent):
         _('entry access'), max_length=30, choices=ENTRY_ACCESS,
         default=ENTRY_ACCESS[1][0])
     slug = models.SlugField(editable=False)
-    picture_cropping = ImageRatioField('picture__picture', '960x960')
 
     tags = TaggableManager(blank=True)
 
@@ -67,3 +66,7 @@ class EntryContent(BaseContent):
     @property
     def tags_list(self):
         return self.tags.all()
+
+    @property
+    def enable_picture(self):
+        return False

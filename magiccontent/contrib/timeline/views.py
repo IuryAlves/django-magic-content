@@ -17,12 +17,11 @@ from .forms import EntryContentForm
 class EntryContentMixin(object):
     model = EntryContent
     form_class = EntryContentForm
-    template_name = 'magiccontent/entrycontent_form.html'
+    template_name = 'magiccontent/simplecontent_form.html'
 
     def form_valid(self, form):
         widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
         author, _ = EntryAuthor.objects.get_or_create(user=self.request.user)
-        print "============> author: {0}".format(author)
         self.object = form.save(commit=False)
         self.object.widget = widget
         self.object.entry_author = author
@@ -30,7 +29,6 @@ class EntryContentMixin(object):
         self.object.site = Site.objects.get_current()
         self.object.save()
         form.save_m2m()
-
         return redirect(self.get_success_url())
 
 

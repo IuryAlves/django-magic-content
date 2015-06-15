@@ -53,3 +53,7 @@ class IconContent(BaseContent):
 
     def _content(self):
         return self.short_content
+
+    @property
+    def enable_picture(self):
+        return False
