@@ -7,7 +7,7 @@
     <header>
       {% if widget.description %}
         <h1 class="decorator">
-          <a href="{% url 'timeline.entrycontent.showpage' 'news' widget.pk %}">{{ widget.description }}</a>
+          <a href="{% url 'timeline.entrycontent.showpage' widget.pk %}">{{ widget.description }}</a>
         </h1>
       {% endif %}
 
