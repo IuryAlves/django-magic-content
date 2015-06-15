@@ -13,7 +13,7 @@ from taggit.managers import TaggableManager
 from magiccontent.abstract_models import BaseContent
 
 
-ENTRY_ACCESS = (('private', _('Private')),
+ENTRY_ACCESS = (('private', _('Private (only for logged users)')),
                 ('public', _('Public')))
 
 
@@ -30,7 +30,7 @@ class EntryContent(BaseContent):
 
     _widget_type = 'entrycontent'
 
-    entry_author = models.ForeignKey(EntryAuthor)
+    entry_author = models.ForeignKey(EntryAuthor, blank=True, null=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
     # default entry access: public
@@ -52,6 +52,10 @@ class EntryContent(BaseContent):
             self.slug = slugify(self.title)
 
         super(EntryContent, self).save(*args, **kws)
+
+    @property
+    def private(self):
+        return self.entry_access == 'private'
 
     @property
     def get_entry_url(self):

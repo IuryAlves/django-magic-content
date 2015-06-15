@@ -25,7 +25,7 @@
           <div class="content-item">
             {% if object.title %}
             <h3 style="min-height: 8px; ">
-              <a href="{{ object.get_entry_url }}">{{ object.title |safe }}</a>
+              <a href="{{ object.get_entry_url }}">{{ object.title |safe }} {% if object.private %} <i class="fa fa-lock"></i>{% endif %}</a>
             </h3>
             {% endif %}
             <span style="font-size: 24px; margin-top: 2px;">

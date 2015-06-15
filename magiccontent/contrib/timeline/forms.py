@@ -19,17 +19,10 @@ User = get_user_model()
 
 class EntryContentForm(PictureForm):
 
-    def __init__(self, *args, **kwargs):
-        super(EntryContentForm, self).__init__(*args, **kwargs)
-        # TODO: Find out a better way to do this
-        page_datalist = SitePage.site_objects.links_from_page('/home')
-        self.fields['link_url'].widget = TextInput(
-            datalist=tuple(page_datalist))
-
     class Meta:
         model = EntryContent
         fields = ('title', 'entry_access', 'long_content', 'tags', 'picture',
-                  'picture_cropping', 'picture_filter', 'link_url')
+                  'picture_cropping', 'picture_filter', )
         widgets = {
             'picture': CustomCropImageWidget(EntryContent, 'picture'),
             'picture_filter': RadioImageFilterSelect,

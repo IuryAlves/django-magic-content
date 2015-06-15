@@ -22,7 +22,7 @@ class EntryContentMixin(object):
     def form_valid(self, form):
         widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
         author, _ = EntryAuthor.objects.get_or_create(user=self.request.user)
-
+        print "============> author: {0}".format(author)
         self.object = form.save(commit=False)
         self.object.widget = widget
         self.object.entry_author = author

@@ -87,7 +87,7 @@ class NewWidgetForm(forms.ModelForm):
 
     class Meta:
         model = Widget
-        fields = ('name', 'widget_type',)
+        fields = ('widget_type', 'name', )
         widgets = {
             'widget_type': RadioWidgetTypeAllSelect,
         }
