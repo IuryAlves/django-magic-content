@@ -5,13 +5,13 @@ from django.contrib.auth import get_user_model
 
 import floppyforms.__future__ as forms
 
-from .models import EntryContent
+from .models import TimelineEventContent
 
 User = get_user_model()
 
 
-class EntryContentForm(forms.ModelForm):
+class TimelineEventContentForm(forms.ModelForm):
 
     class Meta:
-        model = EntryContent
+        model = TimelineEventContent
         fields = ('title', 'entry_access', 'long_content', 'tags', )

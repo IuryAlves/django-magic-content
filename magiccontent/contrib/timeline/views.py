@@ -10,13 +10,13 @@ from accounts.mixins import CanEditMixin
 
 from magiccontent.models import Widget
 from magiccontent.mixins import EditableMixin, ListContentMixin
-from .models import EntryAuthor, EntryContent
-from .forms import EntryContentForm
+from .models import EntryAuthor, TimelineEventContent
+from .forms import TimelineEventContentForm
 
 
-class EntryContentMixin(object):
-    model = EntryContent
-    form_class = EntryContentForm
+class TimelineEventContentMixin(object):
+    model = TimelineEventContent
+    form_class = TimelineEventContentForm
     template_name = 'magiccontent/simplecontent_form.html'
 
     def form_valid(self, form):
@@ -32,39 +32,44 @@ class EntryContentMixin(object):
         return redirect(self.get_success_url())
 
 
-class EntryContentCreateView(EntryContentMixin, EditableMixin, CreateView):
+class TimelineEventContentCreateView(TimelineEventContentMixin,
+                                     EditableMixin, CreateView):
     pass
 
 
-class EntryContentUpdateView(EntryContentMixin, EditableMixin, UpdateView):
+class TimelineEventContentUpdateView(TimelineEventContentMixin,
+                                     EditableMixin, UpdateView):
     pass
 
 
-class EntryContentDeleteView(EntryContentMixin, EditableMixin, DeleteView):
+class TimelineEventContentDeleteView(TimelineEventContentMixin,
+                                     EditableMixin, DeleteView):
     pass
 
 
-class EntryContentOrderListView(ListContentMixin, EntryContentMixin, ListView):
+class TimelineEventContentOrderListView(ListContentMixin,
+                                        TimelineEventContentMixin, ListView):
     pass
 
 
 class EntryDetailView(DetailView):
-    model = EntryContent
+    model = TimelineEventContent
     template_name = 'magiccontent/entrycontent/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView,
                         self).get_context_data(**kwargs)
-        entry = get_object_or_404(EntryContent, pk=self.kwargs.get('pk', None))
+        entry = get_object_or_404(TimelineEventContent,
+                                  pk=self.kwargs.get('pk', None))
         context['widget'] = entry.widget
         return context
 
 
-class ShowEntryContentPageView(CanEditMixin, TemplateView):
+class ShowTimelineEventContentPageView(CanEditMixin, TemplateView):
     template_name = "magiccontent/timeline.html"
 
     def get_context_data(self, **kwargs):
-        context = super(ShowEntryContentPageView,
+        context = super(ShowTimelineEventContentPageView,
                         self).get_context_data(**kwargs)
         widget = get_object_or_404(Widget, pk=self.kwargs.get('pk', None))
         context['widget'] = widget

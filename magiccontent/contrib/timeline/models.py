@@ -7,7 +7,6 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
-from image_cropping import ImageRatioField
 from taggit.managers import TaggableManager
 
 from magiccontent.abstract_models import BaseContent
@@ -26,9 +25,9 @@ class EntryAuthor(models.Model):
         return self.user.get_full_name()
 
 
-class EntryContent(BaseContent):
+class TimelineEventContent(BaseContent):
 
-    _widget_type = 'entrycontent'
+    _widget_type = 'timelineeventcontent'
 
     entry_author = models.ForeignKey(EntryAuthor, blank=True, null=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
@@ -50,7 +49,7 @@ class EntryContent(BaseContent):
         if not self.pk:
             self.slug = slugify(self.title)
 
-        super(EntryContent, self).save(*args, **kws)
+        super(TimelineEventContent, self).save(*args, **kws)
 
     @property
     def private(self):
