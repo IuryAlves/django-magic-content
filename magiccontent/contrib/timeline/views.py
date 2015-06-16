@@ -6,10 +6,10 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.sites.models import Site
 
-from accounts.mixins import CanEditMixin
-
 from magiccontent.models import Widget
 from magiccontent.mixins import EditableMixin, ListContentMixin
+
+from ...mixins import CanEditMixin
 from .models import EntryAuthor, TimelineEventContent
 from .forms import TimelineEventContentForm
 

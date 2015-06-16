@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from __future__ import absolute_import
 
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 
 from multisitesutils.models import SiteModel
@@ -28,6 +29,7 @@ class Area(SiteModel):
         return "{0} -> {1}".format(self.site, self.name)
 
 # TODO: the magiccontent shouldn't know its children
+# This types should be registed based on the installed content apps
 WIDGET_TYPES = (
     ('simplecontent', 'Simple Content'),
     ('iconcontent', 'Icon Content'),
@@ -88,26 +90,19 @@ class Widget(Permalinkable, SiteModel):
     @property
     def get_widget_type(self):
         _type = self.widget_type
-        if _type == 'simplecontent':
-            return self._get_content_model('simplecontent')
-        elif _type == 'longcontent':
-            return self._get_content_model('longcontent')
-        elif _type == 'iconcontent':
-            return self._get_content_model('iconcontent')
-        elif _type == 'background':
+        if _type == 'background':
             return self._get_content_model('backgroundarea')
         elif _type == 'pagelink':
             return self._get_content_model('pagelink')
-        elif _type == 'imagecontent':
-            return self._get_content_model('imagecontent')
         elif _type == 'menuitem':
             return self._get_content_model('menuitem')
-        elif _type == 'timelineeventcontent':
-            return self._get_content_model('timelineeventcontent')
-        elif _type == 'calendareventcontent':
-            return self._get_content_model('calendareventcontent')
         else:
-            return self._get_content_model('simplecontent')
+            try:
+                return self._get_content_model(_type)
+            except:
+                raise ImproperlyConfigured(
+                    'Could find a model for the widget type: {0}'
+                    .format(_type))
 
     def widget_types_list(self):
         """ returns the styles available for the given content """
