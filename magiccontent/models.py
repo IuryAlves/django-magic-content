@@ -44,8 +44,8 @@ WIDGET_TYPES = (
 )
 
 TEMPLATE_STYLES = (
-    ('must', 'be'),
-    ('implemented', 'by the child'),
+    ('default', 'styles must be'),
+    ('default', 'implement by the child contents'),
 )
 
 

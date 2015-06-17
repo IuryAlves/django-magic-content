@@ -10,10 +10,11 @@ from magiccontent.models import Widget
 from magiccontent.mixins import EditableMixin, ListContentMixin
 
 from ...mixins import CanEditMixin
-from .models import EntryAuthor, TimelineEventContent
+from .models import TimelineEventContent
 from .forms import TimelineEventContentForm
 
 
+# TODO: Use the generic Mixin instead
 class TimelineEventContentMixin(object):
     model = TimelineEventContent
     form_class = TimelineEventContentForm
@@ -21,14 +22,10 @@ class TimelineEventContentMixin(object):
 
     def form_valid(self, form):
         widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
-        author, _ = EntryAuthor.objects.get_or_create(user=self.request.user)
         self.object = form.save(commit=False)
         self.object.widget = widget
-        self.object.entry_author = author
-        # TODO: remove it from here
         self.object.site = Site.objects.get_current()
         self.object.save()
-        form.save_m2m()
         return redirect(self.get_success_url())
 
 

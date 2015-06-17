@@ -16,20 +16,10 @@ ENTRY_ACCESS = (('private', _('Private (only for logged users)')),
                 ('public', _('Public')))
 
 
-class EntryAuthor(models.Model):
-
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    about = models.TextField(blank=True)
-
-    def __unicode__(self):
-        return self.user.get_full_name()
-
-
 class TimelineEventContent(BaseContent):
 
     _widget_type = 'timelineeventcontent'
 
-    entry_author = models.ForeignKey(EntryAuthor, blank=True, null=True)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
     # default entry access: public
