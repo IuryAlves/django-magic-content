@@ -1,5 +1,6 @@
 {% extends FRONTEND_THEME_BASE %}
 
+{% load static %}
 {% load floppyforms %}
 {% load flexcontent_tags %}
 
@@ -13,6 +14,8 @@
 {% block navbar %}
 
     {% show_widget_area_tag 'top-menu' can_edit 'menuitem' page_url=page_url %}
+
+    <img style="width: 100%" src="{% static 'frontend/themes/sydney/img/g20-australia-desert.jpg' %}">
 
 {% endblock navbar %}
 
