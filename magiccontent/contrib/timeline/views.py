@@ -51,7 +51,7 @@ class TimelineEventContentOrderListView(ListContentMixin,
 
 class EntryDetailView(DetailView):
     model = TimelineEventContent
-    template_name = 'magiccontent/entrycontent/detail.html'
+    template_name = 'magiccontent/timelineeventcontent/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView,
