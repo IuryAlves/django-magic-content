@@ -57,9 +57,7 @@ class Widget(Permalinkable, SiteModel):
     widget_type = models.CharField(
         _('widget type'), max_length=32, default='simplecontent',
         choices=WIDGET_TYPES)
-    style_template = models.CharField(
-        _('Template Style'), max_length=128, default='default',
-        choices=TEMPLATE_STYLES)
+    style_template = models.CharField(max_length=128, default='default')
     description = models.CharField(
         _('description'), max_length=128, default='', blank=True)
     is_content_data = models.BooleanField('Content Data', default=True)

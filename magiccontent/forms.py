@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.utils.translation import ugettext_lazy as _
 import floppyforms.__future__ as forms
 
 from magiccontent.widgets import (RadioWidgetTypeSelect,
@@ -63,14 +64,14 @@ class WidgetForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WidgetForm, self).__init__(*args, **kwargs)
         widget = kwargs['instance']
-        self.fields['style_template'].choices = widget.widget_types_list()
+        self.fields['style_template'] = forms.ChoiceField(
+            label=_('Template Style'),
+            choices=widget.widget_types_list(),
+            widget=RadioWidgetStyleSelect())
 
     class Meta:
         model = Widget
         fields = ('description', 'style_template', )
-        widgets = {
-            'style_template': RadioWidgetStyleSelect,
-        }
 
 
 class NewWidgetForm(forms.ModelForm):
