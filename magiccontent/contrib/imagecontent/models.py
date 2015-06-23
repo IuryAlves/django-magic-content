@@ -21,8 +21,5 @@ class ImageContent(BaseContent):
         style_list = (
             ('default', 'ImageContent - List'),
             ('caption1', 'ImageContent - Caption 1'),
-            ('caption2', 'ImageContent - Caption 2'),
-            ('caption3', 'ImageContent - Caption 3'),
-            ('caption4', 'ImageContent - Caption 4'),
-            ('caption5', 'ImageContent - Caption 5'), )
+            ('caption2', 'ImageContent - Caption 2'), )
         return style_list
