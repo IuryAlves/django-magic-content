@@ -39,7 +39,12 @@
               </a>              
               {% endif %}
               <div class="stackimage-title">
-                <a href="#" data-tooltip data-tooltip-label="Details" data-tooltip-message="{{ object.content|truncatewords:10 }}"><span>{{ object.title |safe }}</span></a>
+                <a href="#">
+                  <span>{{ object.title |safe }}</span>
+                  {% if object.content %}
+                    <p style="font-size: 11px; word-spacing: 0; line-height: 16px; font-weight: normal;">{{ object.content|truncatewords:14 }}</p>
+                  {% endif %}
+                </a>
               </div>
               </div>
             </li>
