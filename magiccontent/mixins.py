@@ -73,7 +73,11 @@ class CreateContentMixin(object):
         self.object.widget = widget
         # TODO: remove it from here
         self.object.site = Site.objects.get_current()
+        new_object = self.object.pk is None
+        has_an_update_method = hasattr(self.object, 'get_absolute_url')
         self.object.save()
+        if new_object and has_an_update_method:
+            return redirect(self.object.get_absolute_url())
         return redirect(self.get_success_url())
 
 

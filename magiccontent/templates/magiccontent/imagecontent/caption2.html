@@ -1,4 +1,5 @@
-{% load thumbnail %}
+{% load static %}
+{% load cropping %}
 {% load flexcontent_tags %}
 <!-- widget: ImageContent:: caption1 -->
 
@@ -23,7 +24,12 @@
           <div class="content-item" style="text-align: left;">
 
       			<a class="caption caption-2" href="{{ object.link_url }}" data-title="{{ object.title |safe }}" data-description="{{ object.content }}">
-      			  <img src="{% thumbnail object.picture.picture 300x300 crop %}" alt="{{ object.title |safe }}"/>
+
+              {% if object.picture %}
+              <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" alt="{{ object.title |safe }}"/>
+              {% else %}
+              <img width="280" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}"/>
+              {% endif %}
       			</a>
 
           </div> <!-- content-item -->

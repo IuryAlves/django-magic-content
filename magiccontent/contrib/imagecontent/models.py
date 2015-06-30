@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
+
 from image_cropping import ImageRatioField
 
 from magiccontent.abstract_models import BaseContent
@@ -16,13 +18,14 @@ class ImageContent(BaseContent):
     def _content(self):
         return self.short_content
 
+    def get_absolute_url(self):
+        return reverse('flexcontent.imagecontent.update',
+                       args=[self.widget.pk, self.pk])
+
     @classmethod
     def style_list(cls_obj):
         style_list = (
             ('default', 'ImageContent - List'),
             ('caption1', 'ImageContent - Caption 1'),
-            ('caption2', 'ImageContent - Caption 2'),
-            ('caption3', 'ImageContent - Caption 3'),
-            ('caption4', 'ImageContent - Caption 4'),
-            ('caption5', 'ImageContent - Caption 5'), )
+            ('caption2', 'ImageContent - Caption 2'), )
         return style_list
