@@ -28,6 +28,12 @@ class Area(SiteModel):
     def __unicode__(self):
         return "{0} -> {1}".format(self.site, self.name)
 
+    def get_link_name(self):
+        return self.widget.name
+
+    def get_link_url(self):
+        return "#" + self.name
+
 # TODO: the magiccontent shouldn't know its children
 # This types should be registed based on the installed content apps
 WIDGET_TYPES = (

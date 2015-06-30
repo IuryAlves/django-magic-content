@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 
 import re
 
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.db.models.loading import get_model
+
 
 class BaseLink(object):
     model = None
@@ -13,9 +17,10 @@ class BaseLink(object):
             If the "model" has a classmethod called "get_link_queryset" it will
             be used here instead the default one.
         '''
-        model_cls_method = getattr(
-            self.model, 'get_link_queryset', self.model.objects.all)
-        return model_cls_method()
+        model_cls_method = getattr(self.model, 'get_link_queryset', None)
+        if model_cls_method:
+            return model_cls_method()
+        return self.model.objects.all()
 
     def _skip_instance(self, instance):
         ''' Try to find a pattern on instance's name, if so, it will be skipped
@@ -35,18 +40,20 @@ class BaseLink(object):
             If the "model" has a method called "get_link_url" it will
             be used here instead the default one.
         '''
-        model_method = getattr(
-            instance, 'get_link_url', instance.get_absolute_url)
-        return model_method()
+        model_method = getattr(instance, 'get_link_url', None)
+        if model_method:
+            return model_method()
+        return instance.get_absolute_url()
 
     def get_name(self, instance):
         '''
             If the "model" has a method called "get_link_name" it will
             be used here instead the default one.
         '''
-        model_method = getattr(
-            instance, 'get_link_name', instance.__unicode__)
-        return model_method()
+        model_method = getattr(instance, 'get_link_name', None)
+        if model_method:
+            return model_method()
+        return instance.__unicode__()
 
     def generate(self):
         ''' must return a list of a dict like that:
@@ -76,55 +83,33 @@ class BaseLink(object):
         return links_list
 
 
-class AnchorLink(BaseLink):
-    model = Area
-    skip_instance_rule = r'_\d+'  # skip strange link's name
+def link_builder(link_config):
+    full_link = link_config.get('full_reverse_link')
+    if full_link:
+        link_attr = {'name': full_link['name'],
+                     'url': reverse(full_link['url'])}
+        return [link_attr]
 
-    def get_name(self, instance):
-        return instance.widget.name
+    app_label, model_name = link_config['model'].split('.')
 
-    def get_url(self, instance):
-        return "#" + instance.name
+    class ModelLink(BaseLink):
+        model = get_model(app_label, model_name)
+        skip_instance_rule = link_config.get('skip_instance_rule', None)
 
-
-class ContactusLink(BaseLink):
-
-    def generate(self):
-        link = reverse('contacts.topic.create')
-        return [
-            {'name': 'Contact Us', 'url': link}
-        ]
+    return ModelLink().generate()
 
 
-class GalleryListLink(BaseLink):
+def generate_links():
+    registered_models = getattr(
+        settings, 'REGISTER_LINKS', None)
+    if not registered_models:
+        return []
 
-    def generate(self):
-        link = reverse('galleries.gallery.list')
-        return [
-            {'name': 'Galleries', 'url': link}
-        ]
-
-
-class GalleryLink(BaseLink):
-    model = Gallery
-
-    def get_name(self, instance):
-        return 'Gallery: ' + instance.name
-
-
-def links_builder(builder_list):
     links_list = []
-
-    for BuilderClass in builder_list:
-        builder_links_list = BuilderClass().generate()
-        links_list.extend(builder_links_list)
+    for link_config in registered_models:
+        links_list.extend(link_builder(link_config))
 
     return links_list
 
 
-SITE_LINKS = links_builder([
-    AnchorLink,
-    ContactusLink,
-    GalleryListLink,
-    GalleryLink,
-])
+SITE_LINKS = generate_links()
