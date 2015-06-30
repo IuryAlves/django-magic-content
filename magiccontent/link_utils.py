@@ -12,12 +12,18 @@ class BaseLink(object):
     model = None
     skip_instance_rule = None
 
+    def __init__(self, url_method='get_link_url', name_method='get_link_name',
+                 queryset_method='get_link_queryset'):
+        self.url_method = url_method
+        self.name_method = name_method
+        self.queryset_method = queryset_method
+
     def get_queryset(self):
         '''
             If the "model" has a classmethod called "get_link_queryset" it will
             be used here instead the default one.
         '''
-        model_cls_method = getattr(self.model, 'get_link_queryset', None)
+        model_cls_method = getattr(self.model, self.queryset_method, None)
         if model_cls_method:
             return model_cls_method()
         return self.model.objects.all()
@@ -40,7 +46,7 @@ class BaseLink(object):
             If the "model" has a method called "get_link_url" it will
             be used here instead the default one.
         '''
-        model_method = getattr(instance, 'get_link_url', None)
+        model_method = getattr(instance, self.url_method, None)
         if model_method:
             return model_method()
         return instance.get_absolute_url()
@@ -50,7 +56,7 @@ class BaseLink(object):
             If the "model" has a method called "get_link_name" it will
             be used here instead the default one.
         '''
-        model_method = getattr(instance, 'get_link_name', None)
+        model_method = getattr(instance, self.name_method, None)
         if model_method:
             return model_method()
         return instance.__unicode__()
@@ -90,13 +96,13 @@ def link_builder(link_config):
                      'url': reverse(full_link['url'])}
         return [link_attr]
 
-    app_label, model_name = link_config['model'].split('.')
+    app_label, model_name = link_config.pop('model').split('.')
 
     class ModelLink(BaseLink):
         model = get_model(app_label, model_name)
-        skip_instance_rule = link_config.get('skip_instance_rule', None)
+        skip_instance_rule = link_config.pop('skip_instance_rule', None)
 
-    return ModelLink().generate()
+    return ModelLink(**link_config).generate()
 
 
 def generate_links():

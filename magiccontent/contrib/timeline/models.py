@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
@@ -65,3 +64,15 @@ class TimelineEventContent(BaseContent):
         style_list = (
             ('default', 'TimelineEventContent - default'), )
         return style_list
+
+    def get_link_url(self):
+        return reverse('timeline.entrycontent.showpage', args=[self.widget.pk])
+
+    def get_link_name(self):
+        return 'Timeline Events'
+
+    def get_link_detail_url(self):
+        return self.get_entry_url
+
+    def get_link_detail_name(self):
+        return 'Timeline event: ' + self.title
