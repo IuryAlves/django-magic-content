@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 from multisitesutils.models import SiteModel
 from magicgallery.models import GalleryItem
 
-from .models import Widget
+from .models import Widget, SiteLink
 from .managers import BaseContentManager
 
 
@@ -51,8 +51,8 @@ class BaseContent(SiteModel):
         choices=PICTURE_FILTERS, blank=True)
     order = models.PositiveIntegerField(_('order'), default=99)
     is_active = models.BooleanField(_('active'), default=True)
-    link_url = models.CharField(
-        _('link url'), max_length=255, default='', blank=True)
+    site_link = models.ForeignKey(
+        SiteLink, verbose_name=_('link'), null=True, blank=True)
     link_label = models.CharField(
         _('link label'), max_length=64, default='', blank=True)
 
@@ -90,3 +90,8 @@ class BaseContent(SiteModel):
         """
         return True
 
+    @property
+    def link_url(self):
+        if self.site_link:
+            return self.site_link.url
+        return ''
