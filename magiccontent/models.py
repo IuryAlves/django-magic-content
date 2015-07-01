@@ -111,3 +111,14 @@ class Widget(Permalinkable, SiteModel):
     def widget_types_list(self):
         """ returns the styles available for the given content """
         return self.get_widget_type.style_list()
+
+
+class SiteLink(SiteModel):
+    name = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ['name']
+
+    def __unicode__(self):
+        return self.name

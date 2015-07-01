@@ -118,4 +118,4 @@ def generate_links():
     return links_list
 
 
-SITE_LINKS = generate_links()
+SITE_LINKS = sorted(generate_links())

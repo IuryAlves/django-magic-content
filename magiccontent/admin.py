@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Area, Widget
+from .models import Area, Widget, SiteLink
 
 
 class WidgetAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class WidgetAdmin(admin.ModelAdmin):
 
 admin.site.register(Widget, WidgetAdmin)
 admin.site.register(Area)
+admin.site.register(SiteLink)
