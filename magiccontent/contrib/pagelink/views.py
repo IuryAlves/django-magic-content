@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 
 from magiccontent.mixins import EditableMixin, CreateContentMixin
+from magiccontent.views import MagicDeleteView
 from .models import PageLink
 from .forms import PageLinkForm
 
@@ -23,5 +24,5 @@ class PageLinkUpdateView(PageLinkMixin, EditableMixin, UpdateView):
     pass
 
 
-class PageLinkDeleteView(PageLinkMixin, EditableMixin, DeleteView):
+class PageLinkDeleteView(PageLinkMixin, EditableMixin, MagicDeleteView):
     pass

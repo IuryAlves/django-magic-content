@@ -59,7 +59,7 @@
                     {% endif %}
                     <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                     {% if object %}
-                    <a href="{% url 'flexcontent.imagecontent.delete' object.widget.pk object.pk %}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
+                    <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
                     {% endif %}
                   </h1>
                 </div>

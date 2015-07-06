@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
@@ -15,6 +15,15 @@ from .models import Area, Widget
 from .forms import AreaForm, WidgetForm, NewWidgetForm
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
+
+class MagicDeleteView(DeleteView):
+    ''' generic view that allows delete through GET requests '''
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+
+# Base views
 
 class AreaUpdateView(EditableMixin, UpdateView):
     model = Area

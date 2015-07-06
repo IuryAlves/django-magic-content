@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.sites.models import Site
 
 from magiccontent.models import Widget
 from magiccontent.mixins import EditableMixin, ListContentMixin
+from magiccontent.views import MagicDeleteView
 
 from ...mixins import CanEditMixin
 from .models import TimelineEventContent
@@ -40,7 +41,7 @@ class TimelineEventContentUpdateView(TimelineEventContentMixin,
 
 
 class TimelineEventContentDeleteView(TimelineEventContentMixin,
-                                     EditableMixin, DeleteView):
+                                     EditableMixin, MagicDeleteView):
     pass
 
 

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
+from magiccontent.views import MagicDeleteView
 from .models import LongContent
 from .forms import LongContentForm
 
@@ -25,7 +26,7 @@ class LongContentUpdateView(LongContentMixin, EditableMixin, UpdateView):
     pass
 
 
-class LongContentDeleteView(LongContentMixin, EditableMixin, DeleteView):
+class LongContentDeleteView(LongContentMixin, EditableMixin, MagicDeleteView):
     pass
 
 

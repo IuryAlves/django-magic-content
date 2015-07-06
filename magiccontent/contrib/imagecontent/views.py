@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
+from magiccontent.views import MagicDeleteView
 from .models import ImageContent
 from .forms import ImageContentForm
 
@@ -25,10 +26,9 @@ class ImageContentUpdateView(ImageContentMixin, EditableMixin, UpdateView):
     pass
 
 
-class ImageContentDeleteView(ImageContentMixin, EditableMixin, DeleteView):
-
-    def get(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
+class ImageContentDeleteView(ImageContentMixin, EditableMixin,
+                             MagicDeleteView):
+    pass
 
 
 class ImageContentOrderListView(ListContentMixin, ImageContentMixin, ListView):
