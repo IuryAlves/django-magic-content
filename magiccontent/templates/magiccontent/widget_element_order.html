@@ -1,4 +1,4 @@
-{% extends 'magiccontent/base_flexcontent.html' %}
+{% extends 'magiccontent/base_magiccontent.html' %}
 
 {% load staticfiles %}
 {% load floppyforms %}
@@ -37,7 +37,7 @@
       <ul class="handles list">
 			  {% for content in content_list %}
           <li role="option" aria-grabbed="false" draggable="true"
-            data-url="{% url 'flexcontent.api.content_order.update' content.model_name content.widget.id content.pk %}">
+            data-url="{% url 'magiccontent.api.content_order.update' content.model_name content.widget.id content.pk %}">
             <span>::</span> {{ content.title }}
             <div class="pull-right">
               <div class="onoffswitch">
@@ -62,7 +62,7 @@
 
     <div class="bottom-fix-menu" align="center">
       <h1>Elements
-        <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
+        <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
       </h1>
     </div>
 
@@ -106,7 +106,7 @@
               var content_checked = self.is(":checked");
 
               $.ajax({
-                  url: "/flexcontent/api/" + model_name + "/is_active/" + widget_id + "/" + content_id + "/",
+                  url: "/magiccontent/api/" + model_name + "/is_active/" + widget_id + "/" + content_id + "/",
                   type: "POST",
                   dataType: "json",
                   data: {

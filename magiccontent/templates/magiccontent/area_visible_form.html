@@ -1,4 +1,4 @@
-{% extends 'magiccontent/base_flexcontent.html' %}
+{% extends 'magiccontent/base_magiccontent.html' %}
 
 {% load staticfiles %}
 {% load floppyforms %}
@@ -58,7 +58,7 @@
         	</table>
             <div class="bottom-fix-menu" align="center">
               <h1>Areas
-                <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
+                <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
               </h1>
             </div>        	
         </div>
@@ -87,7 +87,7 @@
                 var area_checked = self.is(":checked");
 
                 $.ajax({
-                    url: "/flexcontent/api/area/" + area_id + "/",
+                    url: "/magiccontent/api/area/" + area_id + "/",
                     type: "POST",
                     dataType: "json",
                     data: {

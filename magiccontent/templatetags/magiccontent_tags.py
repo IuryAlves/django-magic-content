@@ -87,9 +87,9 @@ def show_editable_area_tag(area_id='', widget_id='', can_edit=False, area_name='
 @register.inclusion_tag('magiccontent/show_editable_widget_tag.html')
 def show_editable_widget_tag(widget_type='', widget_id='', content_id='',
                              can_edit=False):
-    content_create_url = 'flexcontent.%s.create' % widget_type
-    content_update_url = 'flexcontent.%s.update' % widget_type
-    content_order_url = 'flexcontent.%s.order' % widget_type
+    content_create_url = 'magiccontent.%s.create' % widget_type
+    content_update_url = 'magiccontent.%s.update' % widget_type
+    content_order_url = 'magiccontent.%s.order' % widget_type
 
     create_url = reverse(content_create_url, kwargs={'widget_pk': widget_id})
     update_url = reverse(content_update_url, kwargs={'widget_pk': widget_id,

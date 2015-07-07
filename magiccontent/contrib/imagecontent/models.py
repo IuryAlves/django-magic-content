@@ -19,7 +19,7 @@ class ImageContent(BaseContent):
         return self.short_content
 
     def get_absolute_url(self):
-        return reverse('flexcontent.imagecontent.update',
+        return reverse('magiccontent.imagecontent.update',
                        args=[self.widget.pk, self.pk])
 
     @classmethod

@@ -1,4 +1,4 @@
-{% extends 'magiccontent/base_flexcontent.html' %}
+{% extends 'magiccontent/base_magiccontent.html' %}
 
 {% load staticfiles %}
 {% load floppyforms %}
@@ -57,7 +57,7 @@
                     {% else %}
                       <input type="submit" class="btn btn-lg btn-success" value="Continue" />
                     {% endif %}
-                    <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
+                    <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                     {% if object %}
                     <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
                     {% endif %}

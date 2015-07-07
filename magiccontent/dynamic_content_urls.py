@@ -22,20 +22,20 @@ def get_content_urls_for(model_content):
 
         if view_row['view_type'] in ['create', 'order']:
 
-            row = url(r'flexcontent/{0}/(?P<widget_pk>\d+)/{1}/$'.format(
+            row = url(r'magiccontent/{0}/(?P<widget_pk>\d+)/{1}/$'.format(
                 view_row['model_name'], view_row['view_type']),
                 view_row['view_class'].as_view(),
-                name='flexcontent.{0}.{1}'.format(
+                name='magiccontent.{0}.{1}'.format(
                     view_row['model_name'], view_row['view_type'])
             )
 
         elif view_row['view_type'] in ['update', 'delete']:
 
             row = url(
-                r'flexcontent/{0}/(?P<widget_pk>\d+)/{1}/(?P<pk>\d+)/$'.
+                r'magiccontent/{0}/(?P<widget_pk>\d+)/{1}/(?P<pk>\d+)/$'.
                 format(view_row['model_name'], view_row['view_type']),
                 view_row['view_class'].as_view(),
-                name='flexcontent.{0}.{1}'.format(
+                name='magiccontent.{0}.{1}'.format(
                     view_row['model_name'], view_row['view_type'])
             )
 

@@ -7,9 +7,9 @@
       {% if can_edit %}
       <div class="edit-block-controls edit-popup">
 
-          <a title="Edit Style" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-style">Style</a>
+          <a title="Edit Style" href="{% url 'magiccontent.widget.update' widget.id %}" class="edit-block-style">Style</a>
 
-          <a title="Edit element" href="{% url 'flexcontent.pagelink.update' widget.id object.id %}" class="edit-block-edit">Edit</a>
+          <a title="Edit element" href="{% url 'magiccontent.pagelink.update' widget.id object.id %}" class="edit-block-edit">Edit</a>
       </div>
       {% endif %}
 

@@ -99,5 +99,5 @@ class BaseContent(SiteModel):
     @property
     def delete_url(self):
         # TODO: find a way to use reverse here
-        return '/flexcontent/flexcontent/{0}/{1}/delete/{2}/'.format(
+        return '/magiccontent/magiccontent/{0}/{1}/delete/{2}/'.format(
             self._meta.model_name, self.widget.pk, self.pk)

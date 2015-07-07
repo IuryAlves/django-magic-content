@@ -21,7 +21,7 @@ class AreaUpdateViewTest(TestCase):
         site = Site.objects.get_current()
         SiteOwner.objects.create(user=self.user, site=site)
         self.instance = AreaFactory()
-        self.url = reverse('flexcontent.area.update', args=[self.instance.pk])
+        self.url = reverse('magiccontent.area.update', args=[self.instance.pk])
 
         self.client.login(
             username=self.user.username, password=DEFAULT_USER_PASSWORD)
@@ -34,13 +34,13 @@ class AreaUpdateViewTest(TestCase):
     def test_get_response(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'flexcontent/area_form.html')
+        self.assertTemplateUsed(response, 'magiccontent/area_form.html')
 
     def test_change_widget(self):
         new_widget = WidgetFactory()
         data = {'widget': new_widget.pk}
         response = self.client.post(self.url, data=data)
-        success_url = reverse('flexcontent.windows_close')
+        success_url = reverse('magiccontent.windows_close')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, success_url)
 

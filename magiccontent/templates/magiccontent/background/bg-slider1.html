@@ -1,6 +1,6 @@
 {% load static %}
 {% load cropping %}
-{% load flexcontent_tags %}
+{% load magiccontent_tags %}
 <!-- widget: SimpleContent:: bg-slider1 -->
 
 <div class="bg-slider-1">
@@ -19,9 +19,9 @@
 
         {% if can_edit %}
         <div class="edit-block-controls edit-popup">
-          <a title="Edit Style" target="_blank" href="{% url 'flexcontent.widget.update' widget.id %}" class="edit-block-add">Style
+          <a title="Edit Style" target="_blank" href="{% url 'magiccontent.widget.update' widget.id %}" class="edit-block-add">Style
           </a>
-          <a title="Edit element" target="_blank" href="{% url 'flexcontent.backgroundarea.update' widget.id obj.id %}" class="edit-block-edit">Edit</a>      
+          <a title="Edit element" target="_blank" href="{% url 'magiccontent.backgroundarea.update' widget.id obj.id %}" class="edit-block-edit">Edit</a>      
         </div>
         {% endif %}
 

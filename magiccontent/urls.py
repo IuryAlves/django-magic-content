@@ -22,27 +22,28 @@ urlpatterns = patterns('',  # noqa
         AreaUpdateVisibilityViewDetail.as_view()),
     url(r'^api/{0}/order/(?P<widget_pk>\d+)/(?P<pk>\d+)/$'.format(
         content_regex), ContentOrderUpdate.as_view(),
-        name='flexcontent.api.content_order.update'),
+        name='magiccontent.api.content_order.update'),
     url(r'^api/{0}/is_active/(?P<widget_pk>\d+)/(?P<pk>\d+)/$'.format(
         content_regex), ContentIsActiveUpdate.as_view(),
-        name='flexcontent.api.content_isactive.update'),
+        name='magiccontent.api.content_isactive.update'),
 
     # Area
-    url(r'^flexcontent/area/update/(?P<pk>\d+)/$', AreaUpdateView.as_view(),
-        name='flexcontent.area.update'),
-    url(r'^flexcontent/area/visible/update/$', AreaVisibleUpdateView.as_view(),
-        name='flexcontent.area.visible.update'),
+    url(r'^magiccontent/area/update/(?P<pk>\d+)/$', AreaUpdateView.as_view(),
+        name='magiccontent.area.update'),
+    url(r'^magiccontent/area/visible/update/$',
+        AreaVisibleUpdateView.as_view(),
+        name='magiccontent.area.visible.update'),
 
     # Widget
-    url(r'^flexcontent/widget/update/(?P<pk>\d+)/$',
-        StyleWidgetUpdateView.as_view(), name='flexcontent.widget.update'),
+    url(r'^magiccontent/widget/update/(?P<pk>\d+)/$',
+        StyleWidgetUpdateView.as_view(), name='magiccontent.widget.update'),
 
-    url(r'^flexcontent/widget/create/(?P<area_pk>\d+)/$',
+    url(r'^magiccontent/widget/create/(?P<area_pk>\d+)/$',
         WidgetCreateView.as_view(),
-        name='flexcontent.widget.create'),
+        name='magiccontent.widget.create'),
 
-    url(r'^flexcontent/windows_close/$', TemplateView.as_view(
+    url(r'^magiccontent/windows_close/$', TemplateView.as_view(
         template_name="magiccontent/windows_close.html"),
-        name='flexcontent.windows_close'),
+        name='magiccontent.windows_close'),
 
 )

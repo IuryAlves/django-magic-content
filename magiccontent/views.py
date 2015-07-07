@@ -59,7 +59,7 @@ class WidgetCreateView(EditableMixin, CreateView):
             widget_type=self.object.widget_type,
             style_template=self.object.style_template,
             name=self.object.name)
-        area_url = reverse("flexcontent.area.update",
+        area_url = reverse("magiccontent.area.update",
                            kwargs={'pk': area_pk})
         return redirect(area_url)
 

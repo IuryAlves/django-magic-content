@@ -1,4 +1,4 @@
-{% extends 'magiccontent/base_flexcontent.html' %}
+{% extends 'magiccontent/base_magiccontent.html' %}
 
 {% load staticfiles %}
 {% load floppyforms %}
@@ -31,7 +31,7 @@
                 <div class="bottom-fix-menu" align="center">
                   <h1>{{ object.name }}
                     <input type="submit" class="btn btn-lg btn-success" value="Save" />
-                    <a href="{% url 'flexcontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
+                    <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                   </h1>
                 </div>
 
