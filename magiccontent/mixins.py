@@ -47,7 +47,7 @@ class OwnerRequiredMixin(AccessMixin):
 
 class EditableMixin(OwnerRequiredMixin):
 
-    success_url = reverse_lazy('flexcontent.windows_close')
+    success_url = reverse_lazy('magiccontent.windows_close')
 
     def get_context_data(self, *args, **kws):
         ''' provides the default_gallery to upload files '''
