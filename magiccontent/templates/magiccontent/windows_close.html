@@ -15,7 +15,10 @@
 
 	<script type="text/javascript">
 	  $(function() {
-		 window.parent.$.magnificPopup.close();
+        {% if not request.GET.dont_reload %}
+         window.parent.location.reload();
+        {% endif %}
+         window.parent.$.magnificPopup.close();
 	  });
 	</script>
 

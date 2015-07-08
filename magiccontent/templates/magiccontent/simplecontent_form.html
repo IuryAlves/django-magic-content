@@ -55,7 +55,7 @@
                 <div class="bottom-fix-menu" align="center">
                   <h1>{{ object.widget.name }}
                     <input type="submit" class="btn btn-lg btn-success" value="Save" />
-                    <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Cancel</a>
+                    <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                     {% if object %}
                     <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
                     {% endif %}
