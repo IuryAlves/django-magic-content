@@ -155,3 +155,11 @@ def content_post_save_handler(sender, **kwargs):
 
     if model_is_allowed(instance):
         call_command('generate_site_links')
+
+
+@receiver(models.signals.pre_delete)
+def content_pre_delete_handler(sender, **kwargs):
+    instance = kwargs.get('instance')
+
+    if model_is_allowed(instance):
+        call_command('generate_site_links')
