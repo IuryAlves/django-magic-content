@@ -4,7 +4,10 @@ from __future__ import absolute_import
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ImproperlyConfigured
+from django.core.management import call_command
 from django.db import models
+from django.dispatch import receiver
+from django.conf import settings
 
 from multisitesutils.models import SiteModel
 
@@ -122,3 +125,33 @@ class SiteLink(SiteModel):
 
     def __unicode__(self):
         return self.name
+
+
+# ####### Signals
+
+def model_is_allowed(instance):
+    ''' avoid overhead, just allow models listed on settings.REGISTER_LINKS '''
+
+    _meta = instance._meta
+    app = _meta.app_label
+    model_name = _meta.object_name
+    links = getattr(settings, 'REGISTER_LINKS', None)
+    if links is None:
+        return False
+
+    model_list = map(
+        lambda k: k['model'], filter(lambda k: 'model' in k.keys(), links)
+    )
+
+    if '{0}.{1}'.format(app, model_name) in model_list:
+        return True
+
+    return False
+
+
+@receiver(models.signals.post_save)
+def content_post_save_handler(sender, **kwargs):
+    instance = kwargs.get('instance')
+
+    if model_is_allowed(instance):
+        call_command('generate_site_links')
