@@ -9,10 +9,11 @@ from magiccontent.link_utils import SITE_LINKS
 
 
 class Command(BaseCommand):
-    ''' Generates all links to the current site '''
+    ''' Generates all links to the current site
+        Note: call this command only on setup.
+    '''
 
     def handle(self, *args, **options):
-        SiteLink.site_objects.all().delete()
 
         for link in SITE_LINKS:
             SiteLink.site_objects.create(name=link['name'], url=link['url'])
