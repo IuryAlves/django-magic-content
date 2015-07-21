@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import re
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.db.models.loading import get_model
 
 
@@ -26,7 +26,10 @@ class BaseLink(object):
         model_cls_method = getattr(self.model, self.queryset_method, None)
         if model_cls_method:
             return model_cls_method()
-        return self.model.objects.all()
+        elif self.model:
+            return self.model.objects.all()
+        else:
+            return []
 
     def _skip_instance(self, instance):
         ''' Try to find a pattern on instance's name, if so, it will be skipped
@@ -93,10 +96,13 @@ def link_builder(link_config):
     full_link = link_config.get('full_reverse_link')
     if full_link:
         link_attr = {'name': full_link['name'],
-                     'url': reverse(full_link['url'])}
+                     'url': reverse_lazy(full_link['url'])}
         return [link_attr]
 
-    app_label, model_name = link_config.pop('model').split('.')
+    try:
+        app_label, model_name = link_config.pop('model').split('.')
+    except KeyError:
+        return []
 
     class ModelLink(BaseLink):
         model = get_model(app_label, model_name)
