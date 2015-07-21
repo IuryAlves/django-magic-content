@@ -5,11 +5,10 @@
 
     <header>
       {% if widget.description %}
-      <h1 class="decorator">{{ widget.description }}</h1>
+        <h1 class="decorator">{{ widget.description }}</h1>
       {% endif %}
 
       {% show_editable_area_tag area.id widget.id can_edit area.name %}
-
     </header>
 
     <div class="row margin-big">
@@ -19,18 +18,16 @@
 
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
-          <div class="content-item light-box box-hover">            
+          <div class="content-item light-box box-hover">
+            {% if object.link_url %}<a href="{{ object.link_url }}">{% endif %}
             <h2>
               <i class="fa {{ object.icon }} iconfont-lg"></i>
               {% if object.title %}
                 <span>{{ object.title }}</span>
               {% endif %}
             </h2>
+            {% if object.link_url %}</a>{% endif %}
             <p>{{ object.content }}</p>
-            {% if object.link_label %}
-              <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
-            {% endif %}
-            
           </div> <!-- content-item -->       
 
         </div>
