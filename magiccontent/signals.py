@@ -11,7 +11,6 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from .models import SiteLink
-from .link_utils import link_builder
 
 
 def get_model_link_config(instance):
@@ -38,15 +37,21 @@ def get_model_link_config(instance):
 def content_post_save_handler(sender, **kwargs):
 
     instance = kwargs.get('instance')
-    link_config = get_model_link_config(instance)
+    link_cfg = get_model_link_config(instance)
+    link_cfg = link_cfg and link_cfg.copy() or None
 
-    if link_config:
-        links_for_model = link_builder(link_config)
+    if link_cfg:
+        # avoid circular importing (import only whenthe right model is found)
+        from .link_utils import link_builder
+
+        model_str = link_cfg['model']
+        links_for_model = link_builder(link_cfg)
 
         for link_item in links_for_model:
             site_link, _ = SiteLink.site_objects.get_or_create(
-                origin_model=link_config['model'],
+                origin_model=model_str,
                 origin_model_pk=instance.pk,
+                url=link_item.pop('url'),
                 defaults=link_item)
 
 
