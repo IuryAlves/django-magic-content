@@ -116,7 +116,7 @@ class Widget(Permalinkable, SiteModel):
 class SiteLink(SiteModel):
     name = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
-    origin_model = models.CharField(max_length=40, null=True, blank=True)
+    origin_model = models.CharField(max_length=255, null=True, blank=True)
     origin_model_pk = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:

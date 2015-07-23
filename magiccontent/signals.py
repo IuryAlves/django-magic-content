@@ -61,11 +61,7 @@ def content_pre_delete_handler(sender, **kwargs):
     link_config = get_model_link_config(instance)
 
     if link_config:
-        try:
-            link = SiteLink.site_objects.get(origin_model=link_config['model'],
+        links = SiteLink.site_objects.filter(origin_model=link_config['model'],
                                              origin_model_pk=instance.pk)
-        except SiteLink.DoesNotExist:
-            link = None
-
-        if link:
-            link.delete()
+        if links:
+            links.delete()
