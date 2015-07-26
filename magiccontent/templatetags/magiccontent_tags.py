@@ -34,8 +34,12 @@ def show_widget_area_tag(area_name, can_edit=False,
         area.save()
 
     content_list = Widget.site_objects.list_content_from_type(area.widget)
-
-    first_item = content_list[0]
+    if not content_list:
+        first_item = area.widget.get_widget_type.site_objects.create(
+            widget=area.widget)
+        first_item.save()
+    else:
+        first_item = content_list[0]
 
     # TODO: find a better place to add those CSS style classes names
     editable = 'darkBorder edit-block' if can_edit else ''
