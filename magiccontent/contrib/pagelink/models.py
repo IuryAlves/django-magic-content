@@ -17,10 +17,6 @@ class PageLink(BaseContent):
     picture_cropping = ImageRatioField('picture__picture', '1600x989')
     sub_title = models.CharField(
         _('sub title'), max_length=128, default='', blank=True)
-    link1_url = models.CharField(
-        _('link1 url'), max_length=255, default='#intro', blank=True)
-    link1_label = models.CharField(
-        _('link1 label'), max_length=64, default='link1', blank=True)
 
     @classmethod
     def style_list(cls_obj):
@@ -28,3 +24,14 @@ class PageLink(BaseContent):
             ('default', 'PageLink - Style 1 (default)'),
             ('button', 'PageLink - Button'), )
         return style_list
+
+    # bellow properties is only to keep de old fields link1_something working
+    @property
+    def link1_url(self):
+        if self.site_link:
+            return self.site_link.url
+        return ''
+
+    @property
+    def link1_label(self):
+        return self.link_label
