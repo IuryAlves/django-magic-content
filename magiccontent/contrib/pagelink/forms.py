@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
-import floppyforms.__future__ as forms
+# import floppyforms.__future__ as forms
 
-from magiccontent.models import SiteLink
+# from magiccontent.models import SiteLink
 from magiccontent.forms import PictureForm
 from magiccontent.widgets import CustomCropImageWidget
 from .models import PageLink
@@ -11,23 +11,29 @@ from .models import PageLink
 
 class PageLinkForm(PictureForm):
 
-    def __init__(self, *args, **kwargs):
+    # TODO: check bellow TODO
+    '''def __init__(self, *args, **kwargs):
         super(PageLinkForm, self).__init__(*args, **kwargs)
         links_datalist = SiteLink.site_objects.all()
 
         self.fields['link'] = forms.CharField(
             widget=forms.TextInput(datalist=tuple(links_datalist)),
             required=False)
+    '''
 
     class Meta:
         model = PageLink
-        fields = ('title', 'sub_title',
+        fields = ('title', 'sub_title', 'site_link',
                   'link_label', 'picture', 'picture_cropping',)
         widgets = {
             'picture': CustomCropImageWidget(PageLink, 'picture'),
         }
 
-    def save(self, commit=True, *args, **kws):
+    # TODO: make this for all forms:
+    #       add a text field like to hold custom links
+    #       when a user fill that field, a new SiteLink instance will be
+    #       created.
+    '''def save(self, commit=True, *args, **kws):
         instance = super(PageLinkForm, self).save(commit=False, *args, **kws)
         data = self.cleaned_data
         link = data.get('link')
@@ -47,4 +53,4 @@ class PageLinkForm(PictureForm):
 
             instance.site_link = site_link
 
-        instance.save()
+        instance.save()'''
