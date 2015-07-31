@@ -47,13 +47,13 @@
         </div>
 
         <div class="col-sm-9">
-            <h1>Content details <small>{{ object.widget.widget_type }} ({{ object.widget.style_template }})</small> </h1>
+            <h1>{{ object.widget.name }} <small>{{ object.widget.widget_type }}</small></h1>
             <form method='post' enctype="multipart/form-data" id="simpleContentForm" action="{{ request.path }}">{% csrf_token %}
 
                 {{ form }}
 
                 <div class="bottom-fix-menu" align="center">
-                  <h1>{{ object.widget.name }}
+                  <h1>
                     <input type="submit" class="btn btn-lg btn-success" value="Save" />
                     <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                     {% if object %}

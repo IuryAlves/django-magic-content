@@ -44,14 +44,14 @@
 
         <div class="col-sm-9">
 
-            <h1>Content details <small>{{ object.widget.widget_type }} ({{ object.widget.style_template }})</small> </h1>
+            <h1>{{ object.widget.name }} <small>{{ object.widget.widget_type }}</small></h1>
 
             <form method='post' enctype="multipart/form-data" id="simpleContentForm" action="{{ request.path }}">{% csrf_token %}
 
                 {{ form }}  
 
                 <div class="bottom-fix-menu" align="center">
-                  <h1>{{ object.widget.name }}
+                  <h1>
                     {% if object and object.picture %}
                       <input type="submit" class="btn btn-lg btn-success" value="Save" />
                     {% else %}
