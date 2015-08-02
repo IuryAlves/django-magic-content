@@ -85,7 +85,8 @@ def show_editable_area_tag(area_id='', widget_id='', can_edit=False, area_name='
     return {'area_id': area_id,
             'widget_id': widget_id,
             'area_name': area_name,
-            'can_edit': can_edit}
+            'can_edit': can_edit,
+            'widget': Widget.site_objects.get(pk=int(widget_id))}
 
 
 @register.inclusion_tag('magiccontent/show_editable_widget_tag.html')
