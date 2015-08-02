@@ -1,7 +1,7 @@
 {% if can_edit %}
   <div class="edit-block-controls edit-popup">
-      <a title="Edit element" href="{{ update_url }}" class="edit-block-edit">Edit</a>          
-      <a title="Add new element" href="{{ create_url }}" class="edit-block-add">Add</a>
-      <a title="Re order elements" href="{{ order_url }}">ORDER</a>
+      <a title="Edit this content" href="{{ update_url }}" class="edit-block-edit"><i class="fa fa-pencil"></i></a>
+      <a title="Add a new content" href="{{ create_url }}" class="edit-block-add"><i class="fa fa-plus"></i></a>
+      <a title="Change contents' ordering" href="{{ order_url }}"><i class="fa fa-sort-alpha-asc"></i></a>
   </div>
 {% endif %}
