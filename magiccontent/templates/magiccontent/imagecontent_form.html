@@ -44,7 +44,7 @@
 
         <div class="col-sm-9">
 
-            <h1>{{ object.widget.name }} <small>{{ object.widget.widget_type }}</small></h1>
+            <h1>{{ object.widget.name }} <small>{{ object.widget.description }}</small></h1>
 
             <form method='post' enctype="multipart/form-data" id="simpleContentForm" action="{{ request.path }}">{% csrf_token %}
 
@@ -61,6 +61,7 @@
                     {% if object %}
                     <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
                     {% endif %}
+                    <small><i class="fa fa-columns"></i> {{ object.widget.widget_type }}</small>
                   </h1>
                 </div>
 

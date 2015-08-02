@@ -1,7 +1,14 @@
 {% if can_edit %}
   <div class="edit-block-controls edit-popup">
       <a title="Edit this content" href="{{ update_url }}" class="edit-block-edit"><i class="fa fa-pencil"></i></a>
-      <a title="Add a new content" href="{{ create_url }}" class="edit-block-add"><i class="fa fa-plus"></i></a>
-      <a title="Change contents' ordering" href="{{ order_url }}"><i class="fa fa-sort-alpha-asc"></i></a>
+      {% if create_url %}
+        <a title="Add a new content" href="{{ create_url }}" class="edit-block-add"><i class="fa fa-plus"></i></a>
+      {% endif %}
+      {% if order_url %}
+        <a title="Change contents' ordering" href="{{ order_url }}"><i class="fa fa-sort-alpha-asc"></i></a>
+      {% endif %}
+      {% if style_url %}
+        <a title="Edit the widget style" href="{{ style_url }}" class="edit-block-add"><i class="fa fa-paint-brush"></i></a>
+      {% endif %}
   </div>
 {% endif %}

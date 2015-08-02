@@ -1,21 +1,13 @@
 {% load static %}
 {% load cropping %}
-<!-- widget: BackgroundArea:: default - style1 -->
+{% load magiccontent_tags %}
+<!-- widget: BackgroundArea:: default - style4 -->
 
-
-
-  <div class="container {% if can_edit %} darkBorder edit-block{% endif %}">
+  <div class="container {{ editable }}">
 
     <div class="half">
-      
 
-
-    {% if can_edit %}
-    <div class="edit-block-controls edit-popup">
-      <a title="Edit Style" target="_blank" href="{% url 'magiccontent.widget.update' widget.id %}" class="edit-block-add">Style</a>
-      <a title="Edit element" target="_blank" href="{% url 'magiccontent.backgroundarea.update' widget.id object.id %}" class="edit-block-edit">Edit</a>      
-    </div>
-    {% endif %}
+    {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center header-inner">
