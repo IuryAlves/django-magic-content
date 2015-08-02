@@ -1,17 +1,11 @@
 {% load static %}
 {% load cropping %}
+{% load magiccontent_tags %}
 <!-- widget: PageLink:: default -->
 
-    <div class="col-md-8 col-md-offset-2{% if can_edit %} darkBorder edit-block{% endif %}" style="display: block;">
+    <div class="col-md-8 col-md-offset-2 {{ editable }}">
 
-      {% if can_edit %}
-      <div class="edit-block-controls edit-popup">
-
-          <a title="Edit Style" href="{% url 'magiccontent.widget.update' widget.id %}" class="edit-block-style">Style</a>
-
-          <a title="Edit element" href="{% url 'magiccontent.pagelink.update' widget.id object.id %}" class="edit-block-edit">Edit</a>
-      </div>
-      {% endif %}
+      {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
       <h1>{{ object.title }}</h1>
       {% if object.sub_title %}
