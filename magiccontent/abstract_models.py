@@ -52,7 +52,9 @@ class BaseContent(SiteModel):
     order = models.PositiveIntegerField(_('order'), default=99)
     is_active = models.BooleanField(_('active'), default=True)
     site_link = models.ForeignKey(
-        SiteLink, verbose_name=_('link'), null=True, blank=True)
+        SiteLink, verbose_name=_('link'), null=True, blank=True,
+        help_text='''By selecting a target link, it will be possible for
+                     clicking over contents and send the user to other page''')
     link_label = models.CharField(
         _('link label'), max_length=64, default='', blank=True)
 
