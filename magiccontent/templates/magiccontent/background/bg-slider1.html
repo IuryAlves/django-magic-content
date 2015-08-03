@@ -28,8 +28,8 @@
             <p>{{ obj.short_content|linebreaksbr }}</p>
           </div>
           {% endif %}
-          {% if obj.link1_label %}
-            <a href="{{ obj.link1_url }}" class="btn-3d">{{ obj.link1_label }}</a>
+          {% if obj.site_link %}
+            <a href="{{ obj.link_url }}" class="btn-3d">{{ obj.link_name }}</a>
           {% endif %}          
         </div>
       </div>

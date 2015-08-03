@@ -99,6 +99,11 @@ class BaseContent(SiteModel):
         return ''
 
     @property
+    def link_name(self):
+        if self.site_link:
+            return self.link_label or self.site_link.name or ''
+
+    @property
     def delete_url(self):
         # TODO: find a way to use reverse here
         return '/magiccontent/magiccontent/{0}/{1}/delete/{2}/'.format(
