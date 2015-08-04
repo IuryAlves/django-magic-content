@@ -13,8 +13,8 @@ Area = models.get_model('magiccontent', 'Area')
 register = template.Library()
 
 
-@register.simple_tag
-def show_widget_area_tag(area_name, can_edit=False,
+@register.simple_tag(takes_context=True)
+def show_widget_area_tag(context, area_name, can_edit=False,
                          widget_type='simplecontent', style='default',
                          *args, **kwargs):
     """
@@ -23,6 +23,9 @@ def show_widget_area_tag(area_name, can_edit=False,
     When the Area does not exist, it will be generated an Area, Widget and its
     BaseContent register.
     """
+
+    request = context['request']
+
     div = kwargs.get('div', None)
     page_url = kwargs.get('page_url', None)
 
@@ -49,7 +52,7 @@ def show_widget_area_tag(area_name, can_edit=False,
     context = {'widget': area.widget, 'area': area, 'div': div,
                'object_list': content_list, 'object': first_item,
                'can_edit': can_edit, 'editable': editable,
-               'page_url': page_url}
+               'page_url': page_url, 'user': request.user}
     return render_to_string(template_name, context)
 
 
@@ -76,7 +79,7 @@ def show_widget_page_tag(widget=None, content_list=[],
         widget.widget_type, widget.style_template, page)
 
     context = {'widget': widget, 'object_list': content_list,
-               'can_edit': can_edit}
+               'can_edit': can_edit, }
     return render_to_string(template_name, context)
 
 
