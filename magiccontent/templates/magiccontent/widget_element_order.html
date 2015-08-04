@@ -35,10 +35,18 @@
 
     <div class="col-lg-10">
       <ul class="handles list">
+          <li role="option" aria-grabbed="false">
+            <div class="pull-right">
+              <span>Visible&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+          </li>
 			  {% for content in content_list %}
           <li role="option" aria-grabbed="false" draggable="true"
             data-url="{% url 'magiccontent.api.content_order.update' content.model_name content.widget.id content.pk %}">
-            <span>::</span> {{ content.title }}
+            <span><i class="fa fa-arrows"></i> </span> {{ content.title }}
+            {% if content.site_link %}
+              <span>&nbsp;&nbsp;&nbsp;<small> <i class="fa fa-external-link"></i> {{ content.site_link.name }}</small></span>
+            {% endif %}
             <div class="pull-right">
               <div class="onoffswitch">
                   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ content.id }}" {% if content.is_active %}checked{% endif %} widget_id="{{ content.widget.id }}" model_name="{{ content.model_name }}">
