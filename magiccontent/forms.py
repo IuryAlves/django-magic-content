@@ -9,6 +9,7 @@ from magiccontent.widgets import (RadioWidgetTypeSelect,
                                   RadioWidgetStyleSelect, )
 
 from .models import Area, Widget, WIDGET_TYPES
+from .abstract_models import BaseContent
 
 
 class PictureForm(forms.ModelForm):
@@ -34,6 +35,12 @@ class PictureForm(forms.ModelForm):
                 if self.fields.get('picture_filter'):
                     del self.fields['picture_filter']
                 del self.fields['picture_cropping']
+
+        if self.fields.get('picture_filter'):
+            filter_list = [(imagefilter, instance.picture)
+                           for imagefilter, description
+                           in BaseContent.PICTURE_FILTERS]
+            self.fields['picture_filter'].choices = filter_list
 
     def save(self, *args, **kws):
         instance = super(PictureForm, self).save(*args, **kws)
