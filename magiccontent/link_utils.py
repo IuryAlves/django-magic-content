@@ -121,7 +121,13 @@ def generate_links():
     for link_config in registered_models:
         links_list.extend(link_builder(link_config))
 
-    return links_list
+    # remove duplicated
+    unique_links_list = []
+    plain_list = list(set(map(lambda i: tuple(i.values()), links_list)))
+    for row_item in plain_list:
+        unique_links_list.append({'url': row_item[0], 'name': row_item[1]})
+
+    return unique_links_list
 
 
 SITE_LINKS = sorted(generate_links())
