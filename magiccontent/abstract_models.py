@@ -53,6 +53,7 @@ class BaseContent(SiteModel):
     is_active = models.BooleanField(_('active'), default=True)
     site_link = models.ForeignKey(
         SiteLink, verbose_name=_('link'), null=True, blank=True,
+        on_delete=models.SET_NULL,
         help_text='''By selecting a target link, it will be possible for
                      clicking over contents and send the user to other page''')
     link_label = models.CharField(
