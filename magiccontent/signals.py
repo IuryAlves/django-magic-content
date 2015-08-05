@@ -41,7 +41,7 @@ def content_post_save_handler(sender, **kwargs):
     link_cfg = link_cfg and link_cfg.copy() or None
 
     if link_cfg:
-        # avoid circular importing (import only whenthe right model is found)
+        # avoid circular importing (import only when the right model is found)
         from .link_utils import link_builder
 
         model_str = link_cfg['model']
@@ -51,7 +51,6 @@ def content_post_save_handler(sender, **kwargs):
             site_link, _ = SiteLink.site_objects.get_or_create(
                 origin_model=model_str,
                 origin_model_pk=instance.pk,
-                url=link_item.pop('url'),
                 defaults=link_item)
 
 
