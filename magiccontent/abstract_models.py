@@ -96,7 +96,11 @@ class BaseContent(SiteModel):
     @property
     def link_url(self):
         if self.site_link:
-            return self.site_link.url
+            url = self.site_link.url
+            # means it belongs to landingpage
+            if url.startswith("#"):
+                return '/' + url
+            return url
         return ''
 
     @property
