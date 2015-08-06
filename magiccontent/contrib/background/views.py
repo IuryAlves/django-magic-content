@@ -12,7 +12,7 @@ from .forms import BackgroundAreaForm
 class BackgroundAreaMixin(object):
     model = BackgroundArea
     form_class = BackgroundAreaForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/background_form.html'
 
 
 class BackgroundAreaUpdateView(BackgroundAreaMixin, EditableMixin, UpdateView):
