@@ -17,10 +17,24 @@ from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
 
 class MagicDeleteView(DeleteView):
-    ''' generic view that allows delete through GET requests '''
 
-    def get(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
+    def get(self, request, *args, **kws):
+        # allows delete through GET requests
+        return self.delete(request, *args, **kws)
+
+    def delete(self, request, *args, **kws):
+        instance = self.get_object()
+        widget = instance.widget
+        model_qs = self.model.site_objects.filter(
+            widget=widget, is_active=True)
+        is_the_last = model_qs.count() == 1
+
+        # creates a blank content if that one is the last
+        if is_the_last:
+            self.model.site_objects.create(
+                title='add a content here', widget=widget)
+
+        return super(MagicDeleteView, self).delete(request, *args, **kws)
 
 
 # Base views
