@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
-from magiccontent.forms import PictureForm
+from magiccontent.forms import PictureForm, LinkableFormMixin
 from magiccontent.widgets import CustomCropImageWidget
 from .models import BackgroundArea
 
 
-class BackgroundAreaForm(PictureForm):
+class BackgroundAreaForm(LinkableFormMixin, PictureForm):
 
     class Meta:
         model = BackgroundArea

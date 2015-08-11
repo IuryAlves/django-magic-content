@@ -8,8 +8,29 @@ from magiccontent.widgets import (RadioWidgetTypeSelect,
                                   RadioWidgetTypeAllSelect,
                                   RadioWidgetStyleSelect, )
 
-from .models import Area, Widget, WIDGET_TYPES
+from .models import Area, Widget, SiteLink, WIDGET_TYPES
 from .abstract_models import BaseContent
+
+
+class LinkableFormMixin(object):
+
+    def __init__(self, *args, **kws):
+        super(LinkableFormMixin, self).__init__(*args, **kws)
+        # by default Django uses the default manager to populate the field
+        self.fields['site_link'].queryset = SiteLink.site_objects.all()
+        self.fields['custom_link_url'] = forms.URLField(required=False)
+
+    def save(self, *args, **kws):
+        data = self.cleaned_data
+        custom_link_url = data.pop('custom_link_url')
+
+        if custom_link_url:
+            link_name = data.get('link_label') or data.get('title')
+            site_link, _ = SiteLink.site_objects.get_or_create(
+                name=link_name, defaults={'url': custom_link_url})
+            self.cleaned_data['site_link'] = site_link
+
+        super(LinkableFormMixin, self).save(*args, **kws)
 
 
 class PictureForm(forms.ModelForm):
