@@ -14,7 +14,7 @@ class BackgroundArea(BaseContent):
     _widget_type = 'background'
 
     """ title, subtitle"""
-    picture_cropping = ImageRatioField('picture__picture', '1600x952')
+    picture_cropping = ImageRatioField('picture__picture', '1400x833')
     sub_title = models.CharField(
         _('sub title'), max_length=128, default='', blank=True)
     link1_url = models.CharField(
@@ -29,9 +29,12 @@ class BackgroundArea(BaseContent):
     @classmethod
     def style_list(cls_obj):
         style_list = (
-            ('default', 'Background - Style 1 (default)'),
-            ('style2', 'Background - Style 2 - long'),
+            ('default', 'Background (default)'),
+            ('defaultlight', 'Background (default) Light '),
+            ('style2', 'Background Long image - Dark'),
+            ('style2light', 'Background Long image - Light'),
             ('style3', 'Background - Style 3 - small'),
-            ('bg-slider1', 'Background - Slider 1'),
-            ('style4', 'Background - Style 4 - half'), )
+            #('bg-slider1', 'Background - Slider 1'),
+            #('style4', 'Background - Style 4 - half'),
+            )
         return style_list

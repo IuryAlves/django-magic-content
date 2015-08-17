@@ -3,21 +3,15 @@
 {% load magiccontent_tags %}
 <!-- widget: BackgroundArea:: default - style2 -->
 
-  <div class="container {{ editable }}">
+  <div class="container {{ editable }}" style="color: #333">
 
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
-    <!--
-    <div class="row">
-      <div class="col-md-12 text-right navicon">
-        <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
-      </div>
-    </div> -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center header-inner" style="padding-top: 60px; padding-bottom: 60px;">
-        <h1 class="animated fadeInDown" style="font-size: 68px; color: #fff">{{ object.title }}</h1>
+        <h1 class="animated fadeInDown" style="font-size: 68px;">{{ object.title }}</h1>
         {% if object.sub_title %}
-        <p class="animated fadeInUp delay-05s" style="color: #fff; font-size: 34px;">{{ object.sub_title }}</p>
+        <p class="animated fadeInUp delay-05s" style="font-size: 34px;">{{ object.sub_title }}</p>
         {% endif %}
       </div>
     </div>
@@ -26,7 +20,7 @@
         
         {% if object.site_link %}
           <center>
-	          <div class="og-details og-details-light" style="float: none; width: 320px;">
+	          <div class="og-details" style="float: none; width: 320px;">
 	            <a href="{{ object.link_url}}">{{ object.link_name }}</a>
 	          </div>
           </center>
@@ -36,7 +30,7 @@
         <br/><p style="font-size: 1.2em;">{{ object.content }}</p>
         <p>
           <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
-            <i class="fa fa-chevron-down fttitle4down-bg" style="font-size: 36px;"></i>
+            <i class="fa fa-chevron-down" style="font-size: 36px; color: #333"></i>
           </a>
         </p>
       </div>

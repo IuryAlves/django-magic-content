@@ -3,13 +3,13 @@
 {% load magiccontent_tags %}
 <!-- widget: BackgroundArea:: default - style1 -->
 
-  <div class="container {{ editable }} white">
+  <div class="container {{ editable }} down2-ft">
 
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center header-inner">
-        <h1 class="animated fadeInDown white">{{ object.title }}</h1>
+        <h1 class="animated fadeInDown down2-ft">{{ object.title }}</h1>
         {% if object.sub_title %}
         <p class="animated fadeInUp delay-05s">{{ object.sub_title }}</p>
         {% endif %}

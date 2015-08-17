@@ -7,21 +7,13 @@
 
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
-    <!--
-    <div class="row">
-      <div class="col-md-12 text-right navicon">
-        <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
-      </div>
-    </div> -->
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center ">
         <h1 class="animated fadeInDown" style="font-size: 48px;">
-          {% block sitename %}
-            <span>{{ object.title }}</span>
-          {% endblock sitename %}
+          <span>{{ object.title }}</span>
         </h1>
         {% if object.sub_title %}
-        <p class="animated fadeInUp delay-05s" style="color: #fff;font-size: 32px;">{{ object.sub_title }}</p>
+        <p class="animated fadeInUp delay-05s" style="color: #fff; font-size: 30px;">{{ object.sub_title }}</p>
         {% endif %}
       </div>
     </div>
@@ -30,14 +22,13 @@
         
         {% if object.site_link %}
           <center>
-	          <div class="og-details" style="float: none; width: 320px;">
+	          <div class="og-details og-details-light" style="float: none; width: 320px;">
 	            <a href="{{ object.link_url }}">{{ object.link_name }}</a>
 	          </div>          	
           </center>
-          <br/>
         {% endif %}
 
-        <br/><p>{{ object.content }}</p>
+        <br/><p class="white" style="font-size: 1em;" >{{ object.content }}</p>
         <p>
           <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
             <i class="fa fa-chevron-down fttitle4down-bg" style="font-size: 32px;"></i>
@@ -51,7 +42,7 @@
 {% if object.picture %}
 <script type="text/javascript">
   $(function() {
-       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
+       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %})');
        $('.{{ div }}').css('height', 440);
        $('.{{ div }}').css('padding-top', 74);
   });
