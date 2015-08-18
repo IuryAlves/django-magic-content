@@ -92,6 +92,10 @@ class Widget(Permalinkable, SiteModel):
         return field.model
 
     @property
+    def can_edit_description(self):
+        return self.get_widget_type.can_edit_description
+
+    @property
     def get_widget_type(self):
         _type = self.widget_type
         if _type == 'background':
@@ -111,6 +115,7 @@ class Widget(Permalinkable, SiteModel):
     def widget_types_list(self):
         """ returns the styles available for the given content """
         return self.get_widget_type.style_list()
+
 
 
 class SiteLink(SiteModel):

@@ -77,6 +77,10 @@ class BaseContent(SiteModel):
         raise Exception("A 'style_list' method is missing for {0}".format(
             cls_obj))
 
+    @classmethod
+    def can_edit_description(cls_obj):
+        return True
+
     @property
     def content(self):
         return self._content()

@@ -27,6 +27,10 @@ class BackgroundArea(BaseContent):
         return self.short_content
 
     @classmethod
+    def can_edit_description(cls_obj):
+        return False
+
+    @classmethod
     def style_list(cls_obj):
         style_list = (
             ('default', 'Background (default)'),

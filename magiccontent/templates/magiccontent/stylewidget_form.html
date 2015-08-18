@@ -19,7 +19,8 @@
 {% block content %}
 
 <div class="popup-content">
-    <h1>Style details <small>({{ object.widget_type }})</small> </h1>
+    <h1><i class="fa fa-paint-brush"></i> {{ object.widget_type|title }} style</h1>
+    <h1><small>Select one that most fit your content</small></h1>
     <div class="row">
 
         <div class="col-lg-12">
@@ -35,8 +36,19 @@
                   </h1>
                 </div>
 
-            </form>            
+            </form>
 
+            <p>&nbsp;</p>
+            <span><br/><br/><br/><br/></span>
+
+            {% if not object.can_edit_description %}
+              <script type="text/javascript">
+                $(function() {
+                  $( "label[for='id_description']").hide();
+                  $( "#id_description" ).hide();
+                });
+              </script>
+            {% endif %}
         </div>
     </div>
 </div>
