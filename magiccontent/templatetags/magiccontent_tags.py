@@ -6,6 +6,7 @@ from django import template
 from django.db import models
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 Widget = models.get_model('magiccontent', 'Widget')
 Area = models.get_model('magiccontent', 'Area')
@@ -116,3 +117,11 @@ def show_editable_widget_tag(widget_type='', widget_id='', content_id='',
             'order_url': order_url,
             'style_url': widget_update_url if show_sytle_btn else '',
             'can_edit': can_edit}
+
+
+@register.filter(name='show_help_text', is_safe=True)
+def show_help_text(value):
+    """
+    Returns a standard help file path
+    """
+    return "magiccontent/help_text_{0}.html".format(slugify(value))
