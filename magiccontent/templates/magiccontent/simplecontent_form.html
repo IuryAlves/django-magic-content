@@ -154,12 +154,22 @@
       acceptedFiles: 'image/*',
       maxFiles: 1,
       init: function() {
+        this.on("addedfile", function(file){
+          var fileSize = file.size;
+          var maxSize = 5242880; // 5MB in bytes
+          if (fileSize > maxSize){
+            alert('the file is too big, the max allowed size is 5MB.');
+            this.removeFile(file);
+          }
+        });
+
         this.on("success", function(picture, response){
           $('#id_picture').attr('value', response);
           if (response.length < 200){
             ajaxSubmit();
           }else{
             alert("invalid file, it wasn't uploaded");
+            this.removeFile(file);
           }
         });
       }
