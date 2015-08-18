@@ -22,7 +22,7 @@ class LinkableFormMixin(object):
 
     def save(self, *args, **kws):
         data = self.cleaned_data
-        custom_link_url = data.pop('custom_link_url')
+        custom_link_url = data.pop('custom_link_url', '')
 
         if custom_link_url:
             link_name = data.get('link_label') or data.get('title')
@@ -30,7 +30,7 @@ class LinkableFormMixin(object):
                 name=link_name, defaults={'url': custom_link_url})
             self.cleaned_data['site_link'] = site_link
 
-        super(LinkableFormMixin, self).save(*args, **kws)
+        return super(LinkableFormMixin, self).save(*args, **kws)
 
 
 class PictureForm(forms.ModelForm):
