@@ -25,6 +25,10 @@ class PageLink(BaseContent):
             ('button', 'PageLink - Button'), )
         return style_list
 
+    @classmethod
+    def can_edit_description(cls_obj):
+        return False
+
     # bellow properties is only to keep de old fields link1_something working
     @property
     def link1_url(self):
