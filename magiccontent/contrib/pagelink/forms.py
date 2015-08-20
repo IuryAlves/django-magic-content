@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
+import floppyforms.__future__ as forms
+
 from magiccontent.forms import PictureForm, LinkableFormMixin
 from magiccontent.widgets import CustomCropImageWidget
 from .models import PageLink
@@ -15,3 +17,10 @@ class PageLinkForm(LinkableFormMixin, PictureForm):
         widgets = {
             'picture': CustomCropImageWidget(PageLink, 'picture'),
         }
+
+
+class PageLinkCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = PageLink
+        fields = ('title',)

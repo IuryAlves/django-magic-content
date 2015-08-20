@@ -117,3 +117,9 @@ class BaseContent(SiteModel):
         # TODO: find a way to use reverse here
         return '/magiccontent/magiccontent/{0}/{1}/delete/{2}/'.format(
             self._meta.model_name, self.widget.pk, self.pk)
+
+    @property
+    def update_url(self):
+        # TODO: find a way to use reverse here
+        return '/magiccontent/magiccontent/{0}/{1}/update/{2}/'.format(
+            self._meta.model_name, self.widget.pk, self.pk)

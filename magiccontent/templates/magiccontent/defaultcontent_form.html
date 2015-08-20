@@ -28,12 +28,14 @@
               <li role="presentation" class="active">
                 <a href="#" id="goto-title">Title<br/><i class="fa fa-minus"></i></a>
               </li>
+              {% if save_btn_label != 'continue' %}
               <li role="presentation">
                 <a href="#" id="goto-content">Content<br/><i class="fa fa-file-text-o"></i></a>
               </li>
               <li role="presentation">
                 <a href="#" id="goto-link">Link<br/><i class="fa fa-external-link"></i></a>
               </li>
+              {% endif %}
               {% if object.enable_picture %}
               <li role="presentation">
                 <a href="#" id="goto-image">Image<br/><i class="fa fa-image"></i></a>
@@ -51,7 +53,7 @@
 
                 <div class="bottom-fix-menu" align="center">
                   <h1>
-                    <input type="submit" class="btn btn-lg btn-success" value="Save" />
+                    <input type="submit" class="btn btn-lg btn-success" value="{{ save_btn_label.title }}" />
                     <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
                     {% if object %}
                     <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>

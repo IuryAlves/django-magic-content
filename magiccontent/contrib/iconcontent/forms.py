@@ -17,3 +17,10 @@ class IconContentForm(LinkableFormMixin, forms.ModelForm):
         widgets = {
             'icon': RadioIconSelect,
         }
+
+
+class IconContentCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = IconContent
+        fields = ('title',)

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
+import floppyforms.__future__ as forms
+
 from magiccontent.forms import PictureForm, LinkableFormMixin
 from magiccontent.widgets import CustomCropImageWidget, RadioImageFilterSelect
 
@@ -17,3 +19,10 @@ class ImageContentForm(LinkableFormMixin, PictureForm):
             'picture': CustomCropImageWidget(ImageContent, 'picture'),
             'picture_filter': RadioImageFilterSelect,
         }
+
+
+class ImageContentCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = ImageContent
+        fields = ('title',)

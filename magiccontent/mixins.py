@@ -47,6 +47,7 @@ class OwnerRequiredMixin(AccessMixin):
 
 class EditableMixin(OwnerRequiredMixin):
 
+    save_btn_label = 'save'
     success_url = reverse_lazy('magiccontent.windows_close')
 
     def get_context_data(self, *args, **kws):
@@ -56,6 +57,7 @@ class EditableMixin(OwnerRequiredMixin):
         context['default_gallery'] = gallery
         context['all_images'] = GalleryItem.site_objects.all().order_by(
             'gallery')
+        context['save_btn_label'] = self.save_btn_label
         return context
 
     def get_success_url(self):
@@ -66,6 +68,8 @@ class EditableMixin(OwnerRequiredMixin):
 
 
 class CreateContentMixin(object):
+
+    save_btn_label = 'continue'
 
     def form_valid(self, form):
         widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
@@ -79,6 +83,9 @@ class CreateContentMixin(object):
         if new_object and has_an_update_method:
             return redirect(self.object.get_absolute_url())
         return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.object.update_url
 
 
 class ListContentMixin(object):

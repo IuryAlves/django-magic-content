@@ -8,7 +8,7 @@ from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
 from magiccontent.views import MagicDeleteView
 from .models import IconContent
-from .forms import IconContentForm
+from .forms import IconContentForm, IconContentCreateForm
 
 
 class IconContentMixin(object):
@@ -19,7 +19,7 @@ class IconContentMixin(object):
 
 class IconContentCreateView(CreateContentMixin, IconContentMixin,
                             EditableMixin, CreateView):
-    pass
+    form_class = IconContentCreateForm
 
 
 class IconContentUpdateView(IconContentMixin, EditableMixin, UpdateView):

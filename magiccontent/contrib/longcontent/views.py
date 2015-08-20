@@ -8,7 +8,7 @@ from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
 from magiccontent.views import MagicDeleteView
 from .models import LongContent
-from .forms import LongContentForm
+from .forms import LongContentForm, LongContentCreateForm
 
 
 class LongContentMixin(object):
@@ -19,7 +19,7 @@ class LongContentMixin(object):
 
 class LongContentCreateView(CreateContentMixin, LongContentMixin,
                             EditableMixin, CreateView):
-    pass
+    form_class = LongContentCreateForm
 
 
 class LongContentUpdateView(LongContentMixin, EditableMixin, UpdateView):

@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from magiccontent.mixins import EditableMixin, CreateContentMixin
 from magiccontent.views import MagicDeleteView
 from .models import PageLink
-from .forms import PageLinkForm
+from .forms import PageLinkForm, PageLinkCreateForm
 
 
 class PageLinkMixin(object):
@@ -17,7 +17,7 @@ class PageLinkMixin(object):
 
 class PageLinkCreateView(CreateContentMixin, PageLinkMixin, EditableMixin,
                          CreateView):
-    pass
+    form_class = PageLinkCreateForm
 
 
 class PageLinkUpdateView(PageLinkMixin, EditableMixin, UpdateView):
