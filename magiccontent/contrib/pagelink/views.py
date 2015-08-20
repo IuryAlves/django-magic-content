@@ -12,7 +12,7 @@ from .forms import PageLinkForm
 class PageLinkMixin(object):
     model = PageLink
     form_class = PageLinkForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
 
 class PageLinkCreateView(CreateContentMixin, PageLinkMixin, EditableMixin,

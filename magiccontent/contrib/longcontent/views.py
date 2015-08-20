@@ -14,7 +14,7 @@ from .forms import LongContentForm
 class LongContentMixin(object):
     model = LongContent
     form_class = LongContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
 
 class LongContentCreateView(CreateContentMixin, LongContentMixin,

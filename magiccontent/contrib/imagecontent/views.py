@@ -14,7 +14,7 @@ from .forms import ImageContentForm
 class ImageContentMixin(object):
     model = ImageContent
     form_class = ImageContentForm
-    template_name = 'magiccontent/imagecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
 
 class ImageContentCreateView(CreateContentMixin, ImageContentMixin,

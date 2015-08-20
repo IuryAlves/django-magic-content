@@ -14,7 +14,7 @@ from .forms import SimpleContentForm
 class SimpleContentMixin(object):
     model = SimpleContent
     form_class = SimpleContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
 
 class SimpleContentCreateView(CreateContentMixin, SimpleContentMixin,

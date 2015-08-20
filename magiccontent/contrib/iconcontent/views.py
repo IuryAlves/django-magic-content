@@ -14,7 +14,7 @@ from .forms import IconContentForm
 class IconContentMixin(object):
     model = IconContent
     form_class = IconContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
 
 class IconContentCreateView(CreateContentMixin, IconContentMixin,
