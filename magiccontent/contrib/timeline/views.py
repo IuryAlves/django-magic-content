@@ -19,7 +19,7 @@ from .forms import TimelineEventContentForm
 class TimelineEventContentMixin(object):
     model = TimelineEventContent
     form_class = TimelineEventContentForm
-    template_name = 'magiccontent/simplecontent_form.html'
+    template_name = 'magiccontent/defaultcontent_form.html'
 
     def form_valid(self, form):
         widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
