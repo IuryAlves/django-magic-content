@@ -46,7 +46,11 @@
         </div>
 
         <div class="col-sm-9">
-            <h1>{{ object.widget.name }} <small>{{ object.widget.description }}</small></h1>
+            {% if not object %}
+            <h1>Creating a new {{ widget.name }} content <small>({{ widget.description }})</small>:</h1>
+            {% else %}
+            <h1>{{ object.widget.name }} <small>({{ object.widget.description }})</small></h1>
+            {% endif %}
             <form method='post' enctype="multipart/form-data" id="simpleContentForm" action="{{ request.path }}">{% csrf_token %}
 
                 {{ form }}

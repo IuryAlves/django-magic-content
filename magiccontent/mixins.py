@@ -58,6 +58,9 @@ class EditableMixin(OwnerRequiredMixin):
         context['all_images'] = GalleryItem.site_objects.all().order_by(
             'gallery')
         context['save_btn_label'] = self.save_btn_label
+        widget_pk = self.kwargs.get('widget_pk')
+        if widget_pk:
+            context['widget'] = Widget.site_objects.get(pk=widget_pk)
         return context
 
     def get_success_url(self):
