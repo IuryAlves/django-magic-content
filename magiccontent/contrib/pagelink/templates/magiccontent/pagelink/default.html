@@ -11,9 +11,11 @@
       {% if object.sub_title %}
       <h2>{{ object.sub_title }}</h2>
       {% endif %}
-      {% if object.link1_url %}
-      <a href="{{ object.link1_url }}" class="down-arrow-btn"><i class="fa fa-chevron-down"></i></a>
+
+      {% if object.link_url %}
+      <a href="{{ object.link_url }}" class="down-arrow-btn"><i class="fa fa-chevron-down"></i></a>
       {% endif %}
+
     </div>
 
     {% if object.picture and div %}

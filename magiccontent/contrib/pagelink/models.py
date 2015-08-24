@@ -28,14 +28,3 @@ class PageLink(BaseContent):
     @classmethod
     def can_edit_description(cls_obj):
         return False
-
-    # bellow properties is only to keep de old fields link1_something working
-    @property
-    def link1_url(self):
-        if self.site_link:
-            return self.site_link.url
-        return ''
-
-    @property
-    def link1_label(self):
-        return self.link_label
