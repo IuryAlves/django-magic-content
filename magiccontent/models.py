@@ -117,7 +117,6 @@ class Widget(Permalinkable, SiteModel):
         return self.get_widget_type.style_list()
 
 
-
 class SiteLink(SiteModel):
     name = models.CharField(max_length=255)
     url = models.CharField(max_length=255)

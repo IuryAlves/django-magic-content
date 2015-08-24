@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 import floppyforms.__future__ as forms
 
@@ -11,12 +12,17 @@ from magiccontent.widgets import (RadioWidgetTypeSelect,
 from .models import Area, Widget, SiteLink, WIDGET_TYPES
 from .abstract_models import BaseContent
 
+NEWCUTOMPAGE = 'NEWCUTOMPAGE'
+
 
 class LinkableFormMixin(object):
 
     def __init__(self, *args, **kws):
         super(LinkableFormMixin, self).__init__(*args, **kws)
         # by default Django uses the default manager to populate the field
+        newcustompage, _ = SiteLink.site_objects.get_or_create(
+            name='>>> Create and link to a new custom page',
+            url=NEWCUTOMPAGE)
         self.fields['site_link'].queryset = SiteLink.site_objects.all()
         self.fields['custom_link_url'] = forms.URLField(required=False)
 
@@ -31,6 +37,19 @@ class LinkableFormMixin(object):
             self.cleaned_data['site_link'] = site_link
 
         return super(LinkableFormMixin, self).save(*args, **kws)
+
+    def clean(self):
+        link = self.cleaned_data['site_link']
+        label = self.cleaned_data['link_label']
+        if link.url == NEWCUTOMPAGE and not label:
+            raise forms.ValidationError(_("Enter a link label"))
+
+        elif link.url == NEWCUTOMPAGE and label:
+            site_link, created = SiteLink.site_objects.get_or_create(
+                name='Page: {0}'.format(label),
+                url='/page/{0}/'.format(slugify(label).replace('-', '')))
+            self.cleaned_data['site_link'] = site_link
+        return self.cleaned_data
 
 
 class PictureForm(forms.ModelForm):
