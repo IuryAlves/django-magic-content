@@ -41,14 +41,15 @@ class LinkableFormMixin(object):
     def clean(self):
         link = self.cleaned_data['site_link']
         label = self.cleaned_data['link_label']
-        if link.url == NEWCUTOMPAGE and not label:
-            raise forms.ValidationError(_("Enter a link label"))
+        if link:
+            if link.url == NEWCUTOMPAGE and not label:
+                raise forms.ValidationError(_("Enter a link label"))
 
-        elif link.url == NEWCUTOMPAGE and label:
-            site_link, created = SiteLink.site_objects.get_or_create(
-                name='Page: {0}'.format(label),
-                url='/page/{0}/'.format(slugify(label).replace('-', '')))
-            self.cleaned_data['site_link'] = site_link
+            elif link.url == NEWCUTOMPAGE and label:
+                site_link, created = SiteLink.site_objects.get_or_create(
+                    name='Page: {0}'.format(label),
+                    url='/page/{0}/'.format(slugify(label).replace('-', '')))
+                self.cleaned_data['site_link'] = site_link
         return self.cleaned_data
 
 
