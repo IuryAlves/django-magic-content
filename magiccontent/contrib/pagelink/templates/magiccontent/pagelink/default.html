@@ -21,7 +21,9 @@
     {% if object.picture and div %}
     <script type="text/javascript">
       $(function() {
-           $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
+        $('.{{ div }}').css('background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) no-repeat center center');
+        $('.{{ div }}').css('background-size', 'cover');
+        $('.{{ div }}').css('background-attachment', 'fixed');
       });
     </script>
     {% endif %}
