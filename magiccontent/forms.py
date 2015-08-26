@@ -26,21 +26,11 @@ class LinkableFormMixin(object):
         self.fields['site_link'].queryset = SiteLink.site_objects.all()
         self.fields['custom_link_url'] = forms.URLField(required=False)
 
-    def save(self, *args, **kws):
-        data = self.cleaned_data
-        custom_link_url = data.pop('custom_link_url', '')
-
-        if custom_link_url:
-            link_name = data.get('link_label') or data.get('title')
-            site_link, _ = SiteLink.site_objects.get_or_create(
-                name=link_name, defaults={'url': custom_link_url})
-            self.cleaned_data['site_link'] = site_link
-
-        return super(LinkableFormMixin, self).save(*args, **kws)
-
     def clean(self):
-        link = self.cleaned_data['site_link']
-        label = self.cleaned_data['link_label']
+        data = self.cleaned_data
+
+        link = data['site_link']
+        label = data['link_label']
         if link:
             if link.url == NEWCUTOMPAGE and not label:
                 raise forms.ValidationError(_("Enter a link label"))
@@ -49,8 +39,17 @@ class LinkableFormMixin(object):
                 site_link, created = SiteLink.site_objects.get_or_create(
                     name='Page: {0}'.format(label),
                     url='/page/{0}/'.format(slugify(label).replace('-', '')))
-                self.cleaned_data['site_link'] = site_link
-        return self.cleaned_data
+                data['site_link'] = site_link
+
+        custom_link_url = data.pop('custom_link_url', '')
+        if custom_link_url:
+            link_name = label or data.get('title')
+            site_link, sl_created = SiteLink.site_objects.get_or_create(
+                name=link_name, defaults={'url': custom_link_url})
+            self.cleaned_data['link_label'] = link_name
+            self.cleaned_data['site_link'] = site_link
+
+        return data
 
 
 class PictureForm(forms.ModelForm):
