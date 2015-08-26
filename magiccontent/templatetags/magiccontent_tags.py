@@ -14,6 +14,15 @@ Area = models.get_model('magiccontent', 'Area')
 register = template.Library()
 
 
+def get_first_content(content_list, widget):
+    if not content_list:
+        first_item = widget.get_widget_type.site_objects.create(widget=widget)
+        first_item.save()
+    else:
+        first_item = content_list[0]
+    return first_item
+
+
 @register.simple_tag(takes_context=True)
 def show_widget_area_tag(context, area_name, can_edit=False,
                          widget_type='simplecontent', style='default',
@@ -38,12 +47,7 @@ def show_widget_area_tag(context, area_name, can_edit=False,
         area.save()
 
     content_list = Widget.site_objects.list_content_from_type(area.widget)
-    if not content_list:
-        first_item = area.widget.get_widget_type.site_objects.create(
-            widget=area.widget)
-        first_item.save()
-    else:
-        first_item = content_list[0]
+    first_item = get_first_content(content_list, area.widget)
 
     # TODO: find a better place to add those CSS style classes names
     editable = 'darkBorder edit-block' if can_edit else ''
@@ -71,21 +75,24 @@ def is_an_area_visible_tag(area_name):
 
 @register.simple_tag
 def show_widget_page_tag(widget=None, content_list=[],
-                         can_edit=False, show_page=False):
+                         can_edit=False, show_page=False, style=None):
     """
     Template Tag for generating a custom HTML for the given Widget Page
     """
     page = "_page" if show_page else ''
+    style_template = style if style else widget.style_template
     template_name = 'magiccontent/{0}/{1}{2}.html'.format(
-        widget.widget_type, widget.style_template, page)
+        widget.widget_type, style_template, page)
+    first_item = get_first_content(content_list, widget)
 
     context = {'widget': widget, 'object_list': content_list,
-               'can_edit': can_edit, }
+               'can_edit': can_edit, 'object': first_item, }
     return render_to_string(template_name, context)
 
 
 @register.inclusion_tag('magiccontent/show_editable_area_tag.html')
-def show_editable_area_tag(area_id='', widget_id='', can_edit=False, area_name='area'):
+def show_editable_area_tag(area_id='', widget_id='', can_edit=False,
+                           area_name='area'):
     return {'area_id': area_id,
             'widget_id': widget_id,
             'area_name': area_name,
