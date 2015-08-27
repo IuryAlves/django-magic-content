@@ -20,6 +20,7 @@
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
           <div class="content-item">
+            <a {% if object.link_url %}href="{{ object.link_url }}"{% endif %}>
             {% if object.picture %}
               <figure class="imglist {{ object.picture_filter }}">
                   <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
@@ -38,6 +39,7 @@
             {% if object.link_label %}
               <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
             {% endif %}
+            </a>
 
           </div> <!-- content-item -->
 
