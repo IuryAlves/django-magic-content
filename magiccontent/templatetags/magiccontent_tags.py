@@ -54,10 +54,10 @@ def show_widget_area_tag(context, area_name, can_edit=False,
     template_name = 'magiccontent/{0}/{1}.html'.format(
         area.widget.widget_type, area.widget.style_template)
 
-    context = {'widget': area.widget, 'area': area, 'div': div,
-               'object_list': content_list, 'object': first_item,
-               'can_edit': can_edit, 'editable': editable,
-               'page_url': page_url, 'user': request.user}
+    context.update({'widget': area.widget, 'area': area, 'div': div,
+                    'object_list': content_list, 'object': first_item,
+                    'can_edit': can_edit, 'editable': editable,
+                    'page_url': page_url, 'user': request.user})
     return render_to_string(template_name, context)
 
 
@@ -73,8 +73,8 @@ def is_an_area_visible_tag(area_name):
     return area.is_visible
 
 
-@register.simple_tag
-def show_widget_page_tag(widget=None, content_list=[],
+@register.simple_tag(takes_context=True)
+def show_widget_page_tag(context, widget=None, content_list=[],
                          can_edit=False, show_page=False, style=None):
     """
     Template Tag for generating a custom HTML for the given Widget Page
@@ -85,8 +85,9 @@ def show_widget_page_tag(widget=None, content_list=[],
         widget.widget_type, style_template, page)
     first_item = get_first_content(content_list, widget)
 
-    context = {'widget': widget, 'object_list': content_list,
-               'can_edit': can_edit, 'object': first_item, }
+    context.update({'widget': widget, 'object_list': content_list,
+                    'can_edit': can_edit, 'object': first_item, })
+
     return render_to_string(template_name, context)
 
 
@@ -100,9 +101,10 @@ def show_editable_area_tag(area_id='', widget_id='', can_edit=False,
             'widget': Widget.site_objects.get(pk=int(widget_id))}
 
 
-@register.inclusion_tag('magiccontent/show_editable_widget_tag.html')
-def show_editable_widget_tag(widget_type='', widget_id='', content_id='',
-                             can_edit=False, show_add_btn=True,
+@register.inclusion_tag('magiccontent/show_editable_widget_tag.html',
+                        takes_context=True)
+def show_editable_widget_tag(context, widget_type='', widget_id='',
+                             content_id='', can_edit=False, show_add_btn=True,
                              show_order_btn=True, show_sytle_btn=True):
     content_create_url = 'magiccontent.%s.create' % widget_type
     content_update_url = 'magiccontent.%s.update' % widget_type
@@ -119,11 +121,25 @@ def show_editable_widget_tag(widget_type='', widget_id='', content_id='',
         kwargs={'widget_pk': widget_id}) if show_order_btn else ''
     widget_update_url = reverse(
         'magiccontent.widget.update', kwargs={'pk': widget_id})
-    return {'create_url': create_url,
-            'update_url': update_url,
-            'order_url': order_url,
-            'style_url': widget_update_url if show_sytle_btn else '',
-            'can_edit': can_edit}
+
+    _help_ctx = {
+        'help_edit_url': context['help_page_edit_content'],
+        'help_edit_show': context['show_help_page_edit_content'],
+        'help_edit_description': 'Learn how to edit contents',
+        'help_edit_flag': 'help_page_edit_content',
+        'help_add_url': context['help_page_add_content'],
+        'help_add_show': context['show_help_page_add_content'],
+        'help_add_description': 'Learn how to add new contents',
+        'help_add_flag': 'help_page_add_content',
+    }
+    ctx = {'create_url': create_url,
+           'update_url': update_url,
+           'order_url': order_url,
+           'style_url': widget_update_url if show_sytle_btn else '',
+           'can_edit': can_edit}
+    ctx.update(_help_ctx)
+
+    return ctx
 
 
 @register.filter(name='show_help_text', is_safe=True)
