@@ -123,12 +123,12 @@ def show_editable_widget_tag(context, widget_type='', widget_id='',
         'magiccontent.widget.update', kwargs={'pk': widget_id})
 
     _help_ctx = {
-        'help_edit_url': context['help_page_edit_content'],
-        'help_edit_show': context['show_help_page_edit_content'],
+        'help_edit_url': context.get('help_page_edit_content'),
+        'help_edit_show': context.get('show_help_page_edit_content'),
         'help_edit_description': 'Learn how to edit contents',
         'help_edit_flag': 'help_page_edit_content',
-        'help_add_url': context['help_page_add_content'],
-        'help_add_show': context['show_help_page_add_content'],
+        'help_add_url': context.get('help_page_add_content'),
+        'help_add_show': context.get('show_help_page_add_content'),
         'help_add_description': 'Learn how to add new contents',
         'help_add_flag': 'help_page_add_content',
     }
