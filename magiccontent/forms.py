@@ -30,7 +30,7 @@ class LinkableFormMixin(object):
         data = self.cleaned_data
 
         link = data['site_link']
-        label = data['link_label']
+        label = data.get('link_label') or data.get('title')
         if link:
             if link.url == NEWCUTOMPAGE and not label:
                 raise forms.ValidationError(_("Enter a link label"))

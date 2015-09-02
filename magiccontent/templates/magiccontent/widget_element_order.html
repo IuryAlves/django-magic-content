@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load floppyforms %}
+{% load cropping %}
 
 {% block js_top %}
     <!-- # django-floppyforms -->
@@ -21,12 +22,8 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h1>Element's order </h1>
-      <h3 style="min-height: 0;"><small>Drag and drop for re-ordering. The first element is the default one to be showed.</small></h3>
-      <!--
-      <span class="pull-right">
-        <a class="btn btn-default" href="#"><i class="fa fa-plus"></i></a>
-      </span> -->
+      <h1>Content's position ordering</h1>
+      <h3 style="min-height: 0;"><small>Drag and drop for re-ordering the contents.</small></h3>
     </div>
   </div>
   
@@ -37,15 +34,21 @@
       <ul class="handles list">
           <li role="option" aria-grabbed="false">
             <div class="pull-right">
-              <span>Visible&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span><strong>Visible</strong>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
           </li>
 			  {% for content in content_list %}
           <li role="option" aria-grabbed="false" draggable="true"
-            data-url="{% url 'magiccontent.api.content_order.update' content.model_name content.widget.id content.pk %}">
-            <span><i class="fa fa-arrows"></i> </span> {{ content.title }}
+            data-url="{% url 'magiccontent.api.content_order.update' content.model_name content.widget.id content.pk %}" style="height:48px;">
+            <span><i class="fa fa-arrows"></i> </span> 
+            {% if content.picture %}
+            <span>
+              <img height="44px" src="{% cropped_thumbnail content 'picture_cropping' scale=0.5 %}">
+            </span>
+            {% endif %}
+            {{ content.title }}
             {% if content.site_link %}
-              <span>&nbsp;&nbsp;&nbsp;<small> <i class="fa fa-external-link"></i> {{ content.site_link.name }}</small></span>
+              <span style="color: #777">&nbsp;&nbsp;&nbsp;<small> <i class="fa fa-external-link"></i> Linked to: {{ content.site_link.name }}</small></span>
             {% endif %}
             <div class="pull-right">
               <div class="onoffswitch">
@@ -55,11 +58,7 @@
                       <span class="onoffswitch-switch"></span>
                   </label>
               </div>              
-            </div>            
-            <!-- <div class="pull-right">
-              <span> <i class="fa fa-pencil"></i> </span> 
-              <span> <i class="fa fa-trash-o"></i> </span>                
-            </div> -->
+            </div> 
           </li>
 			  {% endfor %}
         <li>
@@ -105,34 +104,35 @@
 
       $(document).ready(function(){
      
-          $( ".onoffswitch-checkbox" ).click(function() {
-                            
-              var self = $(this);
-              var content_id = self.attr("id");
-              var model_name = self.attr("model_name");
-              var widget_id = self.attr("widget_id");
-              var content_checked = self.is(":checked");
+        $( ".onoffswitch-checkbox" ).click(function() {
+                          
+          var self = $(this);
+          var content_id = self.attr("id");
+          var model_name = self.attr("model_name");
+          var widget_id = self.attr("widget_id");
+          var content_checked = self.is(":checked");
 
-              $.ajax({
-                  url: "/magiccontent/api/" + model_name + "/is_active/" + widget_id + "/" + content_id + "/",
-                  type: "POST",
-                  dataType: "json",
-                  data: {
-                      'csrfmiddlewaretoken': '{{csrf_token}}',
-                      'id': content_id,
-                      'is_active': content_checked
-                  },
-                  success: function(data, textStatus, jqXHR) {
-                      //TODO: do something here...
-                  },
-                  error: function(data, textStatus, jqXHR) {
-                      alert('error updating area');
-                  }                    
-              });
-
+          $.ajax({
+            url: "/magiccontent/api/" + model_name + "/is_active/" + widget_id + "/" + content_id + "/",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'csrfmiddlewaretoken': '{{csrf_token}}',
+                'id': content_id,
+                'is_active': content_checked
+            },
+            success: function(data, textStatus, jqXHR) {
+                //TODO: do something here...
+            },
+            error: function(data, textStatus, jqXHR) {
+                alert('error updating area');
+            }                    
           });
 
+        });
+
       });
+
     </script>
 {% endblock extrajs %}
 
