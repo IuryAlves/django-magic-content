@@ -19,23 +19,28 @@
 {% block content %}
 
 <div class="popup-content">
-    
-    <div class="row">
 
+       
+    <div class="row">
         <div class="col-sm-2">
+
+          {% block quick_navigation %}
+          {% comment %}
+          <!-- enables only for update form -->
+          {% endcomment %}
+          {% if save_btn_label != 'continue' %}
           <div class="side-fix-menus">
             <ul class="nav nav-pills nav-stacked" id="nav-elements">
               <li role="presentation" class="active">
                 <a href="#" id="goto-title">Title<br/><i class="fa fa-minus"></i></a>
               </li>
-              {% if save_btn_label != 'continue' %}
+              
               <li role="presentation">
                 <a href="#" id="goto-content">Content<br/><i class="fa fa-file-text-o"></i></a>
               </li>
               <li role="presentation">
                 <a href="#" id="goto-link">Link<br/><i class="fa fa-external-link"></i></a>
               </li>
-              {% endif %}
               {% if object.enable_picture %}
               <li role="presentation">
                 <a href="#" id="goto-image">Image<br/><i class="fa fa-image"></i></a>
@@ -43,6 +48,9 @@
               {% endif %}
             </ul>
           </div>
+          {% endif %}
+          {% endblock quick_navigation %}
+
         </div>
 
         <div class="col-sm-9">
