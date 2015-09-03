@@ -65,7 +65,7 @@ class LinkableFormMixin(object):
     def clean(self):
         data = self.cleaned_data
 
-        link = data['site_link']
+        link = data.get('site_link')
         label = data.get('link_label') or data.get('title')
         if link:
             if link.url == NEWCUTOMPAGE and not label:

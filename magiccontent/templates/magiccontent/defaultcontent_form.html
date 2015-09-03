@@ -28,7 +28,7 @@
           {% comment %}
           <!-- enables only for update form -->
           {% endcomment %}
-          {% if save_btn_label != 'continue' %}
+          {% if save_btn_label != 'continue' and not view.show_picture_fields %}
           <div class="side-fix-menus">
             <ul class="nav nav-pills nav-stacked" id="nav-elements">
               <li role="presentation" class="active">
@@ -41,11 +41,6 @@
               <li role="presentation">
                 <a href="#" id="goto-link">Link<br/><i class="fa fa-external-link"></i></a>
               </li>
-              {% if object.enable_picture %}
-              <li role="presentation">
-                <a href="#" id="goto-image">Image<br/><i class="fa fa-image"></i></a>
-              </li>
-              {% endif %}
             </ul>
           </div>
           {% endif %}
@@ -84,7 +79,7 @@
             </form> 
 
             {% comment %}Gallery Controls should appears only in object update{% endcomment %}
-            {% if object and object.enable_picture %}
+            {% if object and object.enable_picture and view.show_picture_fields %}
             
             <p>&nbsp;</p>
             <span><br/><br/></span>

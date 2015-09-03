@@ -39,6 +39,7 @@ class MagicDeleteView(DeleteView):
 
 class PictureUpdateView(UpdateView):
     ''' An UpdateView with only picture's field '''
+    show_picture_fields = True
 
     def get_form_class(self):
         fields = ['picture', 'picture_cropping', 'picture_filter']
