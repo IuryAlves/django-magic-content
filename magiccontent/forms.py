@@ -15,42 +15,6 @@ from .abstract_models import BaseContent
 NEWCUTOMPAGE = 'NEWCUTOMPAGE'
 
 
-class ContentFormBuilder(object):
-    ''' A form builder to filter fields dynamically, for example, if you want
-        a SimpleContentForm that renders ONLY the picture field you can do this
-            PicForm = ContentFormBuilder(
-                SimpleContentForm, keep_fields=['picture']).build()
-    '''
-
-    def __init__(self, FormClass, keep_fields=[]):
-        self.FormClass = FormClass
-        self.keep_fields = keep_fields
-
-    def build(self):
-        keep_fields = self.keep_fields
-        form_cls = self.FormClass
-
-        class NewForm(form_cls):
-
-            def __init__(self, *args, **kws):
-                super(NewForm, self).__init__(*args, **kws)
-                new_fields = {}
-                new_meta_fields = []
-
-                for field_name in keep_fields:
-                    field_value = self.fields.get(field_name)
-                    if not field_value:
-                        continue
-
-                    new_meta_fields.append(field_name)
-                    new_fields[field_name] = field_value
-
-                self.fields = new_fields
-                self._meta.fields = new_meta_fields
-
-        return NewForm
-
-
 class LinkableFormMixin(object):
 
     def __init__(self, *args, **kws):
