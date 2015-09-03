@@ -12,7 +12,7 @@ from rest_framework.response import Response
 
 from .mixins import EditableMixin
 from .models import Area, Widget
-from .forms import AreaForm, WidgetForm, NewWidgetForm
+from .forms import ContentFormBuilder, AreaForm, WidgetForm, NewWidgetForm
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
 
@@ -35,6 +35,14 @@ class MagicDeleteView(DeleteView):
                 title='add a content here', widget=widget)
 
         return super(MagicDeleteView, self).delete(request, *args, **kws)
+
+
+class PictureUpdateView(UpdateView):
+    ''' An UpdateView with only picture's field '''
+
+    def get_form_class(self):
+        fields = ['picture', 'picture_cropping', 'picture_filter']
+        return ContentFormBuilder(self.form_class, fields).build()
 
 
 # Base views

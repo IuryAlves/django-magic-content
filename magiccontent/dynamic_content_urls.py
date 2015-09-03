@@ -29,7 +29,7 @@ def get_content_urls_for(model_content):
                     view_row['model_name'], view_row['view_type'])
             )
 
-        elif view_row['view_type'] in ['update', 'delete']:
+        elif view_row['view_type'] in ['update', 'updatepicture', 'delete']:
 
             row = url(
                 r'magiccontent/{0}/(?P<widget_pk>\d+)/{1}/(?P<pk>\d+)/$'.

@@ -9,6 +9,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .abstract_models import BaseContent
 from .mixins import ListContentMixin
+from .views import PictureUpdateView
 
 
 def get_content_models():
@@ -48,7 +49,9 @@ def get_content_models():
     return models_list
 
 
+# subclass comes first, superclass comes last
 ALLOWED_VIEWS = [
+    {'class': PictureUpdateView, 'url_label': 'updatepicture'},
     {'class': CreateView, 'url_label': 'create'},
     {'class': UpdateView, 'url_label': 'update'},
     {'class': DeleteView, 'url_label': 'delete'},
