@@ -1,6 +1,11 @@
 {% if can_edit %}
   <div class="edit-block-controls edit-popup">
       <a title="Edit this content" href="{{ update_url }}" class="edit-block-edit" data-video-url="{{ help_edit_url }}" data-video-description="{{ help_edit_description }}" data-show-screen="{{ help_edit_show }}" data-screen-flag="{{ help_edit_flag }}"><i class="fa fa-pencil"></i></a>
+      {% if updatepicture_url %}
+      <a title="Add an image" href="{{ updatepicture_url }}" class="edit-block-image">
+        <i class="fa fa-camera-retro"></i>
+      </a>
+      {% endif %}
       {% if create_url %}
         <a title="Add a new content" href="{{ create_url }}" class="edit-block-add" data-video-url="{{ help_add_url }}" data-video-description="{{ help_add_description }}" data-show-screen="{{ help_add_show }}" data-screen-flag="{{ help_add_flag }}"><i class="fa fa-plus"></i></a>
       {% endif %}

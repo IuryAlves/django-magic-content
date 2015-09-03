@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.views.generic.edit import CreateView, UpdateView
 
 from magiccontent.mixins import CreateContentMixin, EditableMixin
-from magiccontent.views import MagicDeleteView
+from magiccontent.views import MagicDeleteView, PictureUpdateView
 from .models import BackgroundArea
 from .forms import BackgroundAreaForm
 
@@ -16,6 +16,11 @@ class BackgroundAreaMixin(object):
 
 
 class BackgroundAreaUpdateView(BackgroundAreaMixin, EditableMixin, UpdateView):
+    pass
+
+
+class BackgroundAreaPictureUpdateView(BackgroundAreaMixin, EditableMixin,
+                                      PictureUpdateView):
     pass
 
 

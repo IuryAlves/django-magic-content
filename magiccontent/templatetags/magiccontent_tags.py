@@ -7,6 +7,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.core.urlresolvers import NoReverseMatch
 
 Widget = models.get_model('magiccontent', 'Widget')
 Area = models.get_model('magiccontent', 'Area')
@@ -108,6 +109,7 @@ def show_editable_widget_tag(context, widget_type='', widget_id='',
                              show_order_btn=True, show_sytle_btn=True):
     content_create_url = 'magiccontent.%s.create' % widget_type
     content_update_url = 'magiccontent.%s.update' % widget_type
+    picture_update_url = 'magiccontent.%s.updatepicture' % widget_type
     content_order_url = 'magiccontent.%s.order' % widget_type
 
     create_url = reverse(
@@ -116,6 +118,12 @@ def show_editable_widget_tag(context, widget_type='', widget_id='',
     update_url = reverse(
         content_update_url,
         kwargs={'widget_pk': widget_id, 'pk': content_id})
+    try:
+        updatepicture_url = reverse(
+            picture_update_url,
+            kwargs={'widget_pk': widget_id, 'pk': content_id})
+    except NoReverseMatch:
+        updatepicture_url = None
     order_url = reverse(
         content_order_url,
         kwargs={'widget_pk': widget_id}) if show_order_btn else ''
@@ -134,6 +142,7 @@ def show_editable_widget_tag(context, widget_type='', widget_id='',
     }
     ctx = {'create_url': create_url,
            'update_url': update_url,
+           'updatepicture_url': updatepicture_url,
            'order_url': order_url,
            'style_url': widget_update_url if show_sytle_btn else '',
            'can_edit': can_edit}
