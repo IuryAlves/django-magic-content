@@ -12,7 +12,8 @@ from rest_framework.response import Response
 
 from .mixins import EditableMixin
 from .models import Area, Widget
-from .forms import ContentFormBuilder, AreaForm, WidgetForm, NewWidgetForm
+from .widgets import CustomCropImageWidget, RadioImageFilterSelect
+from .forms import PictureForm, AreaForm, WidgetForm, NewWidgetForm
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
 
 
@@ -42,8 +43,18 @@ class PictureUpdateView(UpdateView):
     show_picture_fields = True
 
     def get_form_class(self):
-        fields = ['picture', 'picture_cropping', 'picture_filter']
-        return ContentFormBuilder(self.form_class, fields).build()
+        _model = self.model
+
+        class PictureContentForm(PictureForm):
+            class Meta:
+                model = _model
+                fields = ('picture', 'picture_cropping', 'picture_filter')
+                widgets = {
+                    'picture': CustomCropImageWidget(_model, 'picture'),
+                    'picture_filter': RadioImageFilterSelect,
+                }
+
+        return PictureContentForm
 
 
 # Base views
