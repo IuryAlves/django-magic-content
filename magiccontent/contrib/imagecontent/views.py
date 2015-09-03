@@ -6,7 +6,7 @@ from django.views.generic import ListView
 
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
-from magiccontent.views import MagicDeleteView
+from magiccontent.views import MagicDeleteView, PictureUpdateView
 from .models import ImageContent
 from .forms import ImageContentForm, ImageContentCreateForm
 
@@ -23,6 +23,11 @@ class ImageContentCreateView(CreateContentMixin, ImageContentMixin,
 
 
 class ImageContentUpdateView(ImageContentMixin, EditableMixin, UpdateView):
+    pass
+
+
+class ImageContentPictureUpdateView(ImageContentMixin, EditableMixin,
+                                    PictureUpdateView):
     pass
 
 
