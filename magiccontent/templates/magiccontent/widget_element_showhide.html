@@ -1,0 +1,137 @@
+{% extends 'magiccontent/base_magiccontent.html' %}
+
+{% load staticfiles %}
+{% load floppyforms %}
+
+{% block js_top %}
+    <!-- # django-floppyforms -->
+    {{ block.super }}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block footer_area %}
+{% endblock footer_area %}
+
+{% block content %}
+
+<div class="popup-content">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Element's order </h1>
+      <h3 style="min-height: 0;"><small>Drag and drop for re-ordering. The first element is the default one to be showed.</small></h3>
+      <!--
+      <span class="pull-right">
+        <a class="btn btn-default" href="#"><i class="fa fa-plus"></i></a>
+      </span> -->
+    </div>
+  </div>
+  
+  <div class="row">
+    {% csrf_token %}
+
+    <div class="col-lg-10">
+      <ul class="handles list">
+          <li role="option" aria-grabbed="false">
+            <div class="pull-right">
+              <span>Visible&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+          </li>
+			  {% for content in content_list %}
+          <li role="option" aria-grabbed="false" draggable="true"
+            data-url="{% url 'magiccontent.api.content_order.update' content.model_name content.widget.id content.pk %}">
+            <span><i class="fa fa-arrows"></i> </span> {{ content.title }}
+            {% if content.site_link %}
+              <span>&nbsp;&nbsp;&nbsp;<small> <i class="fa fa-external-link"></i> {{ content.site_link.name }}</small></span>
+            {% endif %}
+            <div class="pull-right">
+              <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ content.id }}" {% if content.is_active %}checked{% endif %} widget_id="{{ content.widget.id }}" model_name="{{ content.model_name }}">
+                  <label class="onoffswitch-label" for="{{ content.id }}">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                  </label>
+              </div>              
+            </div>            
+            <!-- <div class="pull-right">
+              <span> <i class="fa fa-pencil"></i> </span> 
+              <span> <i class="fa fa-trash-o"></i> </span>                
+            </div> -->
+          </li>
+			  {% endfor %}
+        <li>
+          <p><br/><br/><br/><br/></p>
+        </li>
+		  </ul>   
+    </div>
+
+    <div class="bottom-fix-menu" align="center">
+      <h1>Elements
+        <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
+      </h1>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extrajs %}
+    <script src="{% static 'html.sortable/dist/html.sortable.min.js' %}"></script>
+    <script type="text/javascript">
+
+    </script>
+    <script type="text/javascript">
+      $(function() {
+
+        /* https://github.com/voidberg/html5sortable */
+        $('.handles').sortable({handle: 'span'}).bind('sortupdate', function(e, ui) {
+            var newUl = $(ui.endparent);
+            var i = 0;
+            $('li', newUl).each(function(){
+              var data = {order: i, csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()};
+              $.post($(this).attr('data-url'), data);
+              i += 1;
+            });
+                
+        });
+      
+      }); 
+
+      $(document).ready(function(){
+     
+          $( ".onoffswitch-checkbox" ).click(function() {
+                            
+              var self = $(this);
+              var content_id = self.attr("id");
+              var model_name = self.attr("model_name");
+              var widget_id = self.attr("widget_id");
+              var content_checked = self.is(":checked");
+
+              $.ajax({
+                  url: "/magiccontent/api/" + model_name + "/is_active/" + widget_id + "/" + content_id + "/",
+                  type: "POST",
+                  dataType: "json",
+                  data: {
+                      'csrfmiddlewaretoken': '{{csrf_token}}',
+                      'id': content_id,
+                      'is_active': content_checked
+                  },
+                  success: function(data, textStatus, jqXHR) {
+                      //TODO: do something here...
+                  },
+                  error: function(data, textStatus, jqXHR) {
+                      alert('error updating area');
+                  }                    
+              });
+
+          });
+
+      });
+    </script>
+{% endblock extrajs %}
