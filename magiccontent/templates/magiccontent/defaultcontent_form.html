@@ -216,10 +216,9 @@
     // hide the picture filters when there is no picture
     $(document).ready(function(){
       $("#id_picture_filter").hide();
-      if ( ! $('#picture_found').val() ) {
-        $("label[for='id_picture_filter']").hide();
-      } else {        
-        $("label[for='id_picture_filter']").on('click', function(evt){
+      $("label[for='id_picture_filter']").hide();
+      if ( $('#picture_found').val() ) {
+        $("#btn_id_picture_filter").on('click', function(evt){
           evt.preventDefault();
           $("#id_picture_filter").toggle();
         });
