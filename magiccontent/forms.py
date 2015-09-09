@@ -24,7 +24,11 @@ class LinkableFormMixin(object):
             name='>>> Create and link to a new custom page',
             url=NEWCUTOMPAGE)
         self.fields['site_link'].queryset = SiteLink.site_objects.all()
-        self.fields['custom_link_url'] = forms.URLField(required=False)
+        self.fields['link_label'].help_text =\
+            ('You can provide a custom name to this link, if not, '
+             'the title will be used instead')
+        self.fields['custom_link_url'] = forms.URLField(
+            required=False, help_text='example: http://www.google.com')
 
     def clean(self):
         data = self.cleaned_data
@@ -43,10 +47,12 @@ class LinkableFormMixin(object):
 
         custom_link_url = data.pop('custom_link_url', '')
         if custom_link_url:
-            link_name = label or data.get('title')
+            _link_name = label or data.get('title')
+            link_name = '[EXTERNAL] {0} - {1}'.format(
+                _link_name, custom_link_url)[:64]
             site_link, sl_created = SiteLink.site_objects.get_or_create(
                 name=link_name, defaults={'url': custom_link_url})
-            self.cleaned_data['link_label'] = link_name
+            self.cleaned_data['link_label'] = _link_name
             self.cleaned_data['site_link'] = site_link
 
         return data

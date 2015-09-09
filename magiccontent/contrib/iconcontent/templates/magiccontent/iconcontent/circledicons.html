@@ -24,8 +24,12 @@
                 <div class="icon-circle-lg up-bg ft4up-bg">
                     <i class="fa {{ object.icon }}"></i>
                 </div>
-                {% if object.title %}
-                  <h2 class="fttitle4base-bg">{{ object.title }}</h2>
+                {% if object.link_label %}
+                  <h2 class="fttitle4base-bg">{{ object.link_label }}</h2>
+                {% else %}
+                  {% if object.title %}
+                    <h2 class="fttitle4base-bg">{{ object.title }}</h2>
+                  {% endif %}
                 {% endif %}
               {% if object.link_url %}</a>{% endif %}
               <p>{{ object.content }}</p>

@@ -22,8 +22,12 @@
             {% if object.link_url %}<a href="{{ object.link_url }}">{% endif %}
             <h2>
               <i class="fa {{ object.icon }} iconfont-lg"></i>
-              {% if object.title %}
-                <span>{{ object.title }}</span>
+              {% if object.link_label %}
+                  <span>{{ object.link_label }}</span>
+              {% else %}
+                {% if object.title %}
+                  <span>{{ object.title }}</span>
+                {% endif %}
               {% endif %}
             </h2>
             {% if object.link_url %}</a>{% endif %}

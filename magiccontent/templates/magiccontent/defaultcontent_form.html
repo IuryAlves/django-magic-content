@@ -58,6 +58,23 @@
 
                 {{ form }}
 
+                {% if save_btn_label != 'continue' %}
+                <div class="col-lg-8" style="margin-top: 20px;" id="linkControl">
+                  <h4>Apply a link to this content</h4>
+                  <a href="#" class="btn btn-sm" id="linkSelect">
+                    <i class="fa fa-link" style="font-size: 26px;"></i>
+                    <br />
+                    Select an existing link from this site
+                  </a>
+                  <span>OR</span>
+                  <a href="#" class="btn btn-sm" id="newLink">
+                    <i class="fa fa-external-link" style="font-size: 26px;"></i>
+                    <br />
+                    Create a new external link
+                  </a>
+                </div>
+                {% endif %}
+
                 <div class="bottom-fix-menu" align="center">
                   <h1>
                     <a class="btn pull-left" href="{% url 'magiccontent.widget.update' widget.id %}">&nbsp &nbsp <i class="fa fa-eyedropper" style="font-size: 22px; color: #777"></i></a>
@@ -234,6 +251,43 @@
 
       });
 
+
+      // links control
+      var formFieldDisplay = function(fieldId, action){
+        var selector = $('#' + fieldId).closest('.form-group');
+
+        if (action === 'hide'){
+          selector.hide();
+        }else if (action === 'show'){
+          selector.slideDown();
+        }
+      }
+      if (!$('#id_site_link').val()){
+        formFieldDisplay('id_site_link', 'hide');
+        formFieldDisplay('id_link_label', 'hide');
+      }else{
+        $('#linkControl h4').hide();
+        $('#linkControl span').hide();
+        $('#linkSelect').hide();
+      }
+      formFieldDisplay('id_custom_link_url', 'hide');
+
+      $('#linkSelect').on('click', function(evt){
+        evt.preventDefault();
+        formFieldDisplay('id_custom_link_url', 'hide');
+        formFieldDisplay('id_site_link', 'show');
+        formFieldDisplay('id_link_label', 'show');
+      });
+      $('#newLink').on('click', function(evt){
+        evt.preventDefault();
+        $('#linkControl span').show();
+        $('#linkSelect').show();
+        formFieldDisplay('id_site_link', 'hide');
+        formFieldDisplay('id_link_label', 'show');
+        formFieldDisplay('id_custom_link_url', 'show');
+      });
+
+
       // handle the mouseenter functionality
       $(".img-effects > figure")
         .mouseenter(function(){
@@ -264,7 +318,7 @@
       });
       $("#goto-link").on('click', function(evt){
         evt.preventDefault();
-        $('html,body').animate({scrollTop: $("label[for='id_site_link']").offset().top});
+        $('html,body').animate({scrollTop: $("#newLink").offset().top});
       });
 
     });
