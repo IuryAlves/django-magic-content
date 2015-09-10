@@ -22,10 +22,24 @@ class LinkRefererChoiceField(forms.ModelChoiceField):
 
     def __init__(self, *args, **kws):
         super(LinkRefererChoiceField, self).__init__(*args, **kws)
-        groups = groupby(kws['queryset'], attrgetter('referer'))
-        self.choices = [
-            (ref, [(l.id, self.label_from_instance(l)) for l in links])
-            for ref, links in groups]
+        queryset = kws['queryset']
+
+        landingpage = ['Landing Page Links', []]
+        for landing in queryset.filter(referer='landingpage'):
+            data = (landing.id, landing.name)
+            landingpage[1].append(data)
+
+        internalpage = ['Internal Page Links', []]
+        for internal in queryset.filter(referer='internalpage'):
+            data = (internal.id, internal.name)
+            internalpage[1].append(data)
+
+        externalpage = ['External Page Links', []]
+        for external in queryset.filter(referer='externalpage'):
+            data = (external.id, external.name)
+            externalpage[1].append(data)
+
+        self.choices = [landingpage, internalpage, externalpage]
 
 
 class LinkableFormMixin(object):
