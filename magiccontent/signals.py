@@ -48,6 +48,16 @@ def content_post_save_handler(sender, **kwargs):
         links_for_model = link_builder(link_cfg)
 
         for link_item in links_for_model:
+            url = link_item['url']
+            if url.startswith('#'):
+                referer = 'landingpage'
+            elif url.startswith('/'):
+                referer = 'internalpage'
+            else:
+                referer = 'externalpage'
+
+            link_item['referer'] = referer
+
             site_link, _ = SiteLink.site_objects.get_or_create(
                 origin_model=model_str,
                 origin_model_pk=instance.pk,

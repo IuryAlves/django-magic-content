@@ -117,11 +117,21 @@ class Widget(Permalinkable, SiteModel):
         return self.get_widget_type.style_list()
 
 
+LINK_REFERER_CHOICES = (
+    ('landingpage', 'Landing Page'),
+    ('internalpage', 'Internal Page'),
+    ('externalpage', 'External Page'),
+)
+
+
 class SiteLink(SiteModel):
     name = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
     origin_model = models.CharField(max_length=255, null=True, blank=True)
     origin_model_pk = models.PositiveIntegerField(null=True, blank=True)
+    referer = models.CharField(
+        max_length=20, default=LINK_REFERER_CHOICES[0][0],
+        choices=LINK_REFERER_CHOICES, db_index=True)
 
     class Meta:
         ordering = ['name']

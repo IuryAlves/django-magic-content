@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from itertools import groupby
+from operator import attrgetter
+
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 import floppyforms.__future__ as forms
@@ -15,6 +18,16 @@ from .abstract_models import BaseContent
 NEWCUTOMPAGE = 'NEWCUTOMPAGE'
 
 
+class LinkRefererChoiceField(forms.ModelChoiceField):
+
+    def __init__(self, *args, **kws):
+        super(LinkRefererChoiceField, self).__init__(*args, **kws)
+        groups = groupby(kws['queryset'], attrgetter('referer'))
+        self.choices = [
+            (ref, [(l.id, self.label_from_instance(l)) for l in links])
+            for ref, links in groups]
+
+
 class LinkableFormMixin(object):
 
     def __init__(self, *args, **kws):
@@ -23,7 +36,8 @@ class LinkableFormMixin(object):
         newcustompage, _ = SiteLink.site_objects.get_or_create(
             name='>>> Create and link to a new custom page',
             url=NEWCUTOMPAGE)
-        self.fields['site_link'].queryset = SiteLink.site_objects.all()
+        self.fields['site_link'] = LinkRefererChoiceField(
+            queryset=SiteLink.site_objects.all())
         self.fields['link_label'].help_text =\
             ('You can provide a custom name to this link, if not, '
              'the title will be used instead')
@@ -42,16 +56,18 @@ class LinkableFormMixin(object):
             elif link.url == NEWCUTOMPAGE and label:
                 site_link, created = SiteLink.site_objects.get_or_create(
                     name='Page: {0}'.format(label),
-                    url='/page/{0}/'.format(slugify(label).replace('-', '')))
+                    url='/page/{0}/'.format(slugify(label).replace('-', '')),
+                    defaults={'referer': 'internalpage'})
                 data['site_link'] = site_link
 
         custom_link_url = data.pop('custom_link_url', '')
         if custom_link_url:
             _link_name = label or data.get('title')
-            link_name = '[EXTERNAL] {0} - {1}'.format(
+            link_name = '{0} - {1}'.format(
                 _link_name, custom_link_url)[:64]
             site_link, sl_created = SiteLink.site_objects.get_or_create(
-                name=link_name, defaults={'url': custom_link_url})
+                name=link_name,
+                defaults={'url': custom_link_url, 'referer': 'externalpage'})
             self.cleaned_data['link_label'] = _link_name
             self.cleaned_data['site_link'] = site_link
 
