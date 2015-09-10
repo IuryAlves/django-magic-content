@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from itertools import groupby
-from operator import attrgetter
-
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 import floppyforms.__future__ as forms
@@ -39,7 +36,8 @@ class LinkRefererChoiceField(forms.ModelChoiceField):
             data = (external.id, external.name)
             externalpage[1].append(data)
 
-        self.choices = [landingpage, internalpage, externalpage]
+        self.choices = [('', '---------'), landingpage, internalpage,
+                        externalpage]
 
 
 class LinkableFormMixin(object):
