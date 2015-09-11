@@ -49,7 +49,7 @@ class LinkableFormMixin(object):
             name='>>> Create and link to a new custom page',
             url=NEWCUTOMPAGE)
         self.fields['site_link'] = LinkRefererChoiceField(
-            queryset=SiteLink.site_objects.all())
+            queryset=SiteLink.site_objects.all(), required=False)
         self.fields['link_label'].help_text =\
             ('You can provide a custom name to this link, if not, '
              'the title will be used instead')
@@ -62,10 +62,8 @@ class LinkableFormMixin(object):
         link = data.get('site_link')
         label = data.get('link_label') or data.get('title')
         if link:
-            if link.url == NEWCUTOMPAGE and not label:
-                raise forms.ValidationError(_("Enter a link label"))
 
-            elif link.url == NEWCUTOMPAGE and label:
+            if link.url == NEWCUTOMPAGE and label:
                 site_link, created = SiteLink.site_objects.get_or_create(
                     name='Page: {0}'.format(label),
                     url='/page/{0}/'.format(slugify(label).replace('-', '')),
