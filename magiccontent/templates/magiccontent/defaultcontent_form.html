@@ -38,9 +38,11 @@
               <li role="presentation">
                 <a href="#" id="goto-content">Content<br/><i class="fa fa-file-text-o"></i></a>
               </li>
+              {% if form.show_link_tools %}
               <li role="presentation">
                 <a href="#" id="goto-link">Link<br/><i class="fa fa-external-link"></i></a>
               </li>
+              {% endif %}
             </ul>
           </div>
           {% endif %}
@@ -58,7 +60,7 @@
 
                 {{ form }}
 
-                {% if save_btn_label != 'continue' %}
+                {% if save_btn_label != 'continue' and form.show_link_tools %}
                 <div class="col-lg-8" style="margin-top: 20px;" id="linkControl">
                   <h4>Apply a link to this content</h4>
                   <a href="#" class="btn btn-sm" id="linkSelect">

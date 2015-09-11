@@ -56,6 +56,9 @@ class LinkableFormMixin(object):
         self.fields['custom_link_url'] = forms.URLField(
             required=False, help_text='example: http://www.google.com')
 
+        # for template display purposes
+        self.show_link_tools = True
+
     def clean(self):
         data = self.cleaned_data
 
