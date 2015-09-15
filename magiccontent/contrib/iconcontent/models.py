@@ -59,7 +59,7 @@ class IconContent(BaseContent):
         return False
 
     @classmethod
-    def style_list(cls_obj):
+    def style_list(cls):
         style_list = (
             ('default', 'IconContent - Small Icons (default)'),
             ('bigicons', 'IconContent - Big Icons'),

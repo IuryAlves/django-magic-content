@@ -10,33 +10,26 @@
           <a href="{% url 'timeline.entrycontent.showpage' widget.pk %}">{{ widget.description }}</a>
         </h1>
       {% endif %}
-
       {% show_editable_area_tag area.id widget.id can_edit area.name %}
-
     </header>
 
     <div class="row">
-
       {% for object in object_list %}
         <div class="col-md-12 {{ editable }}">
-
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-
           <div class="content-item">
             {% if object.title %}
-            <h3 style="min-height: 8px; ">
-              <a href="{{ object.get_entry_url }}">{{ object.title |safe }} {% if object.private %} <i class="fa fa-lock"></i>{% endif %}</a>
-            </h3>
+              <h3>
+                <a href="{{ object.get_entry_url }}">
+                  {{ object.title|safe }}
+                  {% if object.private %}<i class="fa fa-lock"></i>{% endif %}
+                </a>
+              </h3>
             {% endif %}
-            <span style="font-size: 24px; margin-top: 2px;">
-              <small>{{ object.created|timesince }}</small>
-            </span>
-            
+            <small>{{ object.created|timesince }}</small>
           </div> <!-- content-item -->
-
         </div>
       {% endfor %}
-
     </div>
 
 </article>
