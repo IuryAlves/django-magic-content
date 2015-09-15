@@ -7,13 +7,14 @@
 
     <header>
       {% if widget.description %}
-        <h1 class="decorator">{{ widget.description }}</h1>
+      <h1 class="decorator">{{ widget.description }}</h1>
       {% endif %}
+
       {% show_editable_area_tag area.id widget.id can_edit area.name %}
+
     </header>
 
     <div class="row">
-
       <div class="col-md-12">
 
         <div class="popup-gallery">
@@ -21,24 +22,28 @@
           {% for object in object_list %}
 
             {% if can_edit %}
-              <div class="col-md-4 {{ editable }}">
-                {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-                <div class="content-item" style="text-align: left;">
-                  <a href="{% if object.picture %}{{ object.picture.picture.url }}{% endif %}" title="{{ object.title |safe }}">
-                    {% if object.picture %}
-                      <img src="{% cropped_thumbnail object 'picture_cropping' scale=1 %}" width="240" height="240">
-                    {% else %}
-                      <img width="240" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}"/>
-                    {% endif %}
-                  </a>
-                </div>
+            <div class="col-md-4 {{ editable }}">
+
+              {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+              <div class="content-item" style="text-align: left;">
+                <a href="{% if object.picture %}{{ object.picture.picture.url }}{% endif %}" title="{{ object.title |safe }}">
+                {% if object.picture %}
+                <img src="{% cropped_thumbnail object 'picture_cropping' scale=1 %}" width="240" height="240">
+                {% else %}
+                <img width="240" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}"/>
+                {% endif %}
+                </a>
+
               </div>
+            </div>
+
             {% else %}
               <a href="{% if object.picture %}{{ object.picture.picture.url }}{% endif %}" title="{{ object.title |safe }}">
               {% if object.picture %}
-                <img src="{% cropped_thumbnail object 'picture_cropping' scale=1 %}" width="240" height="240">
+              <img src="{% cropped_thumbnail object 'picture_cropping' scale=1 %}" width="240" height="240">
               {% else %}
-                <img width="240" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}"/>
+              <img width="240" src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}"/>
               {% endif %}
               </a>
             {% endif %}
@@ -47,32 +52,33 @@
 
         </div>
 
-      </div>
 
+      </div>
     </div>
 
 </article>
 
-<script>
-(function($) {
-    "use strict";
-    $(document).ready(function() {
-        $(".popup-gallery").magnificPopup({
-            delegate: "a",
-            type: "image",
-            tLoading: "Loading image #%curr%...",
-            mainClass: "mfp-img-mobile",
-            gallery: {
-                enabled: true,
-                navigateByImgClick: true,
-                preload: [0, 1]
-            },
-            image: {
-                tError: "<a href='%url%'>The image #%curr%</a> could not be loaded.",
-                titleSrc: function(item) {
-                    return item.el.attr("title");
-            }
+<script type="text/javascript">
+  $(function() {
+
+    $('.popup-gallery').magnificPopup({
+      delegate: 'a',
+      type: 'image',
+      tLoading: 'Loading image #%curr%...',
+      mainClass: 'mfp-img-mobile',
+      gallery: {
+        enabled: true,
+        navigateByImgClick: true,
+        preload: [0,1]
+      },
+      image: {
+        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+        titleSrc: function(item) {
+          return item.el.attr('title');
         }
+      }
     });
-})(jQuery);
+
+  });
+
 </script>
