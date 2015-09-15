@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from django.contrib.admin.sites import site
 
 from image_cropping.widgets import CropForeignKeyWidget
-from floppyforms.widgets import RadioSelect
+from floppyforms.widgets import RadioSelect, CheckboxInput
 
 
 class CustomCropImageWidget(CropForeignKeyWidget):
@@ -35,3 +35,11 @@ class RadioWidgetTypeAllSelect(RadioSelect):
 
 class RadioWidgetStyleSelect(RadioSelect):
     template_name = 'floppyforms/radiowidgetstyle.html'
+
+
+class OnOffCheckboxInput(CheckboxInput):
+    template_name = 'floppyforms/onoff_checkbox.html'
+
+
+class YesNoCheckboxInput(CheckboxInput):
+    template_name = 'floppyforms/yesno_checkbox.html'
