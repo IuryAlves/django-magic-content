@@ -18,7 +18,7 @@
             <a {% if object.link_url %}href="{{ object.link_url }}"{% endif %}>
               {% if object.picture %}
                 <div class="img">
-                  <figure class="imgimglist {{ object.picture_filter }}">
+                  <figure class="imglist {{ object.picture_filter }}">
                     <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
                   </figure>
                   <div class="overlay">
