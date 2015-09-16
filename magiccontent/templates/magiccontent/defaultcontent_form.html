@@ -6,7 +6,6 @@
 {% load thumbnail %}
 
 {% block extracss %}
-<link href="{% static 'gallery/css/dropzone.css' %}" rel="stylesheet" media="screen">
 <link href="{% static 'gallery/css/gallery.css' %}" rel="stylesheet" media="screen">
 {% endblock %}
 
@@ -160,7 +159,7 @@
 
 
 {% block extrajs %}
-  <script type="text/javascript" src="{% static 'gallery/dropzone.js' %}"></script>
+
   <script type="text/javascript">
 
      ajaxSubmit = function(){
