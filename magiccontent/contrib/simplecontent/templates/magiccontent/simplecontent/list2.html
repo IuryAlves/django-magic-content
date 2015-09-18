@@ -17,40 +17,35 @@
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
           <div class="content-item overlay-effect effects clearfix">
             <a {% if object.link_url %}href="{{ object.link_url }}"{% endif %}>
-            {% if object.picture %}
-              <div class="img">
-                <figure class="imglist {{ object.picture_filter }}">
-                  <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
-                </figure>
-                <div class="overlay">
-                  <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                  <a class="close-overlay hidden">x</a>
+              {% if object.picture %}
+                <div class="img">
+                  <figure class="imglist {{ object.picture_filter }}">
+                    <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
+                  </figure>
+                  <div class="overlay">
+                    <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
+                    <a class="close-overlay hidden">x</a>
+                  </div>
                 </div>
-              </div>
-            {% endif %}
-            {% if object.title %}
-              <h2>{{ object.title|safe }}</h2>
-            {% endif %}
-            {% if object.sub_title %}
-              <h3><strong>{{ object.sub_title }}</strong></h3>
-            {% endif %}
-            <p>{{ object.content|safe }}</p>
-
-            {% if object.link_label %}
-              <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
-            {% endif %}
+              {% endif %}
+              {% if object.title %}
+                <h2>{{ object.title|safe }}</h2>
+              {% endif %}
+              {% if object.sub_title %}
+                <h3><strong>{{ object.sub_title }}</strong></h3>
+              {% endif %}
+              <p>{{ object.content|safe }}</p>
+              {% if object.link_label %}
+                <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
+              {% endif %}
             </a>
-
           </div> <!-- content-item -->
-
         </div>
-
         {% block column_number %}
-        {% if forloop.counter|divisibleby:2 %}
-          <div class="clearfix"></div>
-        {% endif %}
+          {% if forloop.counter|divisibleby:2 %}
+            <div class="clearfix"></div>
+          {% endif %}
         {% endblock column_number %}
-
       {% endfor %}
     </div>
 
