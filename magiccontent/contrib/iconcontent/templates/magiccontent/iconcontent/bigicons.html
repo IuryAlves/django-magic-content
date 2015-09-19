@@ -18,20 +18,22 @@
 
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
-          <div class="content-item light-box box-hover">
+          <div class="content-item light-box box-hover" style="background-color: #fff;">
             {% if object.link_url %}<a href="{{ object.link_url }}">{% endif %}
             <h2>
               <i class="fa {{ object.icon }} iconfont-lg"></i>
-              {% if object.link_label %}
-                  <span>{{ object.link_label }}</span>
-              {% else %}
-                {% if object.title %}
-                  <span>{{ object.title }}</span>
-                {% endif %}
-              {% endif %}
+              <span>{{ object.title }}</span>
             </h2>
             {% if object.link_url %}</a>{% endif %}
             <p>{{ object.content }}</p>
+            {% if object.link_label %}
+            <p>
+              <a href="{{ object.link_url }}" style="text-decoration: underline;">
+                <span class="fttitle4base-bg">{{ object.link_label }}</span>
+              </a>
+            </p>
+            {% endif %}
+
           </div> <!-- content-item -->       
 
         </div>
