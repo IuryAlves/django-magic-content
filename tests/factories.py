@@ -4,31 +4,34 @@ from __future__ import absolute_import
 
 import factory
 
-from .models import Widget, Area, WIDGET_TYPES
-from .contrib.simplecontent.models import SimpleContent
+from magiccontent.models import Widget, Area, WIDGET_TYPES
+from magiccontent.contrib.simplecontent.models import SimpleContent
 
 
-class WidgetFactory(factory.DjangoModelFactory):
+class WidgetFactory(factory.django.DjangoModelFactory):
 
-    FACTORY_FOR = Widget
+    class Meta:
+        model = Widget
 
     name = factory.Sequence(lambda n: 'Widget Name {0}'.format(n))
     widget_type = WIDGET_TYPES[0][0]  # simplecontent
     style_template = 'default'
 
 
-class AreaFactory(factory.DjangoModelFactory):
+class AreaFactory(factory.django.DjangoModelFactory):
 
-    FACTORY_FOR = Area
+    class Meta:
+        model = Area
 
     name = factory.Sequence(lambda n: 'Area Name {0}'.format(n))
     widget = factory.SubFactory(WidgetFactory)
     is_visible = True
 
 
-class SimpleContentFactory(factory.DjangoModelFactory):
+class SimpleContentFactory(factory.django.DjangoModelFactory):
 
-    FACTORY_FOR = SimpleContent
+    class Meta:
+        model = SimpleContent
 
     widget = factory.SubFactory(WidgetFactory)
     title = factory.Sequence(lambda n: 'Title {0}'.format(n))
