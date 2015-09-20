@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 
 from magicthemes.models import ThemePreferences
 
+from .models import SitePreferences
 
 User = get_user_model()
 
@@ -22,6 +23,7 @@ class AuthTestCase(test.TestCase):
 
         self.site = Site.objects.create(domain='example.com')
         ThemePreferences.objects.create(site=self.site)
+        SitePreferences.objects.create(site=self.site)
 
         self.user = User.objects.create(
             is_staff=True, is_superuser=True, **create_params)
