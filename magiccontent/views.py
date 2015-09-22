@@ -73,7 +73,8 @@ class AreaVisibleUpdateView(ListView):
     context_object_name = 'object_list'
 
     def get_queryset(self):
-        return Area.site_objects.actives()
+        return Area.site_objects.filter(
+            is_landingpage_area=True)
 
 
 class StyleWidgetUpdateView(EditableMixin, UpdateView):

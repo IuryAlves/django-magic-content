@@ -40,7 +40,7 @@ class BaseContent(SiteModel):
     title = models.CharField(
         _('title'), max_length=128, default='Edit title',
         blank=True)
-    short_content = models.TextField(
+    short_content = models.CharField(
         _('short content'), max_length=512,
         default='Edit content',
         blank=True)

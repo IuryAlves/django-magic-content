@@ -3,49 +3,62 @@
 {% load magiccontent_tags %}
 <!-- widget: BackgroundArea:: default - style2 -->
 
-  <div class="container {{ editable }}" style="color: #333">
+  <div class="container {{ editable }}">
 
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center header-inner" style="padding-top: 60px; padding-bottom: 60px;">
-        <h1 class="animated fadeInDown" style="font-size: 68px;">{{ object.title }}</h1>
+      <div class="col-md-8 col-md-offset-2 text-center header-inner">
+        <h1 class="animated fadeInDown">{{ object.title }}</h1>
         {% if object.sub_title %}
-        <p class="animated fadeInUp delay-05s" style="font-size: 34px;">{{ object.sub_title }}</p>
+          <p class="animated fadeInUp delay-05s">{{ object.sub_title }}</p>
         {% endif %}
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center">
-
         {% if object.site_link %}
           <center>
-	          <div class="og-details" style="float: none; width: 320px;">
-	            <a href="{{ object.link_url}}">{{ object.link_name }}</a>
-	          </div>
+            <div class="og-details">
+              <a href="{{ object.link_url}}">{{ object.link_name }}</a>
+            </div>
           </center>
-          <br/>
         {% endif %}
-
-        <br/><p style="font-size: 1.2em;">{{ object.content }}</p>
+        <p>{{ object.content }}</p>
         <p>
-          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
-            <i class="fa fa-chevron-down" style="font-size: 36px; color: #333"></i>
+          <a id="scrolldown-indicator" class="fadeOutDown down-arrow-btn" href="#intro">
+            <i class="fa fa-chevron-down"></i>
           </a>
         </p>
       </div>
     </div>
-  </div>
 
+</div>
 
 {% if object.picture %}
   <script>
-  $(function() {
-    $(".{{ div }}").css({
-        "backgroundImage": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})",
-        "height": "833px",
-        "width": "100%"
+    $(function() {
+
+      $(".{{ div }}").css({
+          "background-image": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})",
+          "height": "833px",
+          "width": "100%"
+      });
+
+      function move_bg_to_wrapper() {
+        var $wrapper = $("#wrapper");
+        var $main_bg = $(".main-background");
+        // Only move if theme already implements a background for wrapper
+        if (($wrapper.css("background-image") !== "none") && ($main_bg.css("background-image") !== "none")) {
+            var wrapper_img = $main_bg.css("background-image");
+            $wrapper.css("background-image", wrapper_img);
+            $main_bg.css("background-image", "none");
+        }
+      }
+
+      move_bg_to_wrapper();
+
     });
-  });
   </script>
 {% endif %}

@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load floppyforms %}
+{% load magiccontent_tags %}
 
 {% block js_top %}
     <!-- # django-floppyforms -->
@@ -34,14 +35,26 @@
 
         <div class="col-lg-10">
 
-        	<table class="table">
+        	<table class="table table-hover" style="background-color: #fff;">
 		      <tbody>
 		      	
 			  {% for area in object_list %}
-        	  <tr>
-                <td><strong>{{ area.name }}</strong></td>
-        	    <td>{{ area.widget.name }} <small>{{ area.widget.widget_type }}</small></td>
-        		<td>
+        	  <tr {% if not area.widget.is_content_data %}style="background-color: #EDEDED;"{% endif %}>
+                <td>
+                  <figure class="py1" style="display:block; position:relative; overflow:hidden; ">
+                    <img height="106" src="/static/frontend/magiccontent/img/widgetstyle_{{ area.widget.style_template_verbose|slugify }}.jpg" alt="{{ area.widget.name }}">
+                    <figcaption style="position: absolute;background: rgba(0,0,0,0.40);color: white;padding: 6px 10px;top: 80px;"><strong> #{{ area.name }}</strong>
+                    </figcaption>
+                  </figure>
+                </td>
+        	    <td style="vertical-align: middle;" >
+                <strong>{{ area.widget.name }}<br/></strong>
+                <small>{{ area.widget.description }}</small>
+                {% if not area.widget.is_content_data %}
+                <br/><strong>FIXED</strong>
+                {% endif %}
+              </td>
+        		<td style="vertical-align: middle;" >
                     {% if not area.is_always_visible %}
 					<div class="onoffswitch">
 					    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ area.id }}" {% if area.is_visible%}checked{% endif%}>
@@ -57,7 +70,7 @@
 		      </tbody> 	
         	</table>
             <div class="bottom-fix-menu" align="center">
-              <h1>Areas
+              <h1>
                 <a href="{% url 'magiccontent.windows_close' %}" class="btn btn-lg btn-danger" role="button" >Close</a>
               </h1>
             </div>        	

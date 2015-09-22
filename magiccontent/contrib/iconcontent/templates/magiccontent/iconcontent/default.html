@@ -18,7 +18,7 @@
 
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
-          <div class="content-item light-box box-hover" style="background-color: #fff;">
+          <div class="content-item light-box box-hover text-center" style="background-color: #fff;">
             {% if object.link_url %}<a href="{{ object.link_url }}">{% endif %}
               <h2>
                 <i class="fa {{ object.icon }} iconfont-sm"></i>
@@ -37,6 +37,11 @@
           </div> <!-- content-item -->       
 
         </div>
+        {% block column_number %}
+          {% if forloop.counter|divisibleby:3 %}
+            <div class="clearfix py1"></div>
+          {% endif %}
+        {% endblock column_number %}
 
       {% endfor %}      
     </div>
