@@ -31,5 +31,4 @@ Then use it in a project::
 
 Features
 --------
-
 * TODO
