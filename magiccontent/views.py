@@ -65,6 +65,7 @@ class AreaUpdateView(EditableMixin, UpdateView):
     template_name = 'magiccontent/area_form.html'
 
 
+# TODO: This is a ListView, should have a better name
 class AreaVisibleUpdateView(ListView):
     model = Area
     template_name = 'magiccontent/area_visible_form.html'

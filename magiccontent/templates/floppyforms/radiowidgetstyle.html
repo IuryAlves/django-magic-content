@@ -1,0 +1,29 @@
+
+<!-- floppyforms/radiowidgetstyle.html -->
+{% load magiccontent_tags %}
+
+<div class="row radioicon" id="{{ attrs.id }}">
+  <div data-toggle="buttons">
+    {% for group_name, choices in optgroups %}
+      {% for choice in choices %}
+        <label class="col-md-4 btn radioicon-label{% if choice.0 in value %} active{% endif %}">
+          <div class="radioicon-control">
+
+            <ul class="grid cs-style-7">
+              <li>
+                <figure>
+                  <img width="100%" src="/static/frontend/magiccontent/img/widgetstyle_{{ choice.1|slugify }}.jpg" class="{{ choice.0 }}">
+                  <input type="radio" class="icon_selector" id="{{ attrs.id }}_{{ forloop.counter }}" value="{{ choice.0 }}" name="{{ name }}"{% if required %} required{% endif %}{% if choice.0 in value %} checked{% endif %}>
+                  <p>{{ choice.1 }}</p>
+                  <figcaption>
+                    <h5>{% include choice.1|show_help_text %}</h5>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          </div>
+        </label>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>

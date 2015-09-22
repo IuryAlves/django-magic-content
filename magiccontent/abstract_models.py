@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from ckeditor.fields import RichTextField
@@ -114,12 +115,10 @@ class BaseContent(SiteModel):
 
     @property
     def delete_url(self):
-        # TODO: find a way to use reverse here
-        return '/magiccontent/magiccontent/{0}/{1}/delete/{2}/'.format(
-            self._meta.model_name, self.widget.pk, self.pk)
+        reverse_name = 'magiccontent.{0}.delete'.format(self._meta.model_name)
+        return reverse(reverse_name, args=[self.widget.pk, self.pk])
 
     @property
     def update_url(self):
-        # TODO: find a way to use reverse here
-        return '/magiccontent/magiccontent/{0}/{1}/update/{2}/'.format(
-            self._meta.model_name, self.widget.pk, self.pk)
+        reverse_name = 'magiccontent.{0}.update'.format(self._meta.model_name)
+        return reverse(reverse_name, args=[self.widget.pk, self.pk])

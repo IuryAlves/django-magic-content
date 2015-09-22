@@ -5,6 +5,12 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',  # noqa
     url(r'', include('magiccontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.simplecontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.background.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.iconcontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.imagecontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.longcontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.pagelink.urls')),
 )
 
 

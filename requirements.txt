@@ -10,5 +10,4 @@ easy-thumbnails==2.2
 libsass==0.5.1
 
 -e git://github.com/DjenieLabs/django-multisites-utils.git#egg=django-multisites-utils
--e git://github.com/DjenieLabs/django-magicthemes.git#egg=django-magicthemes
 -e git://github.com/DjenieLabs/django-magic-gallery.git#egg=django-magic-gallery

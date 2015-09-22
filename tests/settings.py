@@ -1,4 +1,3 @@
-import os
 from django.conf.global_settings import *
 
 DEBUG = False
@@ -13,7 +12,6 @@ USE_TZ = True
 SECRET_KEY = 'local'
 
 ROOT_URLCONF = 'tests.urls'
-SITE_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 DATABASES = {
     'default': {
@@ -42,7 +40,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
-    'magicthemes.context_processors.frontend_processor',
 )
 
 STATICFILES_FINDERS = (
@@ -63,14 +60,17 @@ INSTALLED_APPS = (
     'image_cropping',
     'multisitesutils',
     'magicgallery',
-    'magicthemes',
 
     'magiccontent',
     'tests',
+    'magiccontent.contrib.simplecontent',
+    'magiccontent.contrib.background',
+    'magiccontent.contrib.iconcontent',
+    'magiccontent.contrib.imagecontent',
+    'magiccontent.contrib.longcontent',
+    'magiccontent.contrib.pagelink',
 )
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
-
-MAGICCONTENT_CAN_EDIT_METHOD = 'magiccontent.default_auth.naive_can_edit'

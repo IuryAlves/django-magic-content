@@ -6,10 +6,6 @@ from django import test
 from django.contrib.sites.models import Site
 from django.contrib.auth import get_user_model
 
-from magicthemes.models import ThemePreferences
-
-from .models import SitePreferences
-
 User = get_user_model()
 
 
@@ -21,9 +17,7 @@ class AuthTestCase(test.TestCase):
         create_params = self.user_credentials.copy()
         password = create_params.pop('password')
 
-        self.site = Site.objects.create(domain='example.com')
-        ThemePreferences.objects.create(site=self.site)
-        SitePreferences.objects.create(site=self.site)
+        self.site = Site.objects.get_current()
 
         self.user = User.objects.create(
             is_staff=True, is_superuser=True, **create_params)

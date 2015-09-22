@@ -5,7 +5,8 @@ from __future__ import absolute_import
 import importlib
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+
+from .default_auth import naive_can_edit
 
 
 def get_can_edit_method(settings_name):
@@ -14,9 +15,10 @@ def get_can_edit_method(settings_name):
     """
     permission_settings = getattr(settings, settings_name, None)
 
-    if not permission_settings:
-        raise ImproperlyConfigured(
-            'The settings.{0} param is not defined.'.format(settings_name))
-    module_name, method_name = permission_settings.rsplit('.', 1)
-    module = importlib.import_module(module_name)
-    return getattr(module, method_name)
+    if permission_settings:
+
+        module_name, method_name = permission_settings.rsplit('.', 1)
+        module = importlib.import_module(module_name)
+        return getattr(module, method_name)
+
+    return naive_can_edit
