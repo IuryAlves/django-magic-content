@@ -40,11 +40,10 @@
   <script>
     $(function() {
 
-      $(".{{ div }}").css({
-          "background-image": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})",
-          "height": "833px",
-          "width": "100%"
-      });
+      $(".{{ div }}").css(
+          "background-image",
+          "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})"
+      );
 
       function move_bg_to_wrapper() {
         var $wrapper = $("#wrapper");
