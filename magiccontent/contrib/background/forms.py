@@ -2,6 +2,8 @@
 from __future__ import absolute_import
 import floppyforms.__future__ as forms
 
+from floppyforms.widgets import Textarea
+
 from magiccontent.forms import LinkableFormMixin
 from .models import BackgroundArea
 
@@ -12,3 +14,6 @@ class BackgroundAreaForm(LinkableFormMixin, forms.ModelForm):
         model = BackgroundArea
         fields = (
             'title', 'sub_title', 'short_content', 'site_link', 'link_label')
+        widgets = {
+            'short_content': Textarea,
+        }
