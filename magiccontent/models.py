@@ -18,6 +18,7 @@ class Area(SiteModel):
     widget = models.ForeignKey('Widget', verbose_name=_('widget'), null=True)
     is_visible = models.BooleanField('visible', default=True)
     is_always_visible = models.BooleanField('Always visible', default=False)
+    is_landingpage_area = models.BooleanField(default=True)
 
     objects = models.Manager()
     site_objects = AreaManager()
@@ -85,6 +86,12 @@ class Widget(Permalinkable, SiteModel):
         """ Show first content (order equals 0) """
         contents = content_type.site_objects.filter(widget=self)
         return contents[0]
+
+    @property
+    def style_template_verbose(self):
+        if self.style_template:
+            return dict(self.widget_types_list())[self.style_template]
+        return None
 
     def _get_content_model(self, modelname):
         meta = self._meta
