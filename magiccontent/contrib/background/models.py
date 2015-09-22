@@ -42,3 +42,7 @@ class BackgroundArea(BaseContent):
             #('style4', 'Background - Style 4 - half'),
             )
         return style_list
+
+    @property
+    def allow_delete(self):
+        return False

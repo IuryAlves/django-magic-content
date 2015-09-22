@@ -114,6 +114,10 @@ class BaseContent(SiteModel):
             return self.link_label or self.site_link.name or ''
 
     @property
+    def allow_delete(self):
+        return True
+
+    @property
     def delete_url(self):
         reverse_name = 'magiccontent.{0}.delete'.format(self._meta.model_name)
         return reverse(reverse_name, args=[self.widget.pk, self.pk])
