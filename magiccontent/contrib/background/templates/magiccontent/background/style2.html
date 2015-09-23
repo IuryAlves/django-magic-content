@@ -56,7 +56,7 @@
         var $wrapper = $("#wrapper");
         var $main_bg = $(".main-background");
         // Only move if theme already implements a background for wrapper
-        if (($wrapper.css("background-image") !== "none") && ($main_bg.css("background-image") !== "none")) {
+        if (($wrapper.css("background-attachment") === "fixed") && ($main_bg.css("background-image") !== "none")) {
             var wrapper_img = $main_bg.css("background-image");
             $wrapper.css("background-image", wrapper_img);
             $main_bg.css("background-image", "none");
