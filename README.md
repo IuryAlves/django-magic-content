@@ -17,12 +17,12 @@ following the Django's contrib structure.
 
 Install django-magic-content
 
-    `pip install -e https://github.com/DjenieLabs/django-magic-content.git#egg=django-magic-content`
+    pip install -e https://github.com/DjenieLabs/django-magic-content.git#egg=django-magic-content
 
-If you are going to contribute to this project, install this way
+If you are going to contribute to this project, install in this way
 
-    `git clone git@github.com:DjenieLabs/django-magic-content.git`
-    `pip install -e django-magic-content/`
+    git clone git@github.com:DjenieLabs/django-magic-content.git
+    pip install -e django-magic-content/
 
 
 ## Usage
@@ -30,58 +30,58 @@ If you are going to contribute to this project, install this way
 Before to add magiccontent itself to INSTALLED_APPS, you must add its dependencies
 in INSTALLED_APPS
 
-    `'easy_thumbnails',
+    'easy_thumbnails',
     'floppyforms',
     'image_cropping',
     'multisitesutils',
-    'magicgallery',`
+    'magicgallery',
 
 And of course, the magiccontent itself
 
-   `'magiccontent',`
+   'magiccontent',
 
 
 At your urls.py, add the following
 
-    `url(r'^magiccontent/', include('magiccontent.urls')),`
+    url(r'^magiccontent/', include('magiccontent.urls')),
 
 
 If you are going to use contrib apps is pretty simple, just choose which ones
 that you want to use, install them in INSTALLED_APPS
 
-    `'magiccontent.contrib.simplecontent',
+    'magiccontent.contrib.simplecontent',
     'magiccontent.contrib.background',
     'magiccontent.contrib.iconcontent',
     'magiccontent.contrib.imagecontent',
     'magiccontent.contrib.longcontent',
-    'magiccontent.contrib.pagelink',`
+    'magiccontent.contrib.pagelink',
 
 
 And include the urls in urls.py:
 
-    `url(r'^contrib/', include('magiccontent.contrib.simplecontent.urls')),
+    url(r'^contrib/', include('magiccontent.contrib.simplecontent.urls')),
     url(r'^contrib/', include('magiccontent.contrib.background.urls')),
     url(r'^contrib/', include('magiccontent.contrib.iconcontent.urls')),
     url(r'^contrib/', include('magiccontent.contrib.imagecontent.urls')),
     url(r'^contrib/', include('magiccontent.contrib.longcontent.urls')),
-    url(r'^contrib/', include('magiccontent.contrib.pagelink.urls')),`
+    url(r'^contrib/', include('magiccontent.contrib.pagelink.urls')),
 
 
 ## Testing
 
 To run the tests, create a empty virtualenv like "magiccontent" and install tox:
 
-    `pip install tox`
+    pip install tox
 
 Then, run the tests:
 
-    `tox`
+    tox
 
 If you are going to contribute to the code, you may want a faster way to run your
 tests, to do that, install all dependencies listed on requirements-test.txt and the
 django1.6, after that run:
 
-    `py.test tests/`
+    py.test tests/
 
 Beware, this is not a replacement of tox, the reason to use py.test directly is only
 to save some time during the development, but you must run tox when you pull the code
