@@ -20,7 +20,7 @@ if sys.argv[-1] == 'publish':
     print("  git push --tags")
     sys.exit()
 
-readme = open('README.md').read()
+readme = ''
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
