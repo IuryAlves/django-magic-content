@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
+from image_cropping import ImageRatioField
 from taggit.managers import TaggableManager
 
 from magiccontent.abstract_models import BaseContent
@@ -20,13 +21,14 @@ class TimelineEventContent(BaseContent):
 
     _widget_type = 'timelineeventcontent'
 
-    created = models.DateTimeField(_('created'), default=timezone.now())
+    created = models.DateTimeField(_('Date and Time'), default=timezone.now())
     updated = models.DateTimeField(_('updated'), auto_now=True)
     # default entry access: public
     entry_access = models.CharField(
         _('entry access'), max_length=30, choices=ENTRY_ACCESS,
         default=ENTRY_ACCESS[1][0])
     slug = models.SlugField(editable=False)
+    picture_cropping = ImageRatioField('picture__picture', '960x593')
 
     tags = TaggableManager(blank=True)
 
@@ -59,10 +61,6 @@ class TimelineEventContent(BaseContent):
     def tags_list(self):
         return self.tags.all()
 
-    @property
-    def enable_picture(self):
-        return False
-
     @classmethod
     def style_list(cls_obj):
         style_list = (
@@ -80,3 +78,9 @@ class TimelineEventContent(BaseContent):
 
     def get_link_detail_name(self):
         return 'Timeline event: ' + self.title
+
+    @property
+    def update_url(self):
+        # TODO: find a way to use reverse here
+        return reverse('magiccontent.timelineeventcontent.update',
+                       kwargs={'widget_pk': self.widget.id, 'pk': self.id})

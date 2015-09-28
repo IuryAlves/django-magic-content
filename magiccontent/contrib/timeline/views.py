@@ -3,16 +3,16 @@ from __future__ import unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, TemplateView
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib.sites.models import Site
+from django.shortcuts import get_object_or_404
 
 from magiccontent.models import Widget
-from magiccontent.mixins import EditableMixin, ListContentMixin
-from magiccontent.views import MagicDeleteView
+from magiccontent.mixins import (CreateContentMixin, EditableMixin,
+                                 ListContentMixin, )
+from magiccontent.views import MagicDeleteView, PictureUpdateView
 
 from ...mixins import CanEditMixin
 from .models import TimelineEventContent
-from .forms import TimelineEventContentForm
+from .forms import TimelineEventContentForm, TimelineEventContentCreateForm
 
 
 # TODO: Use the generic Mixin instead
@@ -21,22 +21,19 @@ class TimelineEventContentMixin(object):
     form_class = TimelineEventContentForm
     template_name = 'magiccontent/defaultcontent_form.html'
 
-    def form_valid(self, form):
-        widget = Widget.site_objects.get(pk=self.kwargs['widget_pk'])
-        self.object = form.save(commit=False)
-        self.object.widget = widget
-        self.object.site = Site.objects.get_current()
-        self.object.save()
-        return redirect(self.get_success_url())
 
-
-class TimelineEventContentCreateView(TimelineEventContentMixin,
+class TimelineEventContentCreateView(CreateContentMixin, TimelineEventContentMixin,
                                      EditableMixin, CreateView):
-    pass
+    form_class = TimelineEventContentCreateForm
 
 
 class TimelineEventContentUpdateView(TimelineEventContentMixin,
                                      EditableMixin, UpdateView):
+    pass
+
+
+class TimelineEventContentPictureUpdateView(TimelineEventContentMixin, EditableMixin,
+                                            PictureUpdateView):
     pass
 
 
