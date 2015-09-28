@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 from taggit.managers import TaggableManager
 
@@ -19,7 +20,7 @@ class TimelineEventContent(BaseContent):
 
     _widget_type = 'timelineeventcontent'
 
-    created = models.DateTimeField(_('created'), auto_now_add=True)
+    created = models.DateTimeField(_('created'), default=timezone.now())
     updated = models.DateTimeField(_('updated'), auto_now=True)
     # default entry access: public
     entry_access = models.CharField(
@@ -28,6 +29,9 @@ class TimelineEventContent(BaseContent):
     slug = models.SlugField(editable=False)
 
     tags = TaggableManager(blank=True)
+
+    class Meta:
+        ordering = ['created']
 
     def _content(self):
         return self.long_content

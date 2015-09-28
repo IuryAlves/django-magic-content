@@ -13,6 +13,28 @@
 {% block navbar %}
 {% endblock navbar %}
 
+{% block pre_content %}
+  <div id="helperScreen">
+    <p class="py1"></p>
+
+    <figure class="py1 pull-left">
+      <img src="{% static 'frontend/themes/default/img/landingpage_areas_arrows.png' %}" alt="landingpage">
+    </figure>
+    <h1 class="py2"><small>Landingpage areas</small></h1>
+    <p class="py3" style="font-size: 18px;">
+      The landing page is formed by <strong>6</strong> areas that you can add contents freely, those areas are called <strong>#content-one, #content-two</strong> and so on...<br/>
+      Here is where the what's on, gallery or any other content take place!
+    </p>
+    <p class="py1" style="font-size: 18px;">
+      There are also <strong>#dividers</strong> areas for grouping those contents. A divider area is fixed and you can just customize its message and links<br/><br/>
+      In total there are 12 content's areas (fixed/not fixed), that's why you can <strong>HIDE/SHOW</strong> areas keeping just what are relevant.
+    </p>
+    <p class="py1">
+      <a id="btn_ok" class="btn btn-lg btn-success disable-help-video" href="#close">Ok, I got it!</a>
+    </p>
+  </div>
+{% endblock pre_content %}
+
 {% block footer_area %}
 {% endblock footer_area %}
 
@@ -92,6 +114,11 @@
 {% block extrajs %}
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $( ".bottom-fix-menu" ).hide();
+            $( "#btn_ok" ).click(function() {
+              $( ".bottom-fix-menu" ).show();
+            });
        
             $( ".onoffswitch-checkbox" ).click(function() {
                               

@@ -14,4 +14,4 @@ class TimelineEventContentForm(forms.ModelForm):
 
     class Meta:
         model = TimelineEventContent
-        fields = ('title', 'entry_access', 'long_content', 'tags', )
+        fields = ('title', 'created', 'entry_access', 'long_content', 'tags', )
