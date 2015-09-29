@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load floppyforms %}
+{% load cropping %}
 {% load magiccontent_tags %}
 
 {% block navbar %}
@@ -11,6 +12,31 @@
 {% endblock navbar %}
 
 {% block content %}
+
+  <section class="custompage-header divider-padding">
+    <div class="container container-padding text-center">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="fttitle4up-bg py2">{{ object.title }}</h1>
+          <div class="og-details og-details-light" style="width: 100%; float: none;">
+            <p class="text-center">
+              <a href="{% url 'core.landingpage' %}">Back</a>
+            </p>
+          </div>
+        </div>
+          {% if object.picture %}
+            <script type="text/javascript">
+              $(function() {
+                $('.custompage-header').css('background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) no-repeat center center');
+                $('.custompage-header').css('background-size', 'cover');
+                $('.custompage-header').css('background-attachment', 'fixed');
+                $('.custompage-header').css('height', 380);
+              });
+            </script>
+          {% endif %}
+      </div>
+    </div>
+  </section>
 
   <section class="content-one content-padding" id="content-one">
 
@@ -29,14 +55,14 @@
                 {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
                 <div class="content-item">
+                  <h1 style="min-height: 8px; ">{{ object.title |safe }} {% if object.private %} <i class="fa fa-lock"></i>{% endif %} <br/>
+                  <small>On {{ object.created }}</small>
+                  </h1>
                   <h3 style="min-height: 8px; ">
                     {% for tag in object.tags_list %}
                     <span class="badge" style="font-size: 22px; font-weight: 200;">{{ tag  }}</span>
                     {% endfor %}
                   </h3>
-                  <h2 style="min-height: 8px; ">{{ object.title |safe }} {% if object.private %} <i class="fa fa-lock"></i>{% endif %} <br/>
-                  <small>On {{ object.created }}</small>
-                  </h2>
                   
                   <div>
                     {{ object.long_content|safe }}
