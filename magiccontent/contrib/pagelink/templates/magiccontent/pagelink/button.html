@@ -23,12 +23,9 @@
   {% block extrajs %}
     {% if object.picture and div %}
       <script>
-      // "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center"
         $(function() {
           $(".{{ div }}").css({
-              "background-attachment": "fixed",
-              "background-image": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center",
-              "background-size": "cover"
+              "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) center center / cover no-repeat fixed",
           });
         });
       </script>

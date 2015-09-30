@@ -63,9 +63,7 @@
     $(document).ready(function() {
       {% if object.picture %}
         $(".custompage-header").css({
-          "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center",
-          "background-attachment": "fixed",
-          "background-size": "cover",
+          "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) center center / cover no-repeat fixed",
           "height": 380
         });
       {% endif %}
