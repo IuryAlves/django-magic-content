@@ -4,29 +4,33 @@
 <!-- widget: PageLink:: button -->
 
   <div class="col-md-12 {{ editable }}">
-
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
-
-    <h1 class="fttitle4up-bg">{{ object.title }}</h1>
+    {% if object.title %}
+      <h1 class="fttitle4up-bg">{{ object.title }}</h1>
+    {% endif %}
     {% if object.sub_title %}
-    <h2 class="fttitle4up-bg">{{ object.sub_title }}</h2>
+      <h2 class="fttitle4up-bg">{{ object.sub_title }}</h2>
     {% endif %}
     {% if object.link_url %}
-    <center>
-      <div class="og-details og-details-light" style="float: none; width: 320px;">
-        <a href="{{ object.link_url }}">{{ object.link_label }}</a>
+      <div class="og-details og-details-light">
+        <center>
+          <a  href="{{ object.link_url }}">{{ object.link_label }}</a>
+        </center>
       </div>
-    </center>  
     {% endif %}
-
   </div>
 
-  {% if object.picture and div %}
-    <script type="text/javascript">
-      $(function() {
-        $('.{{ div }}').css('background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) no-repeat center center');
-        $('.{{ div }}').css('background-size', 'cover');
-        $('.{{ div }}').css('background-attachment', 'fixed');
-      });
-    </script>
-  {% endif %}
+  {% block extrajs %}
+    {% if object.picture and div %}
+      <script>
+      // "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center"
+        $(function() {
+          $(".{{ div }}").css({
+              "background-attachment": "fixed",
+              "background-image": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center",
+              "background-size": "cover"
+          });
+        });
+      </script>
+    {% endif %}
+  {% endblock %}

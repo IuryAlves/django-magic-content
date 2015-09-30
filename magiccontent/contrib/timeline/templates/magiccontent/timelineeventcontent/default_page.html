@@ -1,44 +1,27 @@
 {% load static %}
 {% load magiccontent_tags %}
-<!-- widget: EntryContent:: default_page -->
 
-  <section class="content-one content-padding" id="content-one">
+  <!-- widget: EntryContent:: default_page -->
 
+  <section id="content-one" class="content-one content-padding">
     <div class="container container-padding">
       <div class="row">
-
         <div class="col-xs-12">
-          <center>
-            <h1>{{ widget.description }}</h1>
-          </center>
+          <h1><center>{{ widget.description }}</center></h1>
         </div>
-
         <div class="col-xs-1"></div>
         <div class="col-xs-8" style="background-color: white; padding: 20px;">
-
           {% for content in object_list %}
             <div class="col-xs-12 {% if can_edit %} darkBorder edit-block{% endif %}">
-              
               {% show_editable_widget_tag widget.widget_type widget.id content.id can_edit %}
-
-              <h4>
-                <a href="{{ content.get_entry_url }}"><strong>{{ content.title |safe }} {% if content.private %} <i class="fa fa-lock"></i>{% endif %}</strong></a>
-              </h4>
+              <h4><a href="{{ content.get_entry_url }}"><strong>{{ content.title|safe }} {% if content.private %} <i class="fa fa-lock"></i>{% endif %}</strong></a></h4>
               <p><strong>{{ content.created }}</strong></p>
             </div>
           {% endfor %}
-
         </div>
-
         <div class="col-xs-3">
-          <p>
-            <a href="{% url 'core.landingpage' %}" class="btn-3d">Home</a>
-          </p>
+          <p><a href="{% url 'core.landingpage' %}" class="back-home btn-3d">Home</a></p>
         </div>
-
       </div>
-
     </div>
   </section>
-
-

@@ -6,103 +6,72 @@
 {% load magiccontent_tags %}
 
 {% block navbar %}
-
   {% show_widget_area_tag 'top-menu' can_edit 'menuitem' page_url=page_url %}
-
 {% endblock navbar %}
 
 {% block content %}
-
   <section class="custompage-header divider-padding">
     <div class="container container-padding text-center">
       <div class="row">
         <div class="col-md-12">
           <h1 class="fttitle4up-bg py2">{{ object.title }}</h1>
-          <div class="og-details og-details-light" style="width: 100%; float: none;">
+          <div class="og-details og-details-light">
             <p class="text-center">
-              <a href="{% url 'core.landingpage' %}">Back</a>
+              <a class="back-home" href="{% url 'core.landingpage' %}">Back</a>
             </p>
           </div>
         </div>
-          {% if object.picture %}
-            <script type="text/javascript">
-              $(function() {
-                $('.custompage-header').css('background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) no-repeat center center');
-                $('.custompage-header').css('background-size', 'cover');
-                $('.custompage-header').css('background-attachment', 'fixed');
-                $('.custompage-header').css('height', 380);
-              });
-            </script>
-          {% endif %}
       </div>
     </div>
   </section>
-
-  <section class="content-one content-padding" id="content-one">
-
+  <section id="content-one" class="content-one content-padding">
     <div class="container container-padding">
-
       <article>
-
         <div class="row">
-
           <div class="col-md-10">
-
             <div class="row">
-
               <div class="col-md-12 {% if can_edit %}darkBorder edit-block{% endif %}">
-
                 {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-
                 <div class="content-item">
-                  <h1 style="min-height: 8px; ">{{ object.title |safe }} {% if object.private %} <i class="fa fa-lock"></i>{% endif %} <br/>
-                  <small>On {{ object.created }}</small>
+                  <h1>
+                    {{ object.title|safe }}
+                    {% if object.private %} <i class="fa fa-lock"></i>{% endif %}
+                    <br/><small>On {{ object.created }}</small>
                   </h1>
-                  <h3 style="min-height: 8px; ">
+                  <h3>
                     {% for tag in object.tags_list %}
                     <span class="badge" style="font-size: 22px; font-weight: 200;">{{ tag  }}</span>
                     {% endfor %}
                   </h3>
-                  
-                  <div>
-                    {{ object.long_content|safe }}
-                  </div>
-                  
+                  <div>{{ object.long_content|safe }}</div>
                 </div> <!-- content-item -->
-
               </div>
-              
             </div>
-
           </div>
-
           <div class="col-md-2">
-            <p>
-              <a href="{% url 'timeline.entrycontent.showpage' widget.id %}" class="btn-3d">{{ widget.description|default:"All" }}</a>
-            </p>
-            <p>
-              <a href="{% url 'core.landingpage' %}" class="btn-3d">Home</a>
-            </p>
+            <p><a href="{% url 'timeline.entrycontent.showpage' widget.id %}" class="btn-3d">{{ widget.description|default:"All" }}</a></p>
+            <p><a href="{% url 'core.landingpage' %}" class="back-home btn-3d">Home</a></p>
           </div>
-
         </div>
-
       </article>
     </div>
   </section>
-
-
 {% endblock content %}
 
 {% block extrajs %}
-
   <script>
     $(document).ready(function() {
-
-      $('.nav_slide_button').click(function() {
-        $('.pull').slideToggle();
+      {% if object.picture %}
+        $(".custompage-header").css({
+          "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) no-repeat center center",
+          "background-attachment": "fixed",
+          "background-size": "cover",
+          "height": 380
+        });
+      {% endif %}
+      $(".nav_slide_button").click(function() {
+        $(".pull").slideToggle();
       });
     });
   </script>
-
 {% endblock extrajs %}
