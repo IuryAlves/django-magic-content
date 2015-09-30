@@ -82,7 +82,7 @@
 
                     <input type="submit" class="btn btn-lg btn-success" value="{{ save_btn_label.title }}" />
                     <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
-                    {% if object and object.allow_delete %}
+                    {% if object and object.allow_delete and object.widget.name != 'Custom Page Header' %}
                     <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
                     {% endif %}
 
