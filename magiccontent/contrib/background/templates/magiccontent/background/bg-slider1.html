@@ -5,46 +5,37 @@
 <!-- widget: SimpleContent:: bg-slider1 -->
 
 <div class="bg-slider-1">
-
   <ul class="slides-container">
-    
-  {% for obj in object_list %}
-    <li class="{{ editable }}">
-      {% if obj.picture %}
-        <img src="{% cropped_thumbnail obj 'picture_cropping' scale=0.5 %}" />
-      {% else %}
-        <img src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}">
-      {% endif %}
-
-      <div class="container {{ editable }}">
-
-        {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
-
-        <div class="col-lg-6 col-xs-12">
-          <h1 class="base-ft">{{ obj.title }}</h1>
-          {% if obj.sub_title %}
-          <div class="contrast">
-            <p>{{ obj.sub_title }}</p>
-            <p>{{ obj.short_content|linebreaksbr }}</p>
+    {% for obj in object_list %}
+      <li class="{{ editable }}">
+        {% if obj.picture %}
+          <img src="{% cropped_thumbnail obj 'picture_cropping' scale=0.5 %}" />
+        {% else %}
+          <img src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}">
+        {% endif %}
+        <div class="container {{ editable }}">
+          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
+          <div class="col-lg-6 col-xs-12">
+            <h1 class="base-ft">{{ obj.title }}</h1>
+            {% if obj.sub_title %}
+              <div class="contrast">
+                <p>{{ obj.sub_title }}</p>
+                <p>{{ obj.short_content|linebreaksbr }}</p>
+              </div>
+            {% endif %}
+            {% if obj.site_link %}
+              <a href="{{ obj.link_url }}" class="btn-3d">{{ obj.link_name }}</a>
+            {% endif %}
           </div>
-          {% endif %}
-          {% if obj.site_link %}
-            <a href="{{ obj.link_url }}" class="btn-3d">{{ obj.link_name }}</a>
-          {% endif %}          
         </div>
-      </div>
-    </li>
-  {% endfor %}
-
+      </li>
+    {% endfor %}
   </ul>
-
 </div>
 
 
 <script>
-$(function(){
-  $('.bg-slider-1').superslides({
-    'play': 8000
+  $(function(){
+    $(".bg-slider-1").superslides({"play": 8000});
   });
-});
 </script>

@@ -9,42 +9,42 @@
 
     <div class="row">
       <div class="col-md-8 col-md-offset-2 text-center ">
-        <h1 class="animated fadeInDown" style="font-size: 48px;">
+        <h1 class="animated fadeInDown">
           <span>{{ object.title }}</span>
         </h1>
         {% if object.sub_title %}
-        <p class="animated fadeInUp delay-05s" style="color: #fff; font-size: 30px;">{{ object.sub_title }}</p>
+        <p class="animated fadeInUp delay-05s">{{ object.sub_title }}</p>
         {% endif %}
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center">
-        
         {% if object.site_link %}
           <center>
-	          <div class="og-details og-details-light" style="float: none; width: 320px;">
+	          <div class="og-details og-details-light">
 	            <a href="{{ object.link_url }}">{{ object.link_name }}</a>
-	          </div>          	
+	          </div>
           </center>
         {% endif %}
-
-        <br/><p class="white" style="font-size: 1em;" >{{ object.content }}</p>
+        <p class="white">{{ object.content }}</p>
         <p>
-          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
-            <i class="fa fa-chevron-down fttitle4down-bg" style="font-size: 32px;"></i>
+          <a id="scrolldown-indicator" class="fadeOutDown down-arrow-btn" href="#intro">
+            <i class="fa fa-chevron-down fttitle4down-bg"></i>
           </a>
         </p>
       </div>
     </div>
   </div>
 
-
 {% if object.picture %}
-<script type="text/javascript">
-  $(function() {
-       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %})');
-       $('.{{ div }}').css('height', 440);
-       $('.{{ div }}').css('padding-top', 74);
-  });
-</script>
+  <script>
+    $(function() {
+      $(".{{ div }}").css({
+          "backgroundImage": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})",
+          "height": "440px",
+          "width": "74px"
+      });
+    });
+  </script>
 {% endif %}

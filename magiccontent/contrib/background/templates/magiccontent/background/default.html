@@ -11,22 +11,20 @@
       <div class="col-md-8 col-md-offset-2 text-center header-inner">
         <h1 class="animated fadeInDown white">{{ object.title }}</h1>
         {% if object.sub_title %}
-        <p class="animated fadeInUp delay-05s">{{ object.sub_title }}</p>
+          <p class="animated fadeInUp delay-05s">{{ object.sub_title }}</p>
         {% endif %}
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-6 col-md-offset-3 text-center">
-        
         {% if object.site_link %}
           <a href="{{ object.link_url }}" class="btn-3d">{{ object.link_name }}</a>
-          <br/><br/><br/>
         {% endif %}
-
-        <br/><p>{{ object.content }}</p>
+        <p>{{ object.content }}</p>
         <p>
-          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
-            <i class="fa fa-chevron-down" style="font-size: 36px;"></i>
+          <a id="scrolldown-indicator" class="fadeOutDown down-arrow-btn" href="#intro">
+            <i class="fa fa-chevron-down"></i>
           </a>
         </p>
       </div>
@@ -35,10 +33,12 @@
 
 
 {% if object.picture %}
-<script type="text/javascript">
-  $(function() {
-       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %})');
-       $('.{{ div }}').css('width', '100%');
-  });
-</script>
+  <script>
+    $(function() {
+      $(".{{ div }}").css({
+          "backgroundImage": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})",
+          "width": "100%"
+      });
+    });
+  </script>
 {% endif %}

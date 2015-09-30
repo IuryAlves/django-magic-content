@@ -7,41 +7,39 @@
 
     <div class="half">
 
-    {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
+      {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
 
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center header-inner">
-        <h1 class="animated fadeInDown" style="font-size: 52px;">{{ object.title }}</h1>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center header-inner">
+          <h1 class="animated fadeInDown">{{ object.title }}</h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center">
-        
-        {% if object.site_link %}
-          <a href="{{ object.link_url }}" class="btn-3d">{{ object.link_name }}</a>
-          <br/><br/>
-        {% else %}
-          <h2 class="ft4base-bg">{{ object.sub_title }}</h2>
-          <br/>
-        {% endif %}
 
-        <p>
-          <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
-            <i class="fa fa-chevron-down" style="font-size: 36px;"></i>
-          </a>
-        </p>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+          {% if object.site_link %}
+            <a href="{{ object.link_url }}" class="btn-3d">{{ object.link_name }}</a>
+          {% else %}
+            <h2 class="ft4base-bg">{{ object.sub_title }}</h2>
+          {% endif %}
+          <p>
+            <a id="scrolldown-indicator" class="fadeOutDown down-arrow-btn" href="#intro">
+              <i class="fa fa-chevron-down"></i>
+            </a>
+          </p>
+        </div>
       </div>
-    </div>
 
     </div>
 
   </div>
 
-
 {% if object.picture %}
-<script type="text/javascript">
-  $(function() {
-       $('.{{ div }}').css('backgroundImage', 'url({% cropped_thumbnail object "picture_cropping" scale=0.5 %})');
-  });
-</script>
+  <script>
+    $(function() {
+      $(".{{ div }}").css({
+          "backgroundImage": "url({% cropped_thumbnail object 'picture_cropping' scale=0.5 %})"
+      });
+    });
+  </script>
 {% endif %}
