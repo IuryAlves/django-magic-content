@@ -2,39 +2,34 @@
 
 {% load static %}
 {% load floppyforms %}
+{% load cropping %}
 {% load magiccontent_tags %}
 
 {% block css %}
-    
   {{ block.super }}
-
 {% endblock css %}
 
-
 {% block navbar %}
-
     {% show_widget_area_tag 'top-menu' can_edit 'menuitem' page_url=page_url %}
-
-    <img style="width: 100%" src="{% static 'frontend/themes/sydney/img/g20-australia-desert.jpg' %}">
-
 {% endblock navbar %}
 
 {% block content %}
-
     <!-- dynamic content -->
     {% show_widget_page_tag widget content_list can_edit show_page=True %}
-
 {% endblock content %}
 
 {% block extrajs %}
-
   <script>
     $(document).ready(function() {
-
-      $('.nav_slide_button').click(function() {
-        $('.pull').slideToggle();
+      {% if object.picture %}
+        $(".custompage-header").css({
+          "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) center center / cover no-repeat fixed",
+          "height": 380
+        });
+      {% endif %}
+      $(".nav_slide_button").click(function() {
+        $(".pull").slideToggle();
       });
     });
   </script>
-
 {% endblock extrajs %}
