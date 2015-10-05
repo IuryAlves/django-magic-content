@@ -14,50 +14,37 @@
 
     </header>
 
-    <!-- the page could have several slides, that's why we are using widget's ID here -->
-    <ul class="content-slider-{{ widget.pk }}">
-      {% for object in object_list %}
+    <div class="flexslider base-bg" style="border:none;">
+      <ul class="slides">
+        {% for object in object_list %}
 
-        <li class="{{ editable }}">
-          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-          
-          <div class="slide-item">
+          <li class="{{ editable }}">
 
-          {% if object.title %}
-            <div class="{% if object.picture %}obj-caption{% endif %}">
-              <h2>
-                <span>{{ object.title }}</span>
-              </h2>
-            </div>
-          {% endif %}
+            {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
 
-          {% if object.picture %}
-            <figure class="imglist {{ object.picture_filter }}" style="margin-top: -80px">
+            {% if object.picture %}
+            <div style="width: 28%;position: inherit;margin-left: auto;margin-right: auto;">
+              <figure class="{{ object.picture_filter }}">
                 <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
-            </figure>
-          {% endif %}
+              </figure>
+            </div>
+            {% endif %}
 
-          </div>
+            <p style="text-align: center;font-size: 2.4rem;line-height: 30px;">{{ object.title }}</p>
+            <p style="text-align: center;font-size: 1rem;line-height: 20px;">{{ object.content }}</p>
+          </li>
 
-        </li>
-
-      {% endfor %}      
-    </ul>
+        {% endfor %}
+      </ul>
+    </div>
 
 </article>
 {% endblock slider %}
 
 {% block slider_js %}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".content-slider-{{ widget.pk }}").lightSlider({
-       item: 1,
-       auto: true,
-       adaptiveHeight: true,
-       loop: true,
-       speed: 900,
-       pause: 4000
-    }); 
-  });
-</script>
+  <script type="text/javascript">
+    $(function() {
+      $('.flexslider').flexslider();
+    });
+  </script>
 {% endblock slider_js %}

@@ -28,6 +28,5 @@ class SimpleContent(BaseContent):
             ('list2', 'SimpleContent - List 2'),
             ('list3', 'SimpleContent - List 3'),
             ('list4', 'SimpleContent - List 4'),
-            ('slide_by_1', 'SimpleContent - Slide by 1'),
-            ('slide_by_3', 'SimpleContent - Slide by 3'), )
+            ('slide_by_1', 'SimpleContent - Slide by 1'), )
         return style_list
