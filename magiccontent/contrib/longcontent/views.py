@@ -28,7 +28,7 @@ class LongContentUpdateView(LongContentMixin, EditableMixin, UpdateView):
 
 class LongContentPictureUpdateView(LongContentMixin, EditableMixin,
                                    PictureUpdateView):
-    pass
+    template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
 class LongContentDeleteView(LongContentMixin, EditableMixin, MagicDeleteView):

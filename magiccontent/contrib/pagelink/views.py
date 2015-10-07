@@ -26,7 +26,7 @@ class PageLinkUpdateView(PageLinkMixin, EditableMixin, UpdateView):
 
 class PageLinkPictureUpdateView(PageLinkMixin, EditableMixin,
                                 PictureUpdateView):
-    pass
+    template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
 class PageLinkDeleteView(PageLinkMixin, EditableMixin, MagicDeleteView):

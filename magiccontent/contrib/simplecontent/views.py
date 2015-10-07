@@ -28,7 +28,7 @@ class SimpleContentUpdateView(SimpleContentMixin, EditableMixin, UpdateView):
 
 class SimpleContentPicUpdateView(SimpleContentMixin, EditableMixin,
                                  PictureUpdateView):
-    pass
+    template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
 class SimpleContentDeleteView(SimpleContentMixin, EditableMixin,

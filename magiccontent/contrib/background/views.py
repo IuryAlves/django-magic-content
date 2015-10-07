@@ -21,7 +21,7 @@ class BackgroundAreaUpdateView(BackgroundAreaMixin, EditableMixin, UpdateView):
 
 class BackgroundAreaPictureUpdateView(BackgroundAreaMixin, EditableMixin,
                                       PictureUpdateView):
-    pass
+    template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
 class BackgroundAreaCreateView(CreateContentMixin, BackgroundAreaMixin,
