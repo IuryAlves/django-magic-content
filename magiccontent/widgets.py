@@ -43,17 +43,3 @@ class OnOffCheckboxInput(CheckboxInput):
 
 class YesNoCheckboxInput(CheckboxInput):
     template_name = 'floppyforms/yesno_checkbox.html'
-
-
-class DatePicker(DateInput):
-    template_name = 'floppyforms/datepicker.html'
-
-    class Media:
-        js = (
-            'frontend/jquery-ui-1.11.4/jquery-ui.min.js',
-        )
-        css = {
-            'all': (
-                'frontend/jquery-ui-1.11.4/jquery-ui.min.css',
-            )
-        }

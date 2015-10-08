@@ -1,0 +1,55 @@
+  <script type="text/javascript">
+
+    function update_form_field() {
+      $( "#{{ target_field }}" ).val( 
+        $( "input[name={{ target_field }}_picker__value]" ).val() + ' ' + 
+        $( "input[name={{ target_field }}_time_picker__value]" ).val()
+      );
+    }
+
+    $(function(){
+      $( "#{{ target_field }}" ).hide();
+      $("label[for='{{ target_field }}']").hide();
+
+      var {{ target_field }}_picker__initial = $( "#{{ target_field }}" ).val();
+
+      // start date
+      $('#{{ target_field }}_picker').pickadate({
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenPrefix: '{{ target_field }}_picker',
+        hiddenSuffix: '__value',
+        onSet: function(context) {
+          update_form_field();
+        },
+      });
+
+      var picker_data = $('#{{ target_field }}_picker').pickadate('picker');
+      picker_data.set('select', {{ target_field }}_picker__initial, { format: 'yyyy-mm-dd' });
+      if ( {{ target_field }}_picker__initial.length === 0 ) {
+        picker_data.clear();
+      }
+      $('#{{ target_field }}_picker').css('cursor', 'pointer');
+
+      // start time
+      $('#{{ target_field }}_time_picker').pickatime({
+        format: 'h:i a',
+        interval: 15,
+        formatLabel: '<b>h</b>:i a',
+        formatSubmit: 'HH:i',
+        hiddenPrefix: '{{ target_field }}_time_picker',
+        hiddenSuffix: '__value',
+        onSet: function(context) {
+          update_form_field();
+        },
+      });
+
+      var picker_hora = $('#{{ target_field }}_time_picker').pickatime('picker');
+      picker_hora.set('select', {{ target_field }}_picker__initial, { format: 'yyyy-mm-dd HH:i' });
+      if ( {{ target_field }}_picker__initial.length === 0 ) {
+          picker_hora.clear();
+      }
+      $('#{{ target_field }}_time_picker').css('cursor', 'pointer');
+ 
+    });
+
+  </script>

@@ -19,10 +19,11 @@ from .forms import TimelineEventContentForm, TimelineEventContentCreateForm
 class TimelineEventContentMixin(object):
     model = TimelineEventContent
     form_class = TimelineEventContentForm
-    template_name = 'magiccontent/defaultcontent_form.html'
+    template_name = 'magiccontent/timeline_form.html'
 
 
-class TimelineEventContentCreateView(CreateContentMixin, TimelineEventContentMixin,
+class TimelineEventContentCreateView(CreateContentMixin,
+                                     TimelineEventContentMixin,
                                      EditableMixin, CreateView):
     form_class = TimelineEventContentCreateForm
 
@@ -32,7 +33,8 @@ class TimelineEventContentUpdateView(TimelineEventContentMixin,
     pass
 
 
-class TimelineEventContentPictureUpdateView(TimelineEventContentMixin, EditableMixin,
+class TimelineEventContentPictureUpdateView(TimelineEventContentMixin,
+                                            EditableMixin,
                                             PictureUpdateView):
     pass
 

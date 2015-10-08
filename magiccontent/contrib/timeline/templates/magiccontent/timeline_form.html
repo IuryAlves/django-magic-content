@@ -1,0 +1,45 @@
+{% extends 'magiccontent/defaultcontent_form.html' %}
+
+{% load floppyforms %}
+
+{% block form_fields %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      {% formrow form.title %}
+    </div>
+  </div>
+
+  {% with target_field='id_created' %}
+    <div class="row">
+      {% formrow form.created %}
+      {% include 'magiccontent/includes/_datepicker_field_row.html' %}
+    </div>
+  {% endwith %}
+  
+
+  <div class="row">
+    <div class="col-sm-12">
+      {% formrow form.entry_access %}
+    </div>
+    <div class="col-sm-12">
+      {% formrow form.long_content %}
+    </div>
+    <div class="col-sm-12">
+      {% formrow form.tags %}
+    </div>
+
+  </div>
+
+{% endblock form_fields %}
+
+
+{% block extrajs %}
+
+ {% with target_field='id_created' %}
+   {% include 'magiccontent/includes/_datepicker_script.html' %}
+ {% endwith %}
+
+  {{ block.super }}
+
+{% endblock extrajs %}
