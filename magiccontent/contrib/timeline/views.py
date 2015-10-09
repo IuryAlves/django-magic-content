@@ -36,7 +36,7 @@ class TimelineEventContentUpdateView(TimelineEventContentMixin,
 class TimelineEventContentPictureUpdateView(TimelineEventContentMixin,
                                             EditableMixin,
                                             PictureUpdateView):
-    pass
+    template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
 class TimelineEventContentDeleteView(TimelineEventContentMixin,

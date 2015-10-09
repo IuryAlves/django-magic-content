@@ -15,32 +15,42 @@
     </header>
 
     <div class="row">
+
       {% for object in object_list %}
         <div class="col-md-12 {{ editable }}">
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-          <div class="content-item">
-            {% if object.picture %}
-              <div class="img">
-                <figure class="imglist {{ object.picture_filter }}">
-                  <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}" style="max-width: 193px;">
-                </figure>
-                <div class="overlay">
-                  <a href="{% url 'magiccontent.calendareventcontent.showitem' object.slug widget.pk object.id %}" class="expand"><i class="fa fa-search"></i></a>
-                  <a class="close-overlay hidden">x</a>
-                </div>
-              </div>
-            {% endif %}
-            {% if object.title %}
-            <h3 style="min-height: 8px;">
-              <a href="{{ object.get_entry_url }}">
-                {{ object.title|safe }}
-                {% if object.private %}<i class="fa fa-lock"></i>{% endif %}
+          <div class="content-item calendar-caption">
+
+            <div class="col-md-4">
+              <!-- todo: make a standard url, it should be the same as the calendar: widget.pk -->
+              <a href="{% url 'timeline.entrycontent.detail' object.slug object.id %}" title="Get full event details">
+                <h4 class="event-metadata" title="{{ object.created|date:'l, d F Y G:i' }}">
+                  <span class="event-category badge">{{ object.category }}</span>
+                  <div class="text-center">
+                    <div class="event-day">{{ object.created|date:"d" }}</div>
+                    <small class="event-month">{{ object.created|date:"M" }}</small>
+                  </div>
+                </h4>
+                {% if object.picture %}
+                  <figure class="imglist {{ object.picture_filter|default:'no-filter' }}">
+                    <img src="{% cropped_thumbnail object 'picture_cropping' max_size='390x260' %}">
+                  </figure>
+                {% endif %}
               </a>
-            </h3>
-            {% endif %}
-            <span style="font-size: 24px">
-              <small>{{ object.created|timesince }}</small>
-            </span>
+            </div>
+            <div class="col-md-8">
+              <div class="event-call">
+                <a href="{% url 'timeline.entrycontent.detail' object.slug object.id %}" title="Get full event details">
+                  {% if object.title %}
+                    <h3>{{ object.title|safe }}</h3>
+                  {% endif %}
+                  {% if object.content %}
+                    <p>{{ object.content|safe|truncatewords:26 }}</p>
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+
           </div> <!-- content-item -->
         </div>
       {% endfor %}
