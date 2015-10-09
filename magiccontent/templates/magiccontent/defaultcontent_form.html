@@ -109,16 +109,7 @@
 
   <script type="text/javascript">
 
-    // hide the picture filters when there is no picture
     $(document).ready(function(){
-      $("#id_picture_filter").hide();
-      $("label[for='id_picture_filter']").hide();
-      if ( $('#picture_found').val() ) {
-        $("#btn_id_picture_filter").on('click', function(evt){
-          evt.preventDefault();
-          $("#id_picture_filter").toggle();
-        });
-      }
 
       // confirm content deletation
       $('a.del-content').on('click', function(evt){
