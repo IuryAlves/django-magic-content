@@ -9,9 +9,9 @@ from image_cropping import ImageRatioField
 from magiccontent.abstract_models import BaseContent
 
 
-class SimpleContent(BaseContent):
+class TextImageContent(BaseContent):
 
-    _widget_type = 'simplecontent'
+    _widget_type = 'textimagecontent'
 
     """ title, subtitle, shorttext """
     sub_title = models.CharField(
@@ -24,9 +24,9 @@ class SimpleContent(BaseContent):
     @classmethod
     def style_list(cls_obj):
         style_list = (
-            ('default', 'SimpleContent - List 1 (default)'),
-            ('list2', 'SimpleContent - List 2'),
-            ('list3', 'SimpleContent - List 3'),
-            ('list4', 'SimpleContent - List 4'),
-            ('slide_by_1', 'SimpleContent - Slide by 1'), )
+            ('default', 'TextImageContent - List 1 (default)'),
+            ('list2', 'TextImageContent - List 2'),
+            ('list3', 'TextImageContent - List 3'),
+            ('list4', 'TextImageContent - List 4'),
+            ('slide_by_1', 'TextImageContent - Slide by 1'), )
         return style_list

@@ -26,7 +26,7 @@ def get_first_content(content_list, widget):
 
 @register.simple_tag(takes_context=True)
 def show_widget_area_tag(context, area_name, can_edit=False,
-                         widget_type='simplecontent', style='default',
+                         widget_type='textimagecontent', style='default',
                          *args, **kwargs):
     """
     Template Tag for generating a custom HTML for the given 'area_name' which

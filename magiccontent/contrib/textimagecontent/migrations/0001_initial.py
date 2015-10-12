@@ -8,20 +8,30 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'TextImageContent'
+        db.create_table(u'textimagecontent_textimagecontent', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
+            ('widget', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['magiccontent.Widget'])),
+            ('title', self.gf('django.db.models.fields.CharField')(default=u'Edit title', max_length=128, blank=True)),
+            ('short_content', self.gf('django.db.models.fields.CharField')(default=u'Edit content', max_length=512, blank=True)),
+            ('long_content', self.gf('ckeditor.fields.RichTextField')(default=u'', blank=True)),
+            ('picture', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['magicgallery.GalleryItem'], null=True, blank=True)),
+            ('picture_filter', self.gf('django.db.models.fields.CharField')(default=u'', max_length=32, blank=True)),
+            ('order', self.gf('django.db.models.fields.PositiveIntegerField')(default=99)),
+            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('site_link', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['magiccontent.SiteLink'], null=True, on_delete=models.SET_NULL, blank=True)),
+            ('link_label', self.gf('django.db.models.fields.CharField')(default=u'', max_length=64, blank=True)),
+            ('sub_title', self.gf('django.db.models.fields.CharField')(default=u'', max_length=128, blank=True)),
+            ('picture_cropping', self.gf(u'django.db.models.fields.CharField')(default=u'', max_length=255, blank=True)),
+        ))
+        db.send_create_signal(u'textimagecontent', ['TextImageContent'])
 
-        # Changing field 'SimpleContent.short_content'
-        db.alter_column(u'simplecontent_simplecontent', 'short_content', self.gf('django.db.models.fields.CharField')(max_length=512))
-
-        # Changing field 'SimpleContent.site_link'
-        db.alter_column(u'simplecontent_simplecontent', 'site_link_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['magiccontent.SiteLink'], null=True, on_delete=models.SET_NULL))
 
     def backwards(self, orm):
+        # Deleting model 'TextImageContent'
+        db.delete_table(u'textimagecontent_textimagecontent')
 
-        # Changing field 'SimpleContent.short_content'
-        db.alter_column(u'simplecontent_simplecontent', 'short_content', self.gf('django.db.models.fields.TextField')(max_length=512))
-
-        # Changing field 'SimpleContent.site_link'
-        db.alter_column(u'simplecontent_simplecontent', 'site_link_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['magiccontent.SiteLink'], null=True))
 
     models = {
         u'magiccontent.sitelink': {
@@ -41,9 +51,9 @@ class Migration(SchemaMigration):
             'is_content_data': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64', 'db_index': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sites.Site']"}),
-            'slug': ('django.db.models.fields.SlugField', [], {'default': "u'qY2l1mnucn8M'", 'max_length': '50'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'default': "u'j5THec6GrCyW'", 'max_length': '50'}),
             'style_template': ('django.db.models.fields.CharField', [], {'default': "u'default'", 'max_length': '128'}),
-            'widget_type': ('django.db.models.fields.CharField', [], {'default': "u'simplecontent'", 'max_length': '32'})
+            'widget_type': ('django.db.models.fields.CharField', [], {'default': "u'textimagecontent'", 'max_length': '32'})
         },
         u'magicgallery.gallery': {
             'Meta': {'object_name': 'Gallery'},
@@ -61,8 +71,14 @@ class Migration(SchemaMigration):
             'picture': ('django.db.models.fields.files.ImageField', [], {'default': "u''", 'max_length': '100', 'blank': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sites.Site']"})
         },
-        u'simplecontent.simplecontent': {
-            'Meta': {'ordering': "[u'order']", 'object_name': 'SimpleContent'},
+        u'sites.site': {
+            'Meta': {'ordering': "(u'domain',)", 'object_name': 'Site', 'db_table': "u'django_site'"},
+            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        u'textimagecontent.textimagecontent': {
+            'Meta': {'ordering': "[u'order']", 'object_name': 'TextImageContent'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'link_label': ('django.db.models.fields.CharField', [], {'default': "u''", 'max_length': '64', 'blank': 'True'}),
@@ -77,13 +93,7 @@ class Migration(SchemaMigration):
             'sub_title': ('django.db.models.fields.CharField', [], {'default': "u''", 'max_length': '128', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'default': "u'Edit title'", 'max_length': '128', 'blank': 'True'}),
             'widget': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['magiccontent.Widget']"})
-        },
-        u'sites.site': {
-            'Meta': {'ordering': "(u'domain',)", 'object_name': 'Site', 'db_table': "u'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }
 
-    complete_apps = ['simplecontent']
+    complete_apps = ['textimagecontent']

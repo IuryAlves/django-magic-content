@@ -1,6 +1,6 @@
 {% load cropping %}
 {% load magiccontent_tags %}
-<!-- widget: SimpleContent:: list2 -->
+<!-- widget: TextImageContent:: default - list1 element -->
 
 <article class="col-md-12">
 
@@ -12,8 +12,7 @@
     </header>
 
     <div class="row">
-      {% for object in object_list %}
-        <div {% block column_size %}class="col-md-6 {{ editable }}"{% endblock %}>
+        <div class="col-md-12 {{ editable }}">
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
           <div class="content-item">
             {% if object.picture %}
@@ -32,7 +31,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if object.link_url %}
               <a href="{{ object.link_url }}">
                 <h2>{{ object.title }}</h2>
@@ -44,7 +42,6 @@
             {% if object.sub_title %}
               <h3><strong>{{ object.sub_title }}</strong></h3>
             {% endif %}
-
             <p>{{ object.content|safe }}</p>
 
             {% if not object.picture and object.link_label %}
@@ -53,12 +50,6 @@
 
           </div> <!-- content-item -->
         </div>
-        {% block column_number %}
-          {% if forloop.counter|divisibleby:2 %}
-            <div class="clearfix"></div>
-          {% endif %}
-        {% endblock column_number %}
-      {% endfor %}
     </div>
 
 </article>

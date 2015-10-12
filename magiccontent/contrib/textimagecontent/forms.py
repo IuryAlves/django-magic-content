@@ -6,13 +6,13 @@ from floppyforms.widgets import Textarea
 
 from magiccontent.forms import LinkableFormMixin
 
-from .models import SimpleContent
+from .models import TextImageContent
 
 
-class SimpleContentForm(LinkableFormMixin, forms.ModelForm):
+class TextImageContentForm(LinkableFormMixin, forms.ModelForm):
 
     class Meta:
-        model = SimpleContent
+        model = TextImageContent
         fields = ('title', 'sub_title', 'short_content',
                   'site_link', 'link_label',)
         widgets = {
@@ -20,8 +20,8 @@ class SimpleContentForm(LinkableFormMixin, forms.ModelForm):
         }
 
 
-class SimpleContentCreateForm(forms.ModelForm):
+class TextImageContentCreateForm(forms.ModelForm):
 
     class Meta:
-        model = SimpleContent
+        model = TextImageContent
         fields = ('title',)

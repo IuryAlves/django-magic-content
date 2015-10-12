@@ -7,35 +7,36 @@ from django.views.generic import ListView
 from magiccontent.mixins import (EditableMixin, CreateContentMixin,
                                  ListContentMixin)
 from magiccontent.views import MagicDeleteView, PictureUpdateView
-from .models import SimpleContent
-from .forms import SimpleContentForm, SimpleContentCreateForm
+
+from .models import TextImageContent
+from .forms import TextImageContentForm, TextImageContentCreateForm
 
 
-class SimpleContentMixin(object):
-    model = SimpleContent
-    form_class = SimpleContentForm
+class TextImageContentMixin(object):
+    model = TextImageContent
+    form_class = TextImageContentForm
     template_name = 'magiccontent/defaultcontent_form.html'
 
 
-class SimpleContentCreateView(CreateContentMixin, SimpleContentMixin,
+class TextImageContentCreateView(CreateContentMixin, TextImageContentMixin,
                               EditableMixin, CreateView):
-    form_class = SimpleContentCreateForm
+    form_class = TextImageContentCreateForm
 
 
-class SimpleContentUpdateView(SimpleContentMixin, EditableMixin, UpdateView):
+class TextImageContentUpdateView(TextImageContentMixin, EditableMixin, UpdateView):
     pass
 
 
-class SimpleContentPicUpdateView(SimpleContentMixin, EditableMixin,
+class TextImageContentPicUpdateView(TextImageContentMixin, EditableMixin,
                                  PictureUpdateView):
     template_name = 'magiccontent/defaultcontent_image_form.html'
 
 
-class SimpleContentDeleteView(SimpleContentMixin, EditableMixin,
+class TextImageContentDeleteView(TextImageContentMixin, EditableMixin,
                               MagicDeleteView):
     pass
 
 
-class SimpleContentOrderListView(ListContentMixin, SimpleContentMixin,
+class TextImageContentOrderListView(ListContentMixin, TextImageContentMixin,
                                  ListView):
     pass

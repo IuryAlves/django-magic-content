@@ -38,7 +38,7 @@ class Area(SiteModel):
 # TODO: the magiccontent shouldn't know its children
 # This types should be registed based on the installed content apps
 WIDGET_TYPES = (
-    ('simplecontent', 'Simple Content'),
+    ('textimagecontent', 'Text and Image'),
     ('iconcontent', 'Icon Content'),
     ('longcontent', 'Long Content'),
     ('background', 'Background'),
@@ -62,7 +62,7 @@ class Widget(Permalinkable, SiteModel):
     name = models.CharField(
         _('name'), max_length=64, db_index=True)
     widget_type = models.CharField(
-        _('widget type'), max_length=32, default='simplecontent',
+        _('widget type'), max_length=32, default='textimagecontent',
         choices=WIDGET_TYPES)
     style_template = models.CharField(max_length=128, default='default')
     description = models.CharField(
