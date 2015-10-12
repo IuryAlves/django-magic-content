@@ -72,17 +72,16 @@
                 {% endif %}
 
                 <div class="bottom-fix-menu" align="center">
-                  <h1>
                     <a class="btn pull-left" href="{% url 'magiccontent.widget.update' widget.id %}">&nbsp &nbsp <i class="fa fa-star-half-o" style="font-size: 22px; color: #777"></i></a>
 
-                    <input type="submit" class="btn btn-lg btn-success" value="{{ save_btn_label.title }}" />
-                    <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
-                    {% if object and object.allow_delete and object.widget.name != 'Custom Page Header' %}
-                    <a href="{{ object.delete_url }}" class="btn btn-lg btn-danger del-content" role="button">Delete</a>
-                    {% endif %}
+                    <button type="submit" class="btn btn-lg btn-success">
+                      <i class="fa fa-check"></i> Save
+                    </button>
 
-                    <small><i class="fa fa-columns"></i> {{ object.widget.widget_type }}</small>
-                  </h1>
+                    <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" ><i class="fa fa-times"></i> Cancel</a>
+                    {% if object and object.allow_delete and object.widget.name != 'Custom Page Header' %}
+                    <a href="{{ object.delete_url }}" class="btn btn-lg btn-default del-content" role="button"><i class="fa fa-trash"></i> Delete</a>
+                    {% endif %}
                 </div>
 
                 {% if object.picture %}

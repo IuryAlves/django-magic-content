@@ -27,11 +27,11 @@
 
         {{ form }}  
 
-        <div class="bottom-fix-menu" align="center">
-          <h1>{{ object.name }}
-            <input type="submit" class="btn btn-lg btn-success" value="Save" />
-            <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" >Cancel</a>
-          </h1>
+        <div class="bottom-fix-menu" align="center">          
+          <button type="submit" class="btn btn-lg btn-success">
+            <i class="fa fa-check"></i> Save
+          </button>
+          <a href="{% url 'magiccontent.windows_close' %}?dont_reload=1" class="btn btn-lg btn-danger" role="button" ><i class="fa fa-times"></i> Cancel</a>
         </div>
 
       </form>
