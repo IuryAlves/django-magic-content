@@ -15,7 +15,7 @@ from .managers import WidgetManager, AreaManager
 class Area(SiteModel):
     name = models.CharField(
         _('name'), max_length=64)
-    widget = models.ForeignKey('Widget', verbose_name=_('widget'), null=True)
+    widget = models.ForeignKey('Widget', verbose_name=_('Group of contents'), null=True)
     is_visible = models.BooleanField('visible', default=True)
     is_always_visible = models.BooleanField('Always visible', default=False)
     is_landingpage_area = models.BooleanField(default=True)
@@ -39,14 +39,13 @@ class Area(SiteModel):
 # This types should be registed based on the installed content apps
 WIDGET_TYPES = (
     ('textimagecontent', 'Text and Image'),
-    ('iconcontent', 'Icon Content'),
+    ('iconcontent', 'Icon and Text'),
     ('formattedtextimagecontent', 'Formatted Text and Image'),
     ('background', 'Background'),
     ('pagelink', 'PageLink'),
-    ('imagecontent', 'Image Content'),
+    ('imagecontent', 'Image and Short Text'),
     ('menuitem', 'MenuItem'),
     ('timelineeventcontent', 'Timeline Events'),
-    ('faq', 'Faq'),
     ('calendareventcontent', 'Calendar Events'),
 )
 
@@ -62,7 +61,7 @@ class Widget(Permalinkable, SiteModel):
     name = models.CharField(
         _('name'), max_length=64, db_index=True)
     widget_type = models.CharField(
-        _('widget type'), max_length=32, default='textimagecontent',
+        _('type'), max_length=32, default='textimagecontent',
         choices=WIDGET_TYPES)
     style_template = models.CharField(max_length=128, default='default')
     description = models.CharField(
@@ -91,6 +90,12 @@ class Widget(Permalinkable, SiteModel):
     def style_template_verbose(self):
         if self.style_template:
             return dict(self.widget_types_list())[self.style_template]
+        return None
+
+    @property
+    def widget_type_verbose(self):
+        if self.widget_type:
+            return dict(WIDGET_TYPES)[self.widget_type]
         return None
 
     def _get_content_model(self, modelname):

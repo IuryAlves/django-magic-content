@@ -19,7 +19,7 @@
 {% block content %}
 
 <div class="popup-content">
-  <h1>Adding a new widget</h1>
+  <h1><small>Create a new <b>Group of Contents</b></small></h1>
   <div class="row">
 
     <div class="col-lg-12">
@@ -47,3 +47,27 @@
 </div>
 
 {% endblock %}
+
+
+{% block extrajs %}
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+          
+          $('#id_widget_type').hide();
+          $("label[for='id_widget_type']").hide();
+
+          //shortcuts 
+          $('#id_name').keydown(function(event) {
+              if ((event.keyCode == 13) || ($("#id_name").val().length > 1))  {
+                $('#id_widget_type').show();
+                if (event.keyCode == 13) {
+                    $('#id_widget_type').focus()
+                    return false;
+                }
+              }
+          });
+
+        });
+    </script>
+{% endblock extrajs %}

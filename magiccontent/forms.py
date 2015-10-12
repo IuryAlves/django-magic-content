@@ -170,7 +170,10 @@ class NewWidgetForm(forms.ModelForm):
 
     class Meta:
         model = Widget
-        fields = ('widget_type', 'name', )
+        fields = ('name', 'widget_type', )
         widgets = {
             'widget_type': RadioWidgetTypeAllSelect,
+        }
+        help_texts = {
+            'name': "e.g: News, Sports, What's on ...",
         }
