@@ -5,18 +5,18 @@ import floppyforms.__future__ as forms
 
 from magiccontent.forms import LinkableFormMixin
 
-from .models import LongContent
+from .models import FormattedTextImageContent
 
 
-class LongContentForm(LinkableFormMixin, forms.ModelForm):
+class FormattedTextImageContentForm(LinkableFormMixin, forms.ModelForm):
 
     class Meta:
-        model = LongContent
+        model = FormattedTextImageContent
         fields = ('title', 'long_content', 'site_link', 'link_label')
 
 
-class LongContentCreateForm(forms.ModelForm):
+class FormattedTextImageContentCreateForm(forms.ModelForm):
 
     class Meta:
-        model = LongContent
+        model = FormattedTextImageContent
         fields = ('title',)

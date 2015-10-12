@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from django.conf.urls import patterns
 
 from magiccontent.dynamic_content_urls import get_content_urls_for
-from .models import LongContent
+from .models import FormattedTextImageContent
 
 urlpatterns = patterns("",)
-urlpatterns += get_content_urls_for(LongContent)
+urlpatterns += get_content_urls_for(FormattedTextImageContent)

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib import admin
 
-from .models import LongContent
+from .models import FormattedTextImageContent
 
 
-admin.site.register(LongContent)
+admin.site.register(FormattedTextImageContent)

@@ -6,9 +6,9 @@ from image_cropping import ImageRatioField
 from magiccontent.abstract_models import BaseContent
 
 
-class LongContent(BaseContent):
+class FormattedTextImageContent(BaseContent):
 
-    _widget_type = 'longcontent'
+    _widget_type = 'formattedtextimagecontent'
 
     """ title, longtext """
     picture_cropping = ImageRatioField('picture__picture', '960x480')
@@ -19,7 +19,7 @@ class LongContent(BaseContent):
     @classmethod
     def style_list(cls_obj):
         style_list = (
-            ('default', 'LongContent - List 1 (default)'),
-            ('list2', 'LongContent - List 2'),
-            ('list3', 'LongContent - List 3'), )
+            ('default', 'FormattedTextImageContent - List 1 (default)'),
+            ('list2', 'FormattedTextImageContent - List 2'),
+            ('list3', 'FormattedTextImageContent - List 3'), )
         return style_list

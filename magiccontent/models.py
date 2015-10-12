@@ -40,7 +40,7 @@ class Area(SiteModel):
 WIDGET_TYPES = (
     ('textimagecontent', 'Text and Image'),
     ('iconcontent', 'Icon Content'),
-    ('longcontent', 'Long Content'),
+    ('formattedtextimagecontent', 'Formatted Text and Image'),
     ('background', 'Background'),
     ('pagelink', 'PageLink'),
     ('imagecontent', 'Image Content'),
