@@ -42,7 +42,7 @@ WIDGET_TYPES = (
     ('iconcontent', 'Icon and Text'),
     ('formattedtextimagecontent', 'Formatted Text and Image'),
     ('background', 'Background'),
-    ('pagelink', 'PageLink'),
+    ('dividertextcontent', 'Page Divider'),
     ('imagecontent', 'Image and Short Text'),
     ('menuitem', 'MenuItem'),
     ('timelineeventcontent', 'Timeline Events'),
@@ -112,8 +112,6 @@ class Widget(Permalinkable, SiteModel):
         _type = self.widget_type
         if _type == 'background':
             return self._get_content_model('backgroundarea')
-        elif _type == 'pagelink':
-            return self._get_content_model('pagelink')
         elif _type == 'menuitem':
             return self._get_content_model('menuitem')
         else:

@@ -5,7 +5,8 @@ from __future__ import absolute_import
 from django.conf.urls import patterns
 
 from magiccontent.dynamic_content_urls import get_content_urls_for
-from .models import PageLink
+
+from .models import DividerTextContent
 
 urlpatterns = patterns("",)
-urlpatterns += get_content_urls_for(PageLink)
+urlpatterns += get_content_urls_for(DividerTextContent)

@@ -9,9 +9,9 @@ from image_cropping import ImageRatioField
 from magiccontent.abstract_models import BaseContent
 
 
-class PageLink(BaseContent):
+class DividerTextContent(BaseContent):
 
-    _widget_type = 'pagelink'
+    _widget_type = 'dividertextcontent'
 
     """ title, subtitle, link1 and picture background """
     picture_cropping = ImageRatioField('picture__picture', '1600x989')
@@ -21,8 +21,8 @@ class PageLink(BaseContent):
     @classmethod
     def style_list(cls_obj):
         style_list = (
-            ('default', 'PageLink - Style 1 (default)'),
-            ('button', 'PageLink - Button'), )
+            ('default', 'DividerTextContent - Style 1 (default)'),
+            ('button', 'DividerTextContent - Button'), )
         return style_list
 
     @classmethod
