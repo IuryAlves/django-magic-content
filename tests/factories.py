@@ -5,12 +5,12 @@ from __future__ import absolute_import
 import factory
 
 from magiccontent.models import Widget, Area, WIDGET_TYPES
-from magiccontent.contrib.simplecontent.models import SimpleContent
+from magiccontent.contrib.textimagecontent.models import TextImageContent
 from magiccontent.contrib.background.models import BackgroundArea
 from magiccontent.contrib.iconcontent.models import IconContent
 from magiccontent.contrib.imagecontent.models import ImageContent
-from magiccontent.contrib.longcontent.models import LongContent
-from magiccontent.contrib.pagelink.models import PageLink
+from magiccontent.contrib.formattedtextimagecontent.models import FormattedTextImageContent
+from magiccontent.contrib.dividertextcontent.models import DividerTextContent
 
 
 class WidgetFactory(factory.django.DjangoModelFactory):
@@ -19,7 +19,7 @@ class WidgetFactory(factory.django.DjangoModelFactory):
         model = Widget
 
     name = factory.Sequence(lambda n: 'Widget Name {0}'.format(n))
-    widget_type = WIDGET_TYPES[0][0]  # simplecontent
+    widget_type = WIDGET_TYPES[0][0]  # textimagecontent
     style_template = 'default'
 
 
@@ -33,10 +33,10 @@ class AreaFactory(factory.django.DjangoModelFactory):
     is_visible = True
 
 
-class SimpleContentFactory(factory.django.DjangoModelFactory):
+class TextImageContentFactory(factory.django.DjangoModelFactory):
 
     class Meta:
-        model = SimpleContent
+        model = TextImageContent
 
     widget = factory.SubFactory(WidgetFactory)
     title = factory.Sequence(lambda n: 'Title {0}'.format(n))
@@ -76,10 +76,10 @@ class ImageContentFactory(factory.django.DjangoModelFactory):
     short_content = factory.Sequence(lambda n: 'Short content {0}'.format(n))
 
 
-class LongContentFactory(factory.django.DjangoModelFactory):
+class FormattedTextImageContentFactory(factory.django.DjangoModelFactory):
 
     class Meta:
-        model = LongContent
+        model = FormattedTextImageContent
 
     widget = factory.SubFactory(WidgetFactory)
     title = factory.Sequence(lambda n: 'Title {0}'.format(n))
@@ -87,10 +87,10 @@ class LongContentFactory(factory.django.DjangoModelFactory):
     long_content = factory.Sequence(lambda n: 'Long content {0}'.format(n))
 
 
-class PageLinkFactory(factory.django.DjangoModelFactory):
+class DividerTextContentFactory(factory.django.DjangoModelFactory):
 
     class Meta:
-        model = PageLink
+        model = DividerTextContent
 
     widget = factory.SubFactory(WidgetFactory)
     title = factory.Sequence(lambda n: 'Title {0}'.format(n))

@@ -63,12 +63,12 @@ INSTALLED_APPS = (
 
     'magiccontent',
     'tests',
-    'magiccontent.contrib.simplecontent',
+    'magiccontent.contrib.textimagecontent',
     'magiccontent.contrib.background',
     'magiccontent.contrib.iconcontent',
     'magiccontent.contrib.imagecontent',
-    'magiccontent.contrib.longcontent',
-    'magiccontent.contrib.pagelink',
+    'magiccontent.contrib.formattedtextimagecontent',
+    'magiccontent.contrib.dividertextcontent',
 )
 
 PASSWORD_HASHERS = (

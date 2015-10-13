@@ -4,20 +4,20 @@ from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse
 
-from magiccontent.contrib.longcontent.models import LongContent
+from magiccontent.contrib.dividertextcontent.models import DividerTextContent
 
 from ...helpers import AuthTestCase
-from ...factories import WidgetFactory, LongContentFactory
+from ...factories import WidgetFactory, DividerTextContentFactory
 
 
-class LongContentCreateViewTest(AuthTestCase):
+class DividerTextContentCreateViewTest(AuthTestCase):
 
     def setUp(self):
-        super(LongContentCreateViewTest, self).setUp()
+        super(DividerTextContentCreateViewTest, self).setUp()
         self.widget = WidgetFactory(site=self.site)
 
         self.url = reverse(
-            'magiccontent.longcontent.create', args=[self.widget.pk])
+            'magiccontent.dividertextcontent.create', args=[self.widget.pk])
         self.no_perm_url = '/accounts/login/?next={0}'.format(self.url)
 
     def test_get_response_with_permission(self):
@@ -32,7 +32,7 @@ class LongContentCreateViewTest(AuthTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.no_perm_url)
 
-        self.assertFalse(LongContent.site_objects.all())
+        self.assertFalse(DividerTextContent.site_objects.all())
 
     def test_post_response_with_permission(self):
         self.login_user()
@@ -40,7 +40,7 @@ class LongContentCreateViewTest(AuthTestCase):
 
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 302)
-        qs = LongContent.site_objects.all()
+        qs = DividerTextContent.site_objects.all()
         self.assertEqual(qs.count(), 1)
         self.assertEqual(qs[0].title, data['title'])
 
@@ -53,15 +53,15 @@ class LongContentCreateViewTest(AuthTestCase):
         self.assertRedirects(response, self.no_perm_url)
 
 
-class LongContentUpdateViewTest(AuthTestCase):
+class DividerTextContentUpdateViewTest(AuthTestCase):
 
     def setUp(self):
-        super(LongContentUpdateViewTest, self).setUp()
+        super(DividerTextContentUpdateViewTest, self).setUp()
         self.widget = WidgetFactory(site=self.site)
-        self.content = LongContentFactory(site=self.site, widget=self.widget)
+        self.content = DividerTextContentFactory(site=self.site, widget=self.widget)
 
         self.url = reverse(
-            'magiccontent.longcontent.update',
+            'magiccontent.dividertextcontent.update',
             args=[self.widget.pk, self.content.pk])
         self.no_perm_url = '/accounts/login/?next={0}'.format(self.url)
 
@@ -87,7 +87,7 @@ class LongContentUpdateViewTest(AuthTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('magiccontent.windows_close'))
 
-        content = LongContent.objects.get(pk=self.content.pk)
+        content = DividerTextContent.objects.get(pk=self.content.pk)
         self.assertEqual(content.title, new_title)
 
     def test_post_response_without_permission(self):
@@ -97,15 +97,15 @@ class LongContentUpdateViewTest(AuthTestCase):
         self.assertRedirects(response, self.no_perm_url)
 
 
-class LongContentDeleteViewTest(AuthTestCase):
+class DividerTextContentDeleteViewTest(AuthTestCase):
 
     def setUp(self):
-        super(LongContentDeleteViewTest, self).setUp()
+        super(DividerTextContentDeleteViewTest, self).setUp()
         self.widget = WidgetFactory(site=self.site)
-        self.content = LongContentFactory(site=self.site, widget=self.widget)
+        self.content = DividerTextContentFactory(site=self.site, widget=self.widget)
 
         self.url = reverse(
-            'magiccontent.longcontent.delete',
+            'magiccontent.dividertextcontent.delete',
             args=[self.widget.pk, self.content.pk])
         self.no_perm_url = '/accounts/login/?next={0}'.format(self.url)
 
@@ -115,19 +115,19 @@ class LongContentDeleteViewTest(AuthTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('magiccontent.windows_close'))
 
-        self.assertFalse(LongContent.objects.filter(pk=self.content.pk))
+        self.assertFalse(DividerTextContent.objects.filter(pk=self.content.pk))
         # when the last content is deleted (above behaviour) it creates a
         # default one to replace it
-        self.assertEqual(LongContent.objects.all().count(), 1)
+        self.assertEqual(DividerTextContent.objects.all().count(), 1)
 
     def test_get_response_without_permission(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.no_perm_url)
 
-        self.assertTrue(LongContent.objects.filter(pk=self.content.pk))
+        self.assertTrue(DividerTextContent.objects.filter(pk=self.content.pk))
 
 
 # TODO: missing tests for:
-#        LongContentPicUpdateView
-#        LongContentOrderListView
+#        DividerTextContentPicUpdateView
+#        DividerTextContentOrderListView
