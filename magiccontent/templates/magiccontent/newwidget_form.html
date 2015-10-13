@@ -61,6 +61,7 @@
           $('#id_name').keydown(function(event) {
               if ((event.keyCode == 13) || ($("#id_name").val().length > 1))  {
                 $('#id_widget_type').show();
+                $("label[for='id_widget_type']").show();
                 if (event.keyCode == 13) {
                     $('#id_widget_type').focus()
                     return false;

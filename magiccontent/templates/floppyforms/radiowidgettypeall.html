@@ -8,7 +8,7 @@
           <div class="radioicon-control">
             <img width="100%" src="/static/frontend/magiccontent/img/widgettype_{{ choice.0 }}.jpg" class="{{ choice.0 }}">
             <input type="radio" class="icon_selector" id="{{ attrs.id }}_{{ forloop.counter }}" value="{{ choice.0 }}" name="{{ name }}"{% if required %} required{% endif %}{% if choice.0 in value %} checked{% endif %}>
-            <h4><strong>{{ choice.1 }}</strong></h4>
+            <h5><strong>{{ choice.1 }}</strong></h5>
           </div>
         </label>
       {% endfor %}
