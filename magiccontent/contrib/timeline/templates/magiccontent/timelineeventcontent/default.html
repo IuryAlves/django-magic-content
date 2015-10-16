@@ -15,12 +15,10 @@
     </header>
 
     <div class="row">
-
       {% for object in object_list %}
         <div class="col-md-12 {{ editable }}">
           {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
           <div class="content-item calendar-caption">
-
             <div class="col-md-4">
               <!-- todo: make a standard url, it should be the same as the calendar: widget.pk -->
               <a href="{% url 'timeline.entrycontent.detail' object.slug object.id %}" title="Get full event details">
@@ -50,7 +48,6 @@
                 </a>
               </div>
             </div>
-
           </div> <!-- content-item -->
         </div>
       {% endfor %}
