@@ -32,7 +32,9 @@
           </div>
         </center>
       {% endif %}
-      <p>{{ object.content }}</p>
+      {% if object.content %}
+        <p>{{ object.content }}</p>
+      {% endif %}
       <p>
         <a id="scrolldown-indicator" class="fadeOutDown" href="#intro" class="down-arrow-btn">
           <i class="fa fa-chevron-down fttitle4down-bg"></i>
@@ -46,12 +48,10 @@
 {% if object.picture %}
   <script>
     $(function() {
-
       $(".{{ div }}").css(
           "background-image",
           "url({% cropped_thumbnail object 'picture_cropping' scale=1 %})"
       );
-
       function move_bg_to_wrapper() {
         var $wrapper = $("#wrapper");
         var $main_bg = $(".main-background");
@@ -62,9 +62,7 @@
             $main_bg.css("background-image", "none");
         }
       }
-
       move_bg_to_wrapper();
-
     });
   </script>
 {% endif %}
