@@ -1,9 +1,11 @@
 {% load static %}
 {% load cropping %}
 {% load magiccontent_tags %}
-<!-- widget: DividerTextContent:: button -->
+
+  <!-- widget: DividerTextContent:: button -->
 
   <div class="col-md-12 {{ editable }}">
+    <div class="filter-holder {{ object.picture_filter }}"></div>
     {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit show_add_btn=False show_order_btn=False show_sytle_btn=True %}
     {% if object.title %}
       <h1 class="fttitle4up-bg">{{ object.title }}</h1>
@@ -12,10 +14,8 @@
       <h2 class="fttitle4up-bg">{{ object.sub_title }}</h2>
     {% endif %}
     {% if object.link_url %}
-      <div class="og-details og-details-light">
-        <center>
-          <a class="back-home" href="{{ object.link_url }}">{{ object.link_label }}</a>
-        </center>
+      <div class="og-details og-details-light text-center">
+        <a href="{{ object.link_url }}">{{ object.link_label }}</a>
       </div>
     {% endif %}
   </div>
@@ -24,9 +24,21 @@
     {% if object.picture and div %}
       <script>
         $(function() {
-          $(".{{ div }}").css({
-              "background": "url({% cropped_thumbnail object 'picture_cropping' scale=1 %}) center center / cover no-repeat fixed",
-          });
+          function get_filter() {
+            // Detects which prefix variation (and value) browser prefers
+            var filter_arr = ['-webkit-filter', '-moz-filter', 'filter'];
+            var res = {};
+            $.each(filter_arr, function(i, el) {
+              var filter = $('.{{ div }} .filter-holder').css(el);
+              if (filter !== '' && filter !== 'none' && filter != null) {
+                res[el] = filter;
+              }
+            });
+            return res;
+          }
+          var new_el = $('<div class="bg-holder" />').css(
+            'background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) center center / cover no-repeat fixed').css(get_filter());
+          $('.{{ div }}').prepend(new_el);
         });
       </script>
     {% endif %}
