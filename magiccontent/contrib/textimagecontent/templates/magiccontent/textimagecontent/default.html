@@ -1,8 +1,9 @@
 {% load cropping %}
 {% load magiccontent_tags %}
-<!-- widget: TextImageContent:: default - list1 element -->
 
-<article class="col-md-12">
+  <!-- widget: TextImageContent:: default - list1 element -->
+
+  <article class="col-md-12">
 
     <header>
       {% if widget.description %}
@@ -12,44 +13,52 @@
     </header>
 
     <div class="row">
-        <div class="col-md-12 {{ editable }}">
-          {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
-          <div class="content-item">
-            {% if object.picture %}
-              <div class="overlay-effect effects clearfix">
-                <div class="img">
-                  <figure class="imglist {{ object.picture_filter }}">
-                    <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
-                  </figure>
-                  {% if object.link_url %}
-                    <div class="overlay">
-                      <a href="{{ object.link_url }}" class="expand"><i class="fa fa-search"></i>
-                      {% if object.link_label %}<br>{{ object.link_label }}{% endif %}</a>
-                      <a class="close-overlay hidden">x</a>
-                    </div>
-                  {% endif %}
-                </div>
+
+      <div class="col-md-12 {{ editable }}">
+
+        {% show_editable_widget_tag widget.widget_type widget.id object.id can_edit %}
+
+        <div class="content-item">
+
+          {% if object.picture %}
+            <div class="overlay-effect effects clearfix">
+              <div class="img">
+                <figure class="imglist {{ object.picture_filter }}">
+                  <img src="{% cropped_thumbnail object 'picture_cropping' scale=0.5 %}">
+                </figure>
+                {% if object.link_url %}
+                  <div class="overlay">
+                    <a href="{{ object.link_url }}" class="expand"><i class="fa fa-search"></i>
+                    {% if object.link_label %}<br>{{ object.link_label }}{% endif %}</a>
+                    <a class="close-overlay hidden">x</a>
+                  </div>
+                {% endif %}
               </div>
-            {% endif %}
-            {% if object.link_url %}
-              <a href="{{ object.link_url }}">
-                <h2>{{ object.title }}</h2>
-              </a>
-            {% else %}
+            </div>
+          {% endif %}
+
+          {% if object.link_url %}
+            <a href="{{ object.link_url }}">
               <h2>{{ object.title }}</h2>
-            {% endif %}
+            </a>
+          {% else %}
+            <h2>{{ object.title }}</h2>
+          {% endif %}
 
-            {% if object.sub_title %}
-              <h3><strong>{{ object.sub_title }}</strong></h3>
-            {% endif %}
-            <p>{{ object.content|safe }}</p>
+          {% if object.sub_title %}
+            <h3><strong>{{ object.sub_title }}</strong></h3>
+          {% endif %}
 
-            {% if not object.picture and object.link_label %}
-              <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
-            {% endif %}
+          <p>{{ object.content|safe }}</p>
 
-          </div> <!-- content-item -->
-        </div>
+          {% if not object.picture and object.link_label %}
+            <p><a href="{{ object.link_url }}" class="btn-3d">{{ object.link_label }}</a></p>
+          {% endif %}
+
+        </div> <!-- content-item -->
+
+      </div>
+
     </div>
 
-</article>
+  </article>
