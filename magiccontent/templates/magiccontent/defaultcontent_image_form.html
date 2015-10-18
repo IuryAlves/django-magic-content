@@ -29,7 +29,8 @@
       {% csrf_token %}
       <center>
         <img src="{% static 'frontend/themes/sydney/img/dragndrop-image.png' %}" class="my1 py2">
-        <h3>Drag an image here</h3>                  
+        <h3>Drag an image here</h3>
+        <h4>{{ view.model.picture_upload_help_text }}                
       </center>
 
       <input type="file" name="picture" style="display: none;" form="dropzoneForm" />

@@ -5,6 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from image_cropping import ImageRatioField
 from ckeditor.fields import RichTextField
 from multisitesutils.models import SiteModel
 from magicgallery.models import GalleryItem
@@ -81,6 +82,29 @@ class BaseContent(SiteModel):
     @classmethod
     def can_edit_description(cls_obj):
         return True
+
+    @classmethod
+    def picture_upload_help_text(cls_obj):
+        fields = cls_obj._meta.fields
+        cropping_lst = filter(lambda m: isinstance(m, ImageRatioField), fields)
+        if cropping_lst:
+            cropping_field = cropping_lst[0]
+
+            height = cropping_field.height
+            width = cropping_field.width
+
+            shape = 'rectangular'
+            if width == height:
+                shape = 'squared'
+
+            size = '1MB'
+            if width > 1000 or height > 1000:
+                size = '2MB'
+
+            return 'Use a {0} image ({1}x{2}), max {3}'.format(
+                shape, width, height, size)
+
+        return ''
 
     @property
     def content(self):
