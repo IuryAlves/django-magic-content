@@ -1,13 +1,13 @@
 {% if can_edit %}
-    <h2 class="edit-area">#{{ area_name }} :: {{ widget.name }}
+    <h2 class="edit-area">Section: {{ widget.name }}
     <div class="btn-group">
       <button class="btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu edit-popup" role="menu">
-        <li><a title="Edit Area Details or switch to another widget" href="{% url 'magiccontent.area.update' area_id %}"><i class="fa fa-random"></i> Choose another <b>Group of contents</b> for this Area</a></li>
+        <li><a title="" href="{% url 'magiccontent.area.update' area_id %}"><i class="fa fa-random"></i> Choose another <b>Group of contents</b> for this Section</a></li>
         <li class="divider"></li>
-        <li><a href="{% url 'magiccontent.area.visible.update' %}"><i class="fa fa-toggle-on"></i> Hide/Show areas</a></li>
+        <li><a href="{% url 'magiccontent.area.visible.update' %}"><i class="fa fa-toggle-on"></i> Show/Hide Sections</a></li>
       </ul>
     </div>
     </h2>
