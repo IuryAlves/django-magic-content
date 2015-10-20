@@ -24,13 +24,20 @@
     {% if object.picture and div %}
       <script>
         $(function() {
-          var filter = $('.{{ div }} .filter-holder').attr('class').split(' ');
-          filter = filter.splice(filter.indexOf('.filter-holder'), 1)[0];
-          var new_el = $('<div class="bg-holder" />').css({
-            'background': 'url({% cropped_thumbnail object "picture_cropping" scale=1 %})',
-            'background-size': 'cover',
-            'background-repeat': 'no-repeat'
-          }).addClass(filter);
+          function get_filter() {
+            // Detects which prefix variation (and value) browser prefers
+            var filter_arr = ['-webkit-filter', '-moz-filter', 'filter'];
+            var res = {};
+            $.each(filter_arr, function(i, el) {
+              var filter = $('.{{ div }} .filter-holder').css(el);
+              if (filter !== '' && filter !== 'none' && filter != null) {
+                res[el] = filter;
+              }
+            });
+            return res;
+          }
+          var new_el = $('<div class="bg-holder" />').css(
+            'background', 'url({% cropped_thumbnail object "picture_cropping" scale=1 %}) center center / cover no-repeat fixed').css(get_filter());
           $('.{{ div }}').prepend(new_el);
         });
       </script>
