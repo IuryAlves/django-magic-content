@@ -20,14 +20,14 @@
     <figure class="py1 pull-left">
       <img src="{% static 'frontend/themes/default/img/landingpage_areas_arrows.png' %}" alt="landingpage">
     </figure>
-    <h1 class="py2"><small>Landingpage areas</small></h1>
+    <h1 class="py2"><small>Landingpage sections</small></h1>
     <p class="py3" style="font-size: 18px;">
-      The landing page is formed by <strong>6</strong> areas that you can add contents freely, those areas are called <strong>#content-one, #content-two</strong> and so on...<br/>
-      Here is where the what's on, gallery or any other content take place!
+      The landing page is formed by <strong>6</strong> sections that you can add group of contents freely<br/>
+      Here is where the What's on, Gallery or any other contents take place!
     </p>
     <p class="py1" style="font-size: 18px;">
-      There are also <strong>#dividers</strong> areas for grouping those contents. A divider area is fixed and you can just customize its message and links<br/><br/>
-      In total there are 12 content's areas (fixed/not fixed), that's why you can <strong>HIDE/SHOW</strong> areas keeping just what are relevant.
+      There are also <strong>dividers</strong> sections for separe those groups by adding a slogan or an important text<br/><br/>
+      In total there are 12 content's sections (fixed/not fixed), that's why you can <strong>HIDE/SHOW</strong>.
     </p>
     <p class="py1">
       <a id="btn_ok" class="btn btn-lg btn-success disable-help-video" href="#close">Ok, I got it!</a>
@@ -48,8 +48,8 @@
 
         <div class="col-lg-12">
           <center>
-            <h1>Landing Page Areas</h1>
-            <h2><small>Choose areas that you want to keep visible in your site</small></h2>
+            <h1>Landing Page Sections</h1>
+            <h2><small>Choose sections that you want to keep visible in your site</small></h2>
           </center>
         </div>
 
@@ -65,7 +65,7 @@
                 <td>
                   <figure class="py1" style="display:block; position:relative; overflow:hidden; ">
                     <img height="106" src="/static/frontend/magiccontent/img/widgetstyle_{{ area.widget.style_template_verbose|slugify }}.jpg" alt="{{ area.widget.name }}">
-                    <figcaption style="position: absolute;background: rgba(0,0,0,0.40);color: white;padding: 6px 10px;top: 80px;"><strong> #{{ area.name }}</strong>
+                    <figcaption style="position: absolute;background: rgba(0,0,0,0.40);color: white;padding: 6px 10px;top: 80px;"><strong> {{ area.name }}</strong>
                     </figcaption>
                   </figure>
                 </td>
