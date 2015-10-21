@@ -18,8 +18,9 @@
   <a name="goto-image" id="id-goto-image"></a>
 
   <div class="col-lg-8" style="margin-bottom: 15px" id="galleryControls">
-    <a href="#" class="action-upload btn btn-default btn-sm"><i class="fa fa-cloud-download" style="font-size: 26px;"></i><br/>Upload an image</a> <b>OR</b> 
-    <a href="#" class="action-gallery btn btn-default btn-sm"><i class="fa fa-image" style="font-size: 26px;"></i><br/>Pick from a gallery</a>
+    <a href="#" class="action-upload btn btn-default btn-sm"><i class="fa fa-cloud-upload" style="font-size: 26px;"></i><br/>Upload an image</a> <b>OR</b> 
+    <a href="#" class="action-gallery btn btn-default btn-sm"><i class="fa fa-image" style="font-size: 26px;"></i><br/>Pick from a gallery</a> <b>OR</b>
+    <a href="#" class="action-web-url btn btn-default btn-sm"><i class="fa fa-cloud-download" style="font-size: 26px;"></i><br/>Get from a URL</a>
   </div>
 
   <div class="col-lg-8">
@@ -59,6 +60,13 @@
     </div>
     {% endfor %}
   </div>
+
+
+  <div id="webUrl" class="col-lg-8" style="display: none;">
+      <br>
+      Paste an image URL here <input type="text" name="web-url" style="width: 100%" /> <br>
+      <a href="#" class="btn btn-default btn-sm pull-right" id="webUrlApply" style="margin-top: 10px">Apply</a>
+  </div>
   <span><br/><br/><br/><br/></span>
   {% endif %}
 
@@ -76,7 +84,7 @@
           data: formData,
           success: function(response){
             var redirectTo = form.attr('action') + '#galleryControls';
-            console.log(redirectTo);
+            
             window.location.href = redirectTo;
             window.location.reload(true);
           }
@@ -90,9 +98,9 @@
       init: function() {
         this.on("addedfile", function(file){
           var fileSize = file.size;
-          var maxSize = 5242880; // 5MB in bytes
+          var maxSize = 2097152; // 2MB in bytes
           if (fileSize > maxSize){
-            alert('the file is too big, the max allowed size is 5MB.');
+            alert('the file is too big, the max allowed size is 2MB.');
             this.removeFile(file);
           }
         });
@@ -116,13 +124,21 @@
       $('.action-upload').on('click', function(evt){
         evt.preventDefault();
         $('#galleryChoice').hide();
+        $('#webUrl').hide();
         $('#dropzoneForm').fadeIn();
       });
 
       $('.action-gallery').on('click', function(evt){
         evt.preventDefault();
         $('#dropzoneForm').hide();
+        $('#webUrl').hide();
         $('#galleryChoice').fadeIn();
+      });
+      $('.action-web-url').on('click', function(evt){
+        evt.preventDefault();
+        $('#dropzoneForm').hide();
+        $('#galleryChoice').hide();
+        $('#webUrl').fadeIn();
       });
 
       $('.apply-img').on('click', function(evt){
@@ -130,6 +146,12 @@
         var self = $(this);
         self.css('border-color', 'green');
         $('#id_picture').attr('value', self.attr('data-img-choice-id'));
+        ajaxSubmit();
+      });
+
+      $('#webUrlApply').on('click', function(evt){
+        evt.preventDefault();
+        $('#id_external_url').attr('value', $('input[name="web-url"]').val());
         ajaxSubmit();
       });
 

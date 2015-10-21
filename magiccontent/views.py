@@ -2,19 +2,48 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
+import os
+import urllib
+from hashlib import sha1
+
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.shortcuts import redirect, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.conf import settings
+
+from magicgallery.models import item_upload_to, Gallery, GalleryItem
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import floppyforms.__future__ as forms
 
 from .mixins import EditableMixin
 from .models import Area, Widget
 from .widgets import CustomCropImageWidget, RadioImageFilterSelect
 from .forms import PictureForm, AreaForm, WidgetForm, NewWidgetForm
 from .serializers import AreaVisibleSerializer, ContentFieldUpdateSerializer
+
+
+# helpers (this code can't live in helpers by recursive importing)
+def download_picture(external_url):
+
+    default_gallery = Gallery.site_objects.default_gallery()
+
+    class FakeGalleryItem(object):
+        gallery = default_gallery
+
+    filename = '{0}.{1}'.format(sha1(external_url).hexdigest()[:8],
+                                external_url.split('.')[-1][:4])
+    relative_path = item_upload_to(FakeGalleryItem, filename)
+    abs_path = os.path.join(settings.MEDIA_ROOT, relative_path)
+
+    urllib.urlretrieve(external_url, abs_path)
+
+    picture = GalleryItem.objects.create(
+        gallery=default_gallery, picture=relative_path)
+
+    return picture
 
 
 class MagicDeleteView(DeleteView):
@@ -46,6 +75,10 @@ class PictureUpdateView(UpdateView):
         _model = self.model
 
         class PictureContentForm(PictureForm):
+
+            external_url = forms.URLField(
+                widget=forms.HiddenInput, required=False)
+
             class Meta:
                 model = _model
                 fields = ('picture', 'picture_cropping', 'picture_filter')
@@ -54,7 +87,29 @@ class PictureUpdateView(UpdateView):
                     'picture_filter': RadioImageFilterSelect,
                 }
 
+            def clean(form_self):
+                data = form_self.cleaned_data
+
+                external_url = data.get('external_url')
+                self.picture = None
+
+                if external_url:
+                    try:
+                        self.picture = download_picture(external_url)
+                    except:
+                        raise forms.ValidationError(
+                            "the image source from web is not avaiable.")
+
+                return data
+
         return PictureContentForm
+
+    def form_valid(self, form, *args, **kws):
+        instance = form.save(commit=False)
+        instance.picture = self.picture
+        instance.save()
+
+        return redirect(self.get_success_url())
 
 
 # Base views

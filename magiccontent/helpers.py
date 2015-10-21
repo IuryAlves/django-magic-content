@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from __future__ import absolute_import
+
 import importlib
 import inspect
+
 
 from django.conf import settings
 from django.views.generic import CreateView, UpdateView, DeleteView

@@ -3,20 +3,12 @@ from __future__ import unicode_literals
 
 from django.conf.urls import url
 
-from .helpers import content_url_generator, ALLOWED_VIEWS
+from .helpers import content_url_generator
 
 
 def get_content_urls_for(model_content):
     urls = []
     views_list = content_url_generator(model_content)
-
-    if len(views_list) < len(ALLOWED_VIEWS):
-        expected_labels = [i['url_label'] for i in ALLOWED_VIEWS]
-        found_labels = [i['view_type'] for i in views_list]
-        for label in expected_labels:
-            if label not in found_labels:
-                msg = '{0} has no "{1}" view'.format(model_content, label)
-                print(msg)
 
     for view_row in views_list:
 
