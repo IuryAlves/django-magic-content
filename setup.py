@@ -21,7 +21,8 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 readme = ''
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
+with open('HISTORY.rst') as history_file:
+    history = history_file.read().replace('.. :changelog:', '')
 
 setup(
     name='django-magic-content',
